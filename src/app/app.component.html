@@ -6,6 +6,7 @@
   <title>Rose website</title>
 </head>
 <body>
+  <app-header></app-header>
   <ul>
     <li *ngFor="let name of names">{{ name }}</li>
     <button (click)="addName()">Add name</button>
