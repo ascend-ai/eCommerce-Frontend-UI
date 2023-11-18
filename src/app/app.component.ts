@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'e-commerce';
+  public names: Array<string> = [
+    'Yash',
+    'Faazil',
+    'Sujeet'
+  ];
+
+  constructor(private fb: FormBuilder) {}
+
+  public addName(): void {
+    this.names.push('Dummy');
+  }
 }
