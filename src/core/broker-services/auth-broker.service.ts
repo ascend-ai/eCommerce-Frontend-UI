@@ -3,7 +3,7 @@ import { AuthDataService } from '../data-services';
 import { SigninModel } from '../models';
 import { BehaviorSubject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthHelperService, NotificationHelperService } from '../helper-services';
+import { AuthHelperService, LoadingHelperService, NotificationHelperService } from '../helper-services';
 import { AuthStateInterface } from '../interfaces';
 
 @Injectable()
@@ -14,20 +14,24 @@ export class AuthBrokerService {
 
   constructor(private _authData: AuthDataService,
               private _authHelper: AuthHelperService,
-              private _notificationHelper: NotificationHelperService) { }
+              private _notificationHelper: NotificationHelperService,
+              private _loadingHelper: LoadingHelperService) { }
 
   public login(signinData: SigninModel): void {
+    this._loadingHelper.startLoading();
     this._authData.login(signinData)
       .subscribe(
         (res) => {
-          this._notificationHelper.handleSuccess(`Login successfull`);
-          this._authHelper.setSession(res.data.accessToken)
+          this._loadingHelper.stopLoading();
+          this._authHelper.setSession(res.data.accessToken);
+          this._notificationHelper.handleSuccess(`Login successfull!`);
           this._authState.next({
             isLoggedIn: true
           });
         },
         (err: HttpErrorResponse) => {
-          this._notificationHelper.handleError(err.error.message || `Unknown Error`)
+          this._loadingHelper.stopLoading();
+          this._notificationHelper.handleError(err.error.message)
           this._authState.next({
             isLoggedIn: false
           });
