@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 
@@ -11,7 +12,8 @@ import { NotificationsComponent } from './components/notifications/notifications
   declarations: [
     HeaderComponent,
     FooterComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { NotificationsComponent } from './components/notifications/notifications
   exports: [
     HeaderComponent,
     FooterComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    LoadingSpinnerComponent
   ]
 })
 export class SharedModule { }

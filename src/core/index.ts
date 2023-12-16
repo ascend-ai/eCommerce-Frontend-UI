@@ -5,3 +5,4 @@ export * from './models';
 export * from './interfaces';
 export * from './enums';
 export * from './guards';
+export * from './interceptors';

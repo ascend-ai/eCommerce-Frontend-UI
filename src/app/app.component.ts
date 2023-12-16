@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs';
-import { NotificationHelperService, NotificationStatusInterface } from 'src/core';
+import { LoadingHelperService, NotificationHelperService, NotificationStatusInterface } from 'src/core';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +9,13 @@ import { NotificationHelperService, NotificationStatusInterface } from 'src/core
 })
 export class AppComponent implements OnInit, OnDestroy {
   public notificationList: Array<NotificationStatusInterface> = [];
+  public isAppLoading: boolean = false;
   private _subscribeMain: boolean = true;
-  constructor(private _notificationHelper: NotificationHelperService) {}
+  constructor(private _notificationHelper: NotificationHelperService,
+              private _loadingHelper: LoadingHelperService) {}
 
   ngOnInit(): void {
-    this._notificationHelper.fetchNotification()
-      .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(value => {
-        this.notificationList = value;
-      });
+    this._initSubscriptions();
   }
 
   ngOnDestroy(): void {
@@ -26,5 +24,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public hideNotification(notificationIndex: number): void {
     this._notificationHelper.removeNotificaiton(notificationIndex);
+  }
+
+  private _initSubscriptions(): void {
+    this._notificationHelper.getNotifications()
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(value => {
+        this.notificationList = value;
+      });
+
+    this._loadingHelper.getLoadingStatus()
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(value => {
+        this.isAppLoading = value;
+      });
   }
 }

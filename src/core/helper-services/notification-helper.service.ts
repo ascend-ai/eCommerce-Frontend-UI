@@ -44,7 +44,7 @@ export class NotificationHelperService {
     this._notifications.next(this._notificationStack);
   }
 
-  public fetchNotification(): Subject<Array<NotificationStatusInterface>> {
+  public getNotifications(): Subject<Array<NotificationStatusInterface>> {
     return this._notifications;
   }
 }

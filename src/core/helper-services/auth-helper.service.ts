@@ -51,4 +51,11 @@ export class AuthHelperService {
   public setSession(accessToken: string): void {
     localStorage.setItem('accessToken', accessToken);
   }
+
+  /**
+   * Use following method only if isLoggedIn() return true.
+   */
+  public getSession(): string {
+    return <string>localStorage.getItem('accessToken');
+  }
 }
