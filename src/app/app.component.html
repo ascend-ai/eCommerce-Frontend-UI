@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rose website</title>
+  <title>E-commerce</title>
 </head>
 <body>
   <app-header></app-header>
-  <ul>
-    <li *ngFor="let name of names">{{ name }}</li>
-    <button (click)="addName()">Add name</button>
-  </ul>
+  <div class="container py-5">
+    <router-outlet></router-outlet>
+    <app-notifications [notificationList]="notificationList"
+                       (hideNotification)="hideNotification($event)"></app-notifications>
+  </div>
+  <app-footer></app-footer>
 </body>
 </html>

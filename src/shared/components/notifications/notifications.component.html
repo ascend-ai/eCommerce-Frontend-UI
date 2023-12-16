@@ -1,0 +1,14 @@
+<ul class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3"
+     style="z-index: 11">
+  <li class="toast show align-items-center text-white border-0"
+       *ngFor="let notification of notificationList; let i = index;"
+       [ngClass]="getNofificationClasses(notification)">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ notification.message }}
+      </div>
+      <button class="btn-close btn-close-white me-2 m-auto"
+              (click)="onClose(i)"></button>
+    </div>
+  </li>
+</ul>

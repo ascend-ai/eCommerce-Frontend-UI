@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center mb-4">
+          <span class="text-primary">
+            <i class="fa-solid fa-lock"></i> Sign in
+          </span>
+        </h2>
+        <div class="container">
+          <form class="was-validate" 
+                [formGroup]="signinFormGroup"
+                (ngSubmit)="signin()">
+            <!-- Email address -->
+            <div class="form-group my-3">
+              <label for="email">Email:</label>
+              <input type="text"
+                     id="email"
+                     class="form-control"
+                     [ngClass]="getInputValidationClasses('email')"
+                     [formControl]="emailFormControl">
+              <ng-container *ngIf="isInputValid('email')">
+                <small class="text-danger"
+                       *ngIf="emailFormControl.errors?.['required']">Email is required</small>
+                <small class="text-danger"
+                       *ngIf="emailFormControl.errors?.['pattern']">Invalid email</small>
+              </ng-container>
+            </div>
+            <!-- Password -->
+            <div class="form-group my-3">
+              <label for="password">Password:</label>
+              <input type="password"
+                     id="password"
+                     class="form-control"
+                     [ngClass]="getInputValidationClasses('password')"
+                     [formControl]="passwordFormControl">
+              <ng-container *ngIf="isInputValid('password')">
+              <small class="text-danger"
+                     *ngIf="passwordFormControl.errors?.['required']">Password is required</small>
+              </ng-container>
+            </div>
+
+            <!-- <app-loading-button [btnProperties]="{
+              'is-disabled': form.invalid || isSubmitted,
+              'is-loading': isSubmitted,
+              'btn-type': 'submit',
+              'btn-class': 'btn btn-success'
+            }">
+              Submit
+            </app-loading-button> -->
+            <div class="btn btn-primary"
+                 (click)="signin()">Submit</div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
