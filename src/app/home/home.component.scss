@@ -1,0 +1,32 @@
+.banner {
+  height: 35em;
+  background-image: url('/assets/images/home-banner.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+}
+
+.category-card-container {
+  $width: 20em;
+  width: $width;
+  height: calc($width * 1.4);
+  overflow: hidden;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    .category-card {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.category-card {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  transition: transform .5s ease;
+}
