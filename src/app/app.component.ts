@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._subscribeMain = false
+    this._subscribeMain = false;
   }
 
   public hideNotification(notificationIndex: number): void {

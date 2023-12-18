@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs';
-import { AuthBrokerService, SigninModel } from 'src/core';
+import { AuthBrokerService, EMAIL_REGEX, SigninModel } from 'src/core';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit, OnDestroy {
   public isSubmitted = false;
   public signinFormGroup!: FormGroup;
   public emailFormControl!: FormControl;
@@ -25,19 +25,23 @@ export class SigninComponent {
     this._createSigninForm();
   }
 
+  ngOnDestroy(): void {
+    this._subscribeMain = false;
+  }
+
   private _initSubscriptions(): void {
     this._authBroker.getAuthState()
-    .pipe(takeWhile(() => this._subscribeMain))
-    .subscribe(authState => {
-      if (authState.isLoggedIn) {
-        this._router.navigate(['/home']);
-      }
-    });
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(authState => {
+        if (authState.isLoggedIn) {
+          this._router.navigate(['/home']);
+        }
+      });
   }
 
   private _createSigninForm(): void {
     this.signinFormGroup = this._fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
       password: ['', [Validators.required]]
     });
     this.emailFormControl = this.signinFormGroup.controls['email'] as FormControl;

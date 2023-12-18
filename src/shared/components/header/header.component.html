@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand">Style it by Rose</a>
     <button class="navbar-toggler"
@@ -9,7 +9,8 @@
     </button>
     <div class="collapse navbar-collapse"
          [class.show]="isNavbarExpanded">
-      <ul class="navbar-nav me-auto my-2 my-lg-0">
+      <!-- Primary nav items-->
+      <ul class="navbar-nav me-auto my-2 my-lg-0 nav-primary">
         <li class="nav-item">
           <a class="nav-link"
              routerLink="/home"
@@ -27,12 +28,12 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-auto my-2 my-lg-0">
+      <!-- Secondary nav items -->
+      <ul class="navbar-nav ms-auto my-2 my-lg-0 nav-secondary">
         <li class="nav-link">
           <i class="fas fa-shopping-cart nav-link position-relative"
              routerLink="/cart"
-             routerLinkActive="active"
-             style="cursor: pointer;">
+             routerLinkActive="active">
             <span class="position-absolute top-0 start-40 translate-middle badge rounded-pill bg-danger">
               {{ numberOfItemsInCart }}
             </span>
@@ -41,8 +42,7 @@
         <li class="nav-link">
           <i class="fa-solid fa-user nav-link"
              routerLink="/auth"
-             routerLinkActive="text-light"
-             style="cursor: pointer;"></i>
+             routerLinkActive="text-light"></i>
         </li>
       </ul>
     </div>

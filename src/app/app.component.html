@@ -7,7 +7,7 @@
 </head>
 <body>
   <app-header></app-header>
-  <div class="container py-5">
+  <div class="container-fluid p-0">
     <app-loading-spinner [isShowing]="isAppLoading"></app-loading-spinner>
     <router-outlet></router-outlet>
     <app-notifications [notificationList]="notificationList"
