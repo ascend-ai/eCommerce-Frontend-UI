@@ -4,23 +4,17 @@
   <p class="text-white-50 mb-0">Indulge in Exquisite Jewelry Collections</p>
 </div>
 
-<!-- Shop by category -->
 <div class="container py-5">
-  <h2 class="text-center">Shop by Category</h2>
-  <div class="row gy-4 my-2">
 
+  <!-- Shop by category -->
+  <div class="row gy-4 my-2">
+    <h2 class="text-center">Shop by Category</h2>
     <div class="col-md-6 col-lg-4"
          *ngFor="let categoryName of availableCategories; let i = index;">
-      <div class="category-card-container position-relative">
-        <div class="img-fluid d-flex flex-column align-items-center justify-content-center category-card"
-             [style.backgroundImage]="'url(' + '/assets/images/category-' + categoryName + '.jpg' + ')'">
-        </div>
-        <button class="btn btn-dark position-absolute top-50 start-50 translate-middle">
-            {{ capitalizeCategoryName(categoryName) }}
-        </button>
-      </div>
+      <app-category-card [categoryName]="categoryName"></app-category-card>
     </div>
-
   </div>
+
+  <!-- Popular products -->
 </div>
 
