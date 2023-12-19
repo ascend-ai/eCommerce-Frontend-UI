@@ -18,14 +18,4 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       
   }
-
-  public capitalizeCategoryName(val: string): string {
-    return val
-      .split('_')
-      .map(word => {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      })
-      .join(' ')
-      .trim();
-  }
 }

@@ -5,6 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { CategoryCardComponent } from './components/category-card/category-card.component';
 
 
 
@@ -13,7 +14,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     HeaderComponent,
     FooterComponent,
     NotificationsComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    CategoryCardComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     HeaderComponent,
     FooterComponent,
     NotificationsComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    CategoryCardComponent
   ]
 })
 export class SharedModule { }
