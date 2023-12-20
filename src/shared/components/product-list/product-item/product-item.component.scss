@@ -1,0 +1,28 @@
+.product-card {
+  $width: 20em;
+  $height: calc($width * 1.4);
+  width: $width;
+  height: $height;
+  overflow: hidden;
+  cursor: pointer;
+
+  .product-card-badge {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .product-card-img {
+    width: 100%;
+    height: 0.8 * $height;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+    background-color: whitesmoke;
+  }
+
+  .product-card-body {
+    width: 100%;
+    height: 0.2 * $height;
+  }
+}

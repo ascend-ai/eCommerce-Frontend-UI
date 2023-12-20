@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductItemComponent } from './components/product-list/product-item/product-item.component';
 
 
 
@@ -15,7 +17,9 @@ import { CategoryCardComponent } from './components/category-card/category-card.
     FooterComponent,
     NotificationsComponent,
     LoadingSpinnerComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    ProductListComponent,
+    ProductItemComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,9 @@ import { CategoryCardComponent } from './components/category-card/category-card.
     FooterComponent,
     NotificationsComponent,
     LoadingSpinnerComponent,
-    CategoryCardComponent
+    CategoryCardComponent,
+    ProductListComponent,
+    ProductItemComponent
   ]
 })
 export class SharedModule { }

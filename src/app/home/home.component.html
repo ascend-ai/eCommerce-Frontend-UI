@@ -4,17 +4,22 @@
   <p class="text-white-50 mb-0">Indulge in Exquisite Jewelry Collections</p>
 </div>
 
-<div class="container py-5">
-
+<div class="container">
   <!-- Shop by category -->
-  <div class="row gy-4 my-2">
+  <section class="my-5">
     <h2 class="text-center">Shop by Category</h2>
-    <div class="col-md-6 col-lg-4"
-         *ngFor="let categoryName of availableCategories; let i = index;">
-      <app-category-card [categoryName]="categoryName"></app-category-card>
+    <div class="row gy-4 my-2">
+      <div class="col-md-6 col-lg-4"
+           *ngFor="let category of categories; let i = index;">
+        <app-category-card [categoryName]="category"></app-category-card>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- Popular products -->
+  <section class="my-5">
+    <h2 class="text-center">Popular products</h2>
+    <app-product-list [products]="pagination.content"></app-product-list>
+  </section>
 </div>
 

@@ -9,11 +9,11 @@ import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { CoreModule } from 'src/core/core.module';
-import { ProductListModule } from './product-list/product-list.module';
 import { CreateProductModule } from './create-product/create-product.module';
 import { EditProductModule } from './edit-product/edit-product.module';
 import { ViewProductModule } from './view-product/view-product.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
+import { ViewProductsModule } from './view-products/view-products.module';
 
 @NgModule({
   declarations: [
@@ -28,10 +28,10 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     CoreModule,
     AuthModule,
     HomeModule,
-    ProductListModule,
     CreateProductModule,
     EditProductModule,
     ViewProductModule,
+    ViewProductsModule,
     CartModule,
     UserProfileModule
   ],

@@ -7,13 +7,13 @@ import { AccessTokenInterface } from '../interfaces';
 
 @Injectable()
 export class AuthDataService {
-  private _baseUrl: string = environment.baseUrl;
+  private _apiUrl: string = environment.apiUrl;
 
   constructor(private _http: HttpClient) {}
 
   public login(siginData: SigninModel): Observable<ApiResponseModel<AccessTokenInterface>> {
     return this._http.post<ApiResponseModel<AccessTokenInterface>>(
-      this._baseUrl + '/auth/signin',
+      this._apiUrl + '/auth/signin',
       siginData
     );
   }

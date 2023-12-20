@@ -1,4 +1,4 @@
-export enum Categories {
+export enum ProductCategory {
   NECKLACE = 'NECKLACE',
   BRACELET = 'BRACELET',
   EARRING = 'EARRING',

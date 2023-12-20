@@ -4,3 +4,6 @@ export * from './notification-status.interface';
 export * from './access-token.interface';
 export * from './access-token-payload.interface';
 export * from './auth-state.interface';
+export * from './product.interface';
+export * from './product-image.interface';
+export * from './pagination.interface';
