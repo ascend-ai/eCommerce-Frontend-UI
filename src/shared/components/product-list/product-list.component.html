@@ -1,0 +1,6 @@
+<div class="row gy-4 my-2">
+  <div class="col-md-6 col-lg-4"
+       *ngFor="let product of products; let i = index;">
+      <app-product-item [product]="product"></app-product-item>   
+  </div>
+</div>

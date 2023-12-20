@@ -1,0 +1,18 @@
+<div class="position-relative mx-auto border product-card"
+     (mouseenter)="changeDisplayImage(product)"
+     (mouseleave)="resetDisplayImage(product)">
+  <div class="badge bg-info text-white position-absolute product-card-badge">
+    {{ capitalizedCategoryName }}
+  </div>
+  <div class="img-fluid product-card-img"
+       [style.backgroundImage]="displayImagePath">
+  </div>
+  <div class="card-body d-flex flex-column justify-content-center product-card-body">
+    <h5 class="card-title text-center">
+    <strong>
+      {{ product.name }}
+    </strong>
+    </h5>
+    <p class="card-subtitle mb-2 text-muted text-center">₹{{ product.price }}</p>
+  </div>
+</div>

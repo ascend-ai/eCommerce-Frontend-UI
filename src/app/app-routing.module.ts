@@ -7,11 +7,11 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthComponent } from './auth/auth.component';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { ProductListComponent } from './product-list/product-list.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AdminGuard, AuthGuard } from 'src/core';
+import { ViewProductsComponent } from './view-products/view-products.component';
 
 const routes: Routes = [
   {
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    component: ProductListComponent,
+    component: ViewProductsComponent,
   },
   {
     path: 'products/create',
