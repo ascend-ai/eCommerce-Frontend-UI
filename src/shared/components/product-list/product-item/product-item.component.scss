@@ -1,6 +1,7 @@
 .product-card {
-  $width: 20em;
-  $height: calc($width * 1.4);
+  $height: 26em;
+  $width: calc($height / 1.4);
+  $img-height-percent: 0.6;
   width: $width;
   height: $height;
   overflow: hidden;
@@ -13,7 +14,7 @@
 
   .product-card-img {
     width: 100%;
-    height: 0.8 * $height;
+    height: $img-height-percent * $height;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center;
@@ -23,6 +24,6 @@
 
   .product-card-body {
     width: 100%;
-    height: 0.2 * $height;
+    height: (1 - $img-height-percent) * $height;
   }
 }

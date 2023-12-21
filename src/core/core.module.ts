@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { AuthBrokerService } from './broker-services';
-import { AuthDataService } from './data-services';
+import { AuthBrokerService, ProductsBrokerService } from './broker-services';
+import { AuthDataService, ProductsDataService } from './data-services';
 import { AuthHelperService, LoadingHelperService, NotificationHelperService } from './helper-services';
 import { AdminGuard, AuthGuard } from './guards';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -11,8 +11,10 @@ import { RequestInterceptor, ResponseInterceptor } from './interceptors';
 @NgModule({
   providers: [
     AuthBrokerService,
+    ProductsBrokerService,
 
     AuthDataService,
+    ProductsDataService,
 
     AuthHelperService,
     NotificationHelperService,

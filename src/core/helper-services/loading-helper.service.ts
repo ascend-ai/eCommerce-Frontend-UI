@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { NotificationStatusInterface } from '../interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class LoadingHelperService {
-  private _isLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public isLoading$: Observable<boolean> = this._isLoading$.asObservable();
 
   constructor() { }
 
-  public getLoadingStatus(): BehaviorSubject<boolean> {
-    return this._isLoading;
-  }
-
   public startLoading(): void {
-    this._isLoading.next(true);
+    this._isLoading$.next(true);
   }
   
   public stopLoading(): void {
-    this._isLoading.next(false);
+    this._isLoading$.next(false);
   }
 }
