@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscriptions(): void {
-    this._authBroker.getAuthState()
+    this._authBroker.authState$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(authState => {
         if (authState.isLoggedIn) {

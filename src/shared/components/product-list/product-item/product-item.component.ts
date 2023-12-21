@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductModel } from 'src/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-item',
@@ -8,12 +8,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./product-item.component.scss']
 })
 export class ProductItemComponent {
-  public baseUrl: string = environment.baseUrl;
   private _imgTimeoutId: any;
-  private _imgShuffleDelay: number = 500;
+  private _imgShuffleDelay: number = 700;
   @Input() product: ProductModel = new ProductModel();
 
-  constructor() {}
+  constructor(private _router: Router) {}
 
   public changeDisplayImage(product: ProductModel): void {
     if (product.images.length > 1) {
@@ -39,7 +38,15 @@ export class ProductItemComponent {
   }
 
   public get displayImagePath(): string {
-    return `url('${ this.baseUrl + this.product.displayImage.url }')`;
+    return `url('${ this.product.displayImage.url }')`;
+  }
+
+  public viewProduct(): void {
+    this._router.navigate([`/products/${this.product._id}`])
+  }
+
+  public addProductToCard(event: Event): void {
+    event.stopPropagation();
   }
 
 }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NotificationStatusInterface } from '../interfaces';
 
 @Injectable()
 export class NotificationHelperService {
-  private _notifications: Subject<Array<NotificationStatusInterface>> = new Subject();
+  private _notifications$: Subject<Array<NotificationStatusInterface>> = new Subject();
+  public notifications$: Observable<Array<NotificationStatusInterface>> = this._notifications$.asObservable();
   private _notificationStack: Array<NotificationStatusInterface> = [];
   private NOTIFICATION_DURATION: number = 6000;
 
@@ -18,10 +19,10 @@ export class NotificationHelperService {
       message: message
     };
     this._notificationStack.push(notification);
-    this._notifications.next(this._notificationStack);
+    this._notifications$.next(this._notificationStack);
     setTimeout(() => {
       this._notificationStack.shift();
-      this._notifications.next(this._notificationStack);
+      this._notifications$.next(this._notificationStack);
     }, this.NOTIFICATION_DURATION);
   }
 
@@ -32,19 +33,15 @@ export class NotificationHelperService {
       message: message
     };
     this._notificationStack.push(notification);
-    this._notifications.next(this._notificationStack);
+    this._notifications$.next(this._notificationStack);
     setTimeout(() => {
       this._notificationStack.shift();
-      this._notifications.next(this._notificationStack);
+      this._notifications$.next(this._notificationStack);
     }, this.NOTIFICATION_DURATION);
   }
 
   public removeNotificaiton(notificationIndex: number): void {
     this._notificationStack.splice(notificationIndex, 1);
-    this._notifications.next(this._notificationStack);
-  }
-
-  public getNotifications(): Subject<Array<NotificationStatusInterface>> {
-    return this._notifications;
+    this._notifications$.next(this._notificationStack);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs';
 import { LoadingHelperService, NotificationHelperService, NotificationStatusInterface } from 'src/core';
 
@@ -12,7 +12,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public isAppLoading: boolean = false;
   private _subscribeMain: boolean = true;
   constructor(private _notificationHelper: NotificationHelperService,
-              private _loadingHelper: LoadingHelperService) {}
+              private _loadingHelper: LoadingHelperService,
+              private _cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
@@ -27,16 +28,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscriptions(): void {
-    this._notificationHelper.getNotifications()
+    this._notificationHelper.notifications$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(value => {
         this.notificationList = value;
       });
 
-    this._loadingHelper.getLoadingStatus()
+    this._loadingHelper.isLoading$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(value => {
         this.isAppLoading = value;
+        this._cdr.detectChanges();
       });
   }
 }
