@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs';
-import { PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
+import { FilterCriteriaModel, PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._initSubscriptions();
-    this._productsBroker.getProducts(
-        this.DEFAULT_PAGE_SIZE,
-        this.DEFAULT_PAGE_INDEX
-    );
+    this._productsBroker.getProducts(this._getFilterCriteria());
   }
 
   ngOnDestroy(): void {
@@ -32,8 +29,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   private _initSubscriptions(): void {
     this._productsBroker.pagination$
       .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(val => {
-        this.pagination = val;
+      .subscribe(pagination => {
+        this.pagination = pagination;
       });
+  }
+
+  private _getFilterCriteria(): FilterCriteriaModel {
+    return new FilterCriteriaModel({
+      size: this.DEFAULT_PAGE_SIZE,
+      page: this.DEFAULT_PAGE_INDEX,
+      isPopular: true,
+    });
   }
 }

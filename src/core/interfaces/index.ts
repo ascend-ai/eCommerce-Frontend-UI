@@ -7,3 +7,4 @@ export * from './auth-state.interface';
 export * from './product.interface';
 export * from './product-image.interface';
 export * from './pagination.interface';
+export * from './filter-criteria.interface';

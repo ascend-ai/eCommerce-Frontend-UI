@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductModel } from 'src/core';
 
 @Component({
@@ -12,7 +12,8 @@ export class ProductItemComponent {
   private _imgShuffleDelay: number = 700;
   @Input() product: ProductModel = new ProductModel();
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router,
+              private _route: ActivatedRoute) {}
 
   public changeDisplayImage(product: ProductModel): void {
     if (product.images.length > 1) {
@@ -42,7 +43,7 @@ export class ProductItemComponent {
   }
 
   public viewProduct(): void {
-    this._router.navigate([`/products/${this.product._id}`])
+    this._router.navigate(['products', this.product._id])
   }
 
   public addProductToCard(event: Event): void {

@@ -22,6 +22,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this._authBroker.logout();
-    this._router.navigate(['/home']);
+    this._router.navigate(['home']);
   }
 }

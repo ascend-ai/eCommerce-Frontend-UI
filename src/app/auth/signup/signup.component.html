@@ -1,1 +1,121 @@
-<p>signup works!</p>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-7 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">
+            <span class="text-primary">
+              <i class="fa-solid fa-lock"></i> Register
+            </span>
+          </h2>
+          <div class="container">
+            <form class="needs-validation" novalidate="">
+              <div class="row g-3">
+                <div class="col-12 form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email">
+                  <div class="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                  </div>
+                </div>
+
+                <div class="col-12 form-group">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password">
+                  <div class="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                  </div>
+                </div>
+
+                <div class="col-12 form-group">
+                  <label for="confirm-password" class="form-label">Confirm Password</label>
+                  <input type="confirm-password" class="form-control" id="confirm-password">
+                  <div class="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                  </div>
+                </div>
+      
+                <div class="col-12 form-group">
+                  <label for="address-line-1" class="form-label">Address Line 1</label>
+                  <input type="text" class="form-control" id="address-line-1">
+                  <div class="invalid-feedback">
+                    Please enter your shipping address.
+                  </div>
+                </div>
+      
+                <div class="col-12 form-group">
+                  <label for="address-line-2" class="form-label">Address Line 2 <span class="text-body-secondary">(Optional)</span></label>
+                  <input type="text" class="form-control" id="address-line-2">
+                </div>
+
+                <div class="col-12 form-group">
+                  <label for="address-line-3" class="form-label">Address Line 3 <span class="text-body-secondary">(Optional)</span></label>
+                  <input type="text" class="form-control" id="address-line-3">
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="city" class="form-label">City</label>
+                  <select class="form-select" id="city">
+                    <option value="">Choose...</option>
+                    <option>Mumbai</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="state" class="form-label">State</label>
+                  <select class="form-select" id="state">
+                    <option value="">Choose...</option>
+                    <option>Maharashtra</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+      
+                <div class="col-md-6 form-group">
+                  <label for="country" class="form-label">Country</label>
+                  <select class="form-select" id="country">
+                    <option value="">Choose...</option>
+                    <option>India</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+      
+                <div class="col-md-6 form-group">
+                  <label for="zip" class="form-label">Zip</label>
+                  <input type="text" class="form-control" id="zip">
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+                </div>
+
+                <div class="col-md-12 form-group">
+                  <input type="checkbox" class="form-check-input me-1" id="use-info">
+                  <label class="form-check-label" for="use-info">Use this info for shipping</label>
+                </div>
+
+                <button class="btn btn-primary"
+                        type="submit"
+                        [disabled]="null">
+                  Submit
+                </button>
+
+              </div>
+            </form>
+            <div class="text-end mt-3">
+              <a class="link-primary"
+                 routerLink="../signin">
+                Already registered?
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

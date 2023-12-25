@@ -13,14 +13,14 @@ export class AuthGuard implements CanActivate {
       if (this._authHelper.isLoggedOut()) {
         return true;
       } else {
-        this._router.navigate(['/my-profile']);
+        this._router.navigate(['my-profile']);
         return false;
       }
     } else {
       if (this._authHelper.isLoggedIn()) {
         return true;
       } else {
-        this._router.navigate(['/auth/signin']);
+        this._router.navigate(['auth', 'my-profile']);
         return false;
       }
     }

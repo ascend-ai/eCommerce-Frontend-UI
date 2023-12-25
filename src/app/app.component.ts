@@ -30,14 +30,14 @@ export class AppComponent implements OnInit, OnDestroy {
   private _initSubscriptions(): void {
     this._notificationHelper.notifications$
       .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(value => {
-        this.notificationList = value;
+      .subscribe(list => {
+        this.notificationList = list;
       });
 
     this._loadingHelper.isLoading$
       .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(value => {
-        this.isAppLoading = value;
+      .subscribe(isLoading => {
+        this.isAppLoading = isLoading;
         this._cdr.detectChanges();
       });
   }

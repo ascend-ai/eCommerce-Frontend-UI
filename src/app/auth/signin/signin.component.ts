@@ -34,7 +34,7 @@ export class SigninComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(authState => {
         if (authState.isLoggedIn) {
-          this._router.navigate(['/home']);
+          this._router.navigate(['home']);
         }
       });
   }
