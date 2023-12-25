@@ -44,8 +44,10 @@ export class AuthBrokerService {
 
   public logout() {
     this._authHelper.logout();
+    this._notificationHelper.handleSuccess(`Logout successfull!`)
     this._authState$.next({
       isLoggedIn: false
-    })
+    });
+
   }
 }

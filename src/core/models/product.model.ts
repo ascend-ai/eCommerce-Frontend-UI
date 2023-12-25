@@ -11,7 +11,7 @@ export class ProductModel implements ProductInterface {
   quantityInStock: number;
   images: Array<ProductImageModel>;
   displayImage: ProductImageModel;
-  similarProducts: Array<string>
+  similarProducts: Array<any>;
   category: ProductCategory;
   constructor(data: ProductInterface = {
     _id: '',

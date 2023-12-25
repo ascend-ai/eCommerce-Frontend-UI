@@ -9,6 +9,6 @@ export interface ProductInterface {
   isPopular: boolean;
   quantityInStock: number;
   images: Array<ProductImageInterface>;
-  similarProducts: Array<string>
+  similarProducts: Array<string>;
   category: ProductCategory;
 };

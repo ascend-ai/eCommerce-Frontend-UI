@@ -1,3 +1,4 @@
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../constants';
 import { PaginationInterface } from '../interfaces';
 
 export class PaginationModel<T> implements PaginationInterface<T> {
@@ -10,10 +11,10 @@ export class PaginationModel<T> implements PaginationInterface<T> {
     content: [],
     totalElements: 0,
     totalPages: 1,
-    page: 0,
-    size: 9,
+    page: DEFAULT_PAGE_SIZE,
+    size: DEFAULT_PAGE_INDEX,
   }) {
-    this.content = data?.content || [false];
+    this.content = data?.content || [];
     this.totalElements = data?.totalElements || 0;
     this.totalPages = data?.totalPages || 0;
     this.page = data?.page || 0;
