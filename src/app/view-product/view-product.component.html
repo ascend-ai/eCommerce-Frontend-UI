@@ -7,7 +7,7 @@
         <div class="d-flex flex-column-reverse flex-xl-row">
           <div class="d-flex flex-row flex-xl-column me-xl-3 mt-3 mt-xl-0">
             <!-- Secondary Images -->
-            <div class="img-fluid border border-4 mb-3 me-3 me-xl-0 secondary-img"
+            <div class="img-fluid border border-2 mb-3 me-3 me-xl-0 secondary-img"
                  *ngFor="let image of product.images; let i = index;"
                  [style.backgroundImage]="getImagePath(image.url)"
                  (click)="setAsDisplayImage(image)"
@@ -16,7 +16,7 @@
           </div>
 
           <!-- Primary Image -->
-          <div class="img-fluid border border-4 border-info primary-img"
+          <div class="img-fluid border border-2 border-info primary-img"
                [style.backgroundImage]="getImagePath(product.displayImage.url)"></div>
         </div>
       </div>
