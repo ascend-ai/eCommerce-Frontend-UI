@@ -19,7 +19,8 @@
   <!-- Popular products -->
   <section class="my-5">
     <h2 class="text-center">Popular products</h2>
-    <app-product-list [products]="pagination.content"></app-product-list>
+    <app-product-list [paginator]="pagination"
+                      (page)="switchPage($event)"></app-product-list>
   </section>
 </div>
 
