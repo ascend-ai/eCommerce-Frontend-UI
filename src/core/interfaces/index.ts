@@ -8,3 +8,4 @@ export * from './product.interface';
 export * from './product-image.interface';
 export * from './pagination.interface';
 export * from './filter-criteria.interface';
+export * from './cart-item.interface';

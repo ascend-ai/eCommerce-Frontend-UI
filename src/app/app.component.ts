@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs';
-import { LoadingHelperService, NotificationHelperService, NotificationStatusInterface } from 'src/core';
+import { CartHelperService, LoadingHelperService, NotificationHelperService, NotificationStatusInterface } from 'src/core';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,18 @@ import { LoadingHelperService, NotificationHelperService, NotificationStatusInte
 export class AppComponent implements OnInit, OnDestroy {
   public notificationList: Array<NotificationStatusInterface> = [];
   public isAppLoading: boolean = false;
+  public get totalItemsInCart(): number {
+    return this._cartHelper.totalProducts;
+  }
   private _subscribeMain: boolean = true;
   constructor(private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService,
+              private _cartHelper: CartHelperService,
               private _cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
+    this._cartHelper.loadCart();
   }
 
   ngOnDestroy(): void {

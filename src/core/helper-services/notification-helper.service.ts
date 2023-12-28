@@ -18,10 +18,10 @@ export class NotificationHelperService {
       isSuccess: true,
       message: message
     };
-    this._notificationStack.push(notification);
+    this._notificationStack.unshift(notification);
     this._notifications$.next(this._notificationStack);
     setTimeout(() => {
-      this._notificationStack.shift();
+      this._notificationStack.pop();
       this._notifications$.next(this._notificationStack);
     }, this.NOTIFICATION_DURATION);
   }
@@ -32,10 +32,10 @@ export class NotificationHelperService {
       isSuccess: false,
       message: message
     };
-    this._notificationStack.push(notification);
+    this._notificationStack.unshift(notification);
     this._notifications$.next(this._notificationStack);
     setTimeout(() => {
-      this._notificationStack.shift();
+      this._notificationStack.pop();
       this._notifications$.next(this._notificationStack);
     }, this.NOTIFICATION_DURATION);
   }

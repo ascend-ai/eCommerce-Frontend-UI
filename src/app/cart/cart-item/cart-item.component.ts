@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartHelperService, CartItemModel, ProductModel } from 'src/core';
 
 @Component({
   selector: 'app-cart-item',
@@ -6,5 +8,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./cart-item.component.scss']
 })
 export class CartItemComponent {
+  @Input() cartItem: CartItemModel = new CartItemModel();
 
+  constructor(private _router: Router,
+              private _cartHelper: CartHelperService) {}
+
+  public viewProduct(): void {
+    this._router.navigate(['products', this.cartItem.product._id]);
+  }
+
+  public removeProduct(event: Event): void {
+    event.stopPropagation();
+    this._cartHelper.removeProduct(this.cartItem.product);
+  }
+
+  public addProduct(qty: number): void {
+    this._cartHelper.addProduct(this.cartItem.product, qty);
+  }
+
+  public subtractProduct(qty: number): void {
+    this._cartHelper.subtractProduct(this.cartItem.product, qty);
+  }
 }

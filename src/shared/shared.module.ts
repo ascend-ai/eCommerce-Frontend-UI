@@ -8,6 +8,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { CategoryCardComponent } from './components/category-card/category-card.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductItemComponent } from './components/product-list/product-item/product-item.component';
+import { ProductQtyControllerComponent } from './components/product-qty-controller/product-qty-controller.component';
 
 
 
@@ -19,7 +20,8 @@ import { ProductItemComponent } from './components/product-list/product-item/pro
     LoadingSpinnerComponent,
     CategoryCardComponent,
     ProductListComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ProductQtyControllerComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { ProductItemComponent } from './components/product-list/product-item/pro
     LoadingSpinnerComponent,
     CategoryCardComponent,
     ProductListComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ProductQtyControllerComponent
   ]
 })
 export class SharedModule { }

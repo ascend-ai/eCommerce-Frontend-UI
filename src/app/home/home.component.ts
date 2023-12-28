@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeWhile } from 'rxjs';
-import { FilterCriteriaModel, PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
+import { CartHelperService, FilterCriteriaModel, PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private DEFAULT_PAGE_INDEX = 0;
   private _currentPage: number = this.DEFAULT_PAGE_INDEX;
 
-  constructor(private _productsBroker: ProductsBrokerService) {}
+  constructor(private _productsBroker: ProductsBrokerService,
+              private _cartHelper: CartHelperService) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
@@ -46,5 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       size: this.DEFAULT_PAGE_SIZE,
       isPopular: true,
     }));
+  }
+
+  public addProductToCart(product: ProductModel): void {
+    this._cartHelper.addProduct(product, 1);
   }
 }

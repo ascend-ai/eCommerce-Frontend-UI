@@ -1,1 +1,22 @@
-<p>cart works!</p>
+<section class="h-100">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <h3 class="fw-normal mb-4">Shopping Cart</h3>
+
+        <app-cart-item *ngFor="let cartItem of cartList; let i = index;"
+                       [cartItem]="cartItem">
+        </app-cart-item>
+
+        <div class="d-grid">
+          <button class="btn btn-warning btn-lg"
+                  [disabled]="totalProductsInCart < 1">
+            Proceed to Pay
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

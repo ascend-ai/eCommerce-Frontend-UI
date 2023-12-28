@@ -3,7 +3,6 @@
   width: $width;
   height: calc($width * 1.4);
   overflow: hidden;
-  cursor: pointer;
   &:hover,
   &:focus {
     .category-card {

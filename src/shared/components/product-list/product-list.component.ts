@@ -9,6 +9,7 @@ import { PaginationModel, ProductModel } from 'src/core';
 export class ProductListComponent {
   @Input() paginator: PaginationModel<ProductModel> = new PaginationModel();
   @Output() page: EventEmitter<number> = new EventEmitter();
+  @Output() addToCart: EventEmitter<ProductModel> = new EventEmitter();
 
   public get isFirstPage(): boolean { return this.paginator.page === 0; }
 
@@ -35,6 +36,10 @@ export class ProductListComponent {
 
   private _goToPage(pageIndex: number): void {
     this.page.emit(pageIndex);
+  }
+
+  public addProductToCard(product: ProductModel): void {
+    this.addToCart.emit(product)
   }
 
 }
