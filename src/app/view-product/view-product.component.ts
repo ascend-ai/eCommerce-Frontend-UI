@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { mergeMap, of, takeWhile } from 'rxjs';
+import { takeWhile } from 'rxjs';
 import { CartHelperService, ProductImageModel, ProductModel, ProductsBrokerService } from 'src/core';
 
 @Component({
