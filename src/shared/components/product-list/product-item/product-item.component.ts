@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductModel } from 'src/core';
 
@@ -11,6 +11,20 @@ export class ProductItemComponent {
   private _imgTimeoutId: any;
   private _imgShuffleDelay: number = 700;
   @Input() product: ProductModel = new ProductModel();
+  @Output() addToCart: EventEmitter<ProductModel> = new EventEmitter();
+  public get capitalizedCategoryName(): string {
+    return this.product.category
+      .split('_')
+      .map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ')
+      .trim();
+  }
+
+  public get displayImagePath(): string {
+    return `url('${ this.product.displayImage.url }')`;
+  }
 
   constructor(private _router: Router,
               private _route: ActivatedRoute) {}
@@ -28,26 +42,13 @@ export class ProductItemComponent {
     product.displayImage = product.images[0];
   }
 
-  public get capitalizedCategoryName(): string {
-    return this.product.category
-      .split('_')
-      .map(word => {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      })
-      .join(' ')
-      .trim();
-  }
-
-  public get displayImagePath(): string {
-    return `url('${ this.product.displayImage.url }')`;
-  }
-
   public viewProduct(): void {
     this._router.navigate(['products', this.product._id])
   }
 
   public addProductToCard(event: Event): void {
     event.stopPropagation();
+    this.addToCart.emit(this.product);
   }
 
 }

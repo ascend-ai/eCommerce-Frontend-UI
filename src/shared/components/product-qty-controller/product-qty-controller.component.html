@@ -1,0 +1,16 @@
+<div class="d-flex">
+  <button class="btn btn-link px-2"
+          (click)="subtractOne($event)">
+    <i class="fas fa-minus"></i>
+  </button>
+
+  <input name="quantity"
+         [value]="qty"
+         disabled
+    class="form-control form-control-sm" />
+
+  <button class="btn btn-link px-2"
+          (click)="addOne($event)">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>

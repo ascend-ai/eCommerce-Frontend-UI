@@ -6,7 +6,7 @@
   <title>E-commerce</title>
 </head>
 <body>
-  <app-header></app-header>
+  <app-header [numberOfItemsInCart]="totalItemsInCart"></app-header>
   <div class="container-fluid p-0">
     <app-loading-spinner [isShowing]="isAppLoading"></app-loading-spinner>
     <router-outlet></router-outlet>

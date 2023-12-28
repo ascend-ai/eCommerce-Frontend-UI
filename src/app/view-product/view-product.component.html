@@ -7,7 +7,7 @@
         <div class="d-flex flex-column-reverse flex-xl-row">
           <div class="d-flex flex-row flex-xl-column me-xl-3 mt-3 mt-xl-0">
             <!-- Secondary Images -->
-            <div class="img-fluid border border-2 mb-3 me-3 me-xl-0 secondary-img"
+            <div class="img-fluid border border-2 mb-3 me-3 me-xl-0 cursor-pointer secondary-img"
                  *ngFor="let image of product.images; let i = index;"
                  [style.backgroundImage]="getImagePath(image.url)"
                  (click)="setAsDisplayImage(image)"
@@ -16,7 +16,7 @@
           </div>
 
           <!-- Primary Image -->
-          <div class="img-fluid border border-2 border-info primary-img"
+          <div class="img-fluid border border-2 border-info cursor-pointer primary-img"
                [style.backgroundImage]="getImagePath(product.displayImage.url)"></div>
         </div>
       </div>
@@ -35,18 +35,17 @@
         <p class="lead">
             {{ product.description }}
         </p>
-        <div class="d-flex">
-          <input class="form-control text-center me-3"
-                 id="inputQuantity"
-                 type="number"
-                 value="1"
-                 min="1"
-                 [max]="product.quantityInStock"
-                 style="max-width: 3rem"/>
-          <button class="btn btn-outline-primary flex-shrink-0">
-              Add to cart
-          </button>
-        </div>
+        <button class="btn btn-outline-primary"
+                *ngIf="productQtyInCart < 1; else qtyController"
+                (click)="addProduct(1)">
+            Add to cart
+        </button>
+        <ng-template #qtyController>
+          <app-product-qty-controller [qty]="productQtyInCart"
+                                      (add)="addProduct($event)"
+                                      (subtract)="subtractProduct($event)">
+          </app-product-qty-controller>
+        </ng-template>
       </div>
     </div>
   </section>
@@ -59,7 +58,8 @@
     <div class="row gy-4 my-2">
       <div class="col-md-6 col-lg-4"
           *ngFor="let product of product.similarProducts; let i = index;">
-          <app-product-item [product]="product"></app-product-item>   
+          <app-product-item [product]="product"
+                            (addToCart)="addSimilarProductToCart($event)"></app-product-item>   
       </div>
     </div>
   </section>

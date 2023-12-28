@@ -8,3 +8,11 @@
 *::after {
   box-sizing: border-box;
 }
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-disabled {
+  cursor: not-allowed !important;
+}
