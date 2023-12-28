@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ProductCategory } from 'src/core';
 
 @Component({
   selector: 'app-category-card',
@@ -6,7 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./category-card.component.scss']
 })
 export class CategoryCardComponent {
-  @Input() categoryName: string = '';
+  @Input() categoryName: ProductCategory = ProductCategory.OTHERS;
+  @Output() filterByCategory: EventEmitter<ProductCategory> = new EventEmitter();
   constructor() {}
 
   public capitalizeCategoryName(categoryName: string): string {
@@ -21,5 +23,9 @@ export class CategoryCardComponent {
 
   public getCategoryImagePath(categoryName: string): string {
     return `url('/assets/images/category-${categoryName}.jpg')`;
+  }
+
+  public onClickCard(): void {
+    this.filterByCategory.emit(this.categoryName);
   }
 }

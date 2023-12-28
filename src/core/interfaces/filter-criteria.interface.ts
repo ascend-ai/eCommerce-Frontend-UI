@@ -3,7 +3,7 @@ import { ProductCategory } from '../enums';
 export interface FilterCriteriaInterface {
   page: number;
   size: number;
-  category: ProductCategory | null;
-  isPopular: boolean | null;
-  search: string;
+  category: ProductCategory | undefined;
+  isPopular: boolean | undefined;
+  search: string | undefined;
 }

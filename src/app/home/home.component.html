@@ -11,7 +11,9 @@
     <div class="row gy-4 my-2">
       <div class="col-md-6 col-lg-4"
            *ngFor="let category of categories; let i = index;">
-        <app-category-card [categoryName]="category"></app-category-card>
+        <app-category-card [categoryName]="category"
+                           (filterByCategory)="showProductsOfCategory($event)">
+        </app-category-card>
       </div>
     </div>
   </section>
@@ -21,7 +23,8 @@
     <h2 class="text-center">Popular products</h2>
     <app-product-list [paginator]="pagination"
                       (page)="switchPage($event)"
-                      (addToCart)="addProductToCart($event)"></app-product-list>
+                      (addToCart)="addProductToCart($event)">
+    </app-product-list>
   </section>
 </div>
 

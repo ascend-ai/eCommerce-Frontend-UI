@@ -21,14 +21,16 @@ export class CartHelperService {
   }
 
   private _saveCart(): void {
-    localStorage.setItem('cart', JSON.stringify(this._cartList));
+    const encodedCartData = btoa(JSON.stringify(this._cartList));
+    localStorage.setItem('cart', encodedCartData);
   }
 
   public loadCart(): void {
     try {
-      const data = localStorage.getItem('cart');
-      if (data) {
-        this._cartList = JSON.parse(data);
+      const encodedCartData = localStorage.getItem('cart');
+      if (encodedCartData) {
+        const cartJsonString = atob(encodedCartData);
+        this._cartList = JSON.parse(cartJsonString);
       } else {
         this._cartList = [];
       }

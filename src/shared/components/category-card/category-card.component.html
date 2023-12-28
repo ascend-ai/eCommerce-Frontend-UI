@@ -1,7 +1,9 @@
 <div class="position-relative mx-auto border cursor-pointer category-card-container">
   <div class="img-fluid d-flex flex-column align-items-center justify-content-center category-card"
-       [style.backgroundImage]="getCategoryImagePath(categoryName)"></div>
-  <button class="btn btn-primary position-absolute top-50 start-50 translate-middle">
+       [style.backgroundImage]="getCategoryImagePath(categoryName)"
+       (click)="onClickCard()"></div>
+  <button class="btn btn-primary position-absolute top-50 start-50 translate-middle"
+          (click)="onClickCard()">
       {{ capitalizeCategoryName(categoryName) }}
   </button>
 </div>

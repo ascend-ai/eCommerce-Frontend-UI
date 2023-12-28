@@ -36,11 +36,11 @@ export class ProductsDataService {
       .set('size', filterCriteria.size)
       .set('page', filterCriteria.page);
 
-    if (filterCriteria.category !== null) {
+    if (filterCriteria.category !== undefined) {
       params = params.set('category', filterCriteria.category);
     }
 
-    if (filterCriteria.isPopular !== null) {
+    if (filterCriteria.isPopular !== undefined) {
       params = params.set('isPopular', filterCriteria.isPopular);
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs';
-import { CartHelperService, FilterCriteriaModel, PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
+import { CartHelperService, DEFAULT_PAGE_INDEX, FilterCriteriaModel, PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +9,15 @@ import { CartHelperService, FilterCriteriaModel, PaginationModel, ProductCategor
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public categories: Array<string> = Object.values(ProductCategory).filter(value => typeof value === 'string');
+  public categories: Array<ProductCategory> = Object.values(ProductCategory).filter(value => typeof value === 'string');
   public pagination: PaginationModel<ProductModel> = new PaginationModel();
   private _subscribeMain: boolean = true;
   private DEFAULT_PAGE_SIZE = 3;
-  private DEFAULT_PAGE_INDEX = 0;
-  private _currentPage: number = this.DEFAULT_PAGE_INDEX;
+  private _currentPage: number = DEFAULT_PAGE_INDEX;
 
   constructor(private _productsBroker: ProductsBrokerService,
-              private _cartHelper: CartHelperService) {}
+              private _cartHelper: CartHelperService,
+              private _router: Router) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
@@ -51,5 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public addProductToCart(product: ProductModel): void {
     this._cartHelper.addProduct(product, 1);
+  }
+
+  public showProductsOfCategory(category: ProductCategory): void {
+    this._router.navigate(['products'], {
+      queryParams: {
+        category: category
+      },
+    })
   }
 }
