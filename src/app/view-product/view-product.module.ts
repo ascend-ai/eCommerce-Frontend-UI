@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewProductComponent } from './view-product.component';
 import { SharedModule } from 'src/shared/shared.module';
+import { ViewProductRoutingModule } from './view-product-routing.module';
 
 
 
@@ -11,10 +12,8 @@ import { SharedModule } from 'src/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ViewProductRoutingModule
   ],
-  exports: [
-    ViewProductComponent
-  ]
 })
 export class ViewProductModule { }

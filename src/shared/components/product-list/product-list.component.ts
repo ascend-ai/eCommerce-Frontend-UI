@@ -11,9 +11,19 @@ export class ProductListComponent {
   @Output() page: EventEmitter<number> = new EventEmitter();
   @Output() addToCart: EventEmitter<ProductModel> = new EventEmitter();
 
-  public get isFirstPage(): boolean { return this.paginator.page === 0; }
+  public get isFirstPage(): boolean {
+    return this.paginator.page === 0;
+  }
 
-  public get isLastPage(): boolean { return this.paginator.page === (this.paginator.totalPages - 1); }
+  public get isLastPage(): boolean {
+    return (this.paginator.totalPages > 0) ? (this.paginator.page === (this.paginator.totalPages - 1)) : true;
+  }
+
+  public get pageIndicator(): string {
+    let currentPage = this.paginator.page;
+    (this.paginator.totalPages > 0) ? (currentPage++) : null
+    return `${currentPage} / ${this.paginator.totalPages}`;
+  }
 
   constructor() {}
 

@@ -1,17 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { CartComponent } from './cart/cart.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { AuthComponent } from './auth/auth.component';
-import { CreateProductComponent } from './create-product/create-product.component';
-import { ViewProductComponent } from './view-product/view-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AdminGuard, AuthGuard } from 'src/core';
-import { ViewProductsComponent } from './view-products/view-products.component';
 
 const routes: Routes = [
   {
@@ -21,54 +11,39 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        redirectTo: '/auth/signin',
-        pathMatch: 'full'
-      },
-      {
-        path: 'signin',
-        component: SigninComponent
-      },
-      {
-        path: 'signup',
-        component: SignupComponent
-      }
-    ]
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
-    component: HomeComponent
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'products',
-    component: ViewProductsComponent,
+    loadChildren: () => import('./view-products/view-products.module').then(m => m.ViewProductsModule)
   },
   {
     path: 'products/create',
-    component: CreateProductComponent,
+    loadChildren: () => import('./create-product/create-product.module').then(m => m.CreateProductModule),
     canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'products/:id',
-    component: ViewProductComponent,
+    loadChildren: () => import('./view-product/view-product.module').then(m => m.ViewProductModule),
   },
   {
     path: 'products/:id/edit',
-    component: EditProductComponent,
+    loadChildren: () => import('./edit-product/edit-product.module').then(m => m.EditProductModule),
     canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'my-profile',
-    component: UserProfileComponent,
+    loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'cart',
-    component: CartComponent
+    loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
   },
   {
     path: 'not-found',

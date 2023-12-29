@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       if (this._authHelper.isLoggedIn()) {
         return true;
       } else {
-        this._router.navigate(['auth', 'my-profile']);
+        this._router.navigate(['auth', 'signin']);
         return false;
       }
     }
