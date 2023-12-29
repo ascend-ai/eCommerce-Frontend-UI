@@ -10,14 +10,14 @@ export class PaginationModel<T> implements PaginationInterface<T> {
   constructor(data: PaginationInterface<T> = {
     content: [],
     totalElements: 0,
-    totalPages: 1,
+    totalPages: 0,
     page: DEFAULT_PAGE_SIZE,
     size: DEFAULT_PAGE_INDEX,
   }) {
     this.content = data?.content || [];
     this.totalElements = data?.totalElements || 0;
     this.totalPages = data?.totalPages || 0;
-    this.page = data?.page || 0;
-    this.size = data?.size || 9;
+    this.page = data?.page || DEFAULT_PAGE_INDEX;
+    this.size = data?.size || DEFAULT_PAGE_SIZE;
   }
 };

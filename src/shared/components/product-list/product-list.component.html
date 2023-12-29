@@ -1,20 +1,30 @@
 <div class="row gy-4 my-2">
-  <div class="col-md-6 col-lg-4"
-       *ngFor="let product of paginator.content; let i = index;">
-      <app-product-item [product]="product"
-                        (addToCart)="addProductToCard(product)"></app-product-item>   
-  </div>
+  <ng-container *ngIf="(paginator.totalPages > 0); else emptyData;">
+    <div class="col-md-6 col-lg-4"
+         *ngFor="let product of paginator.content; let i = index;">
+        <app-product-item [product]="product"
+                          (addToCart)="addProductToCard(product)"></app-product-item>   
+    </div>
+  </ng-container>
+
+  <ng-template #emptyData>
+    <h5 class="col-12 text-center">
+      No products found
+    </h5>
+  </ng-template>
 
   <div class="d-flex justify-content-end align-items-center col-12">
     <div class="fw-lighter">
-      {{ paginator.page + 1 }} / {{ paginator.totalPages }}
+      {{ pageIndicator }}
     </div>
     <nav>
       <ul class="pagination pagination-lg m-0">
         <li class="page-item"
             title="First"
-            [class.disabled]="isFirstPage"
-            [style.cursor]="isFirstPage ? 'not-allowed' : 'pointer'"
+            [ngClass]="{
+              'disabled cursor-disabled': isFirstPage,
+              'cursor-pointer': !isFirstPage
+            }"
             (click)="goToFirstPage()">
           <a class="page-link">
             <i class="bi bi-chevron-bar-left"></i>
@@ -22,8 +32,10 @@
         </li>
         <li class="page-item"
             title="Previous"
-            [class.disabled]="isFirstPage"
-            [style.cursor]="isFirstPage ? 'not-allowed' : 'pointer'"
+            [ngClass]="{
+              'disabled cursor-disabled': isFirstPage,
+              'cursor-pointer': !isFirstPage
+            }"
             (click)="goToPreviousPage()">
           <a class="page-link">
             <i class="bi bi-chevron-left"></i>
@@ -31,8 +43,10 @@
         </li>
         <li class="page-item"
             title="Next"
-            [class.disabled]="isLastPage"
-            [style.cursor]="isLastPage ? 'not-allowed' : 'pointer'"
+            [ngClass]="{
+              'disabled cursor-disabled': isLastPage,
+              'cursor-pointer': !isLastPage
+            }"
             (click)="goToNextPage()">
           <a class="page-link">
             <i class="bi bi-chevron-right"></i>
@@ -40,8 +54,10 @@
         </li>
         <li class="page-item"
             title="Last"
-            [class.disabled]="isLastPage"
-            [style.cursor]="isLastPage ? 'not-allowed' : 'pointer'"
+            [ngClass]="{
+              'disabled cursor-disabled': isLastPage,
+              'cursor-pointer': !isLastPage
+            }"
             (click)="goToLastPage()">
           <a class="page-link">
             <i class="bi bi-chevron-bar-right"></i>
