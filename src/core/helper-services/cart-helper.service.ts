@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { CartItemModel, ProductModel } from '../models';
 import { NotificationHelperService } from './notification-helper.service';
+import { CartItemInterface } from '../interfaces';
 
 @Injectable()
 export class CartHelperService {
-  private _cartList: Array<CartItemModel> = [];
-  private _cartList$: Subject<Array<CartItemModel>> = new Subject();
-  public cartList$: Observable<Array<CartItemModel>> = this._cartList$.asObservable();
+  private _cartList: Array<CartItemInterface> = [];
+  private _cartList$: Subject<Array<CartItemInterface>> = new Subject();
+  public cartList$: Observable<Array<CartItemInterface>> = this._cartList$.asObservable();
   public get totalProducts(): number {
     let total = 0;
-    this._cartList.forEach(item => total += item.qty);
+    this._cartList.forEach(item => total += item.qtyInCart);
     return total;
   }
 
@@ -39,12 +40,12 @@ export class CartHelperService {
     }
   }
 
-  public addProduct(product: ProductModel, qty: number): void {
-    const item = this._cartList.find(item => item.product._id === product._id);
+  public addProduct(productId: string, qtyInStock: number, qtyToAdd: number): void {
+    const item = this._getCartItem(productId);
 
     if (item) {
-      if ((item.qty + qty) <= item.product.quantityInStock) {
-        item.qty += qty;
+      if ((item.qtyInCart + qtyToAdd) <= qtyInStock) {
+        item.qtyInCart += qtyToAdd;
         this._saveCart();
         this._cartList$.next(this._cartList);
         this._notificationHelper.handleSuccess('Cart updated');
@@ -52,8 +53,11 @@ export class CartHelperService {
         this._notificationHelper.handleError('Product limit exceeded');
       }
     } else {
-      if (qty <= product.quantityInStock) {
-        this._cartList.push(new CartItemModel({ product, qty }));
+      if (qtyToAdd <= qtyInStock) {
+        this._cartList.push(<CartItemInterface>{
+          productId,
+          qtyInCart: qtyToAdd
+        });
         this._saveCart();
         this._cartList$.next(this._cartList);
         this._notificationHelper.handleSuccess('Product added to cart');
@@ -63,22 +67,27 @@ export class CartHelperService {
     }
   }
 
-  public subtractProduct(product: ProductModel, qty: number): void {
-    const item = this._cartList.find(item => item.product._id === product._id);
+  private _getCartItem(productId: string): CartItemInterface | undefined {
+    return this._cartList.find(item => item.productId === productId);
+  }
+
+  public subtractProduct(productId: string, qtyToSubtract: number): void {
+    const item = this._getCartItem(productId);
 
     if (item) {
-      if ((item.qty - qty) > 0) {
-        item.qty -= qty;
+      if ((item.qtyInCart - qtyToSubtract) > 0) {
+        item.qtyInCart -= qtyToSubtract;
         this._saveCart();
         this._cartList$.next(this._cartList);
       } else {
-        this.removeProduct(product);
+        this.removeProduct(productId);
       }
     }
   }
 
-  public removeProduct(product: ProductModel): void {
-    const index = this._cartList.findIndex(item => item.product._id === product._id);
+  public removeProduct(productId: string): void {
+    const index = this._cartList.findIndex(item => item.productId === productId);
+    console.log(index);
     if (index >= 0) {
       this._cartList.splice(index, 1);
       this._saveCart();
@@ -86,10 +95,16 @@ export class CartHelperService {
     }
   }
 
-  public getProductQtyInCart(product: ProductModel): number {
-    const item = this._cartList.find(item => item.product._id === product._id);
+  public emptyCart(): void {
+    this._cartList = [];
+    this._saveCart();
+    this._cartList$.next(this._cartList);
+  }
+
+  public getProductQtyInCart(productId: string): number {
+    const item = this._getCartItem(productId);
     if (item) {
-      return item.qty;
+      return item.qtyInCart;
     } else {
       return 0;
     }

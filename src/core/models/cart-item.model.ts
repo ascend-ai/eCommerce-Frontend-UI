@@ -1,15 +1,14 @@
-import { CartItemInterface } from '../interfaces';
 import { ProductModel } from './product.model';
 
-export class CartItemModel implements CartItemInterface {
+export class CartItemModel {
   product: ProductModel;
-  qty: number;
+  qtyInCart: number;
 
-  constructor(data: CartItemModel = {
+  constructor(data = {
     product: new ProductModel(),
-    qty: 1
+    qtyInCart: 0
   }) {
-    this.product = data.product || new ProductModel();
-    this.qty = data.qty || 1;
+    this.product = data?.product || new ProductModel();
+    this.qtyInCart = data?.qtyInCart || 0;
   }
 }

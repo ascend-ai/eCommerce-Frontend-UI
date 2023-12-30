@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs';
-import { AuthBrokerService } from 'src/core';
+import { AuthBrokerService, CartHelperService } from 'src/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,6 +12,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private _subscribeMain: boolean = true;
 
   constructor(private _authBroker: AuthBrokerService,
+              private _cartHelper: CartHelperService,
               private _router: Router) {}
 
   ngOnInit(): void {}
@@ -21,6 +22,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
+    this._cartHelper.emptyCart();
     this._authBroker.logout();
     this._router.navigate(['home']);
   }

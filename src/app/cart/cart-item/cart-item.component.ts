@@ -19,14 +19,14 @@ export class CartItemComponent {
 
   public removeProduct(event: Event): void {
     event.stopPropagation();
-    this._cartHelper.removeProduct(this.cartItem.product);
+    this._cartHelper.removeProduct(this.cartItem.product._id);
   }
 
-  public addProduct(qty: number): void {
-    this._cartHelper.addProduct(this.cartItem.product, qty);
+  public addProduct(qtyToAdd: number): void {
+    this._cartHelper.addProduct(this.cartItem.product._id, this.cartItem.product.quantityInStock, qtyToAdd);
   }
 
-  public subtractProduct(qty: number): void {
-    this._cartHelper.subtractProduct(this.cartItem.product, qty);
+  public subtractProduct(qtyToSubtract: number): void {
+    this._cartHelper.subtractProduct(this.cartItem.product._id, qtyToSubtract);
   }
 }

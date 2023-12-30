@@ -11,7 +11,7 @@ import { CartHelperService, ProductImageModel, ProductModel, ProductsBrokerServi
 export class ViewProductComponent implements OnInit, OnDestroy {
   public product: ProductModel = new ProductModel();
   private _subscribeMain: boolean = true;
-  public get productQtyInCart(): number { return this._cartHelper.getProductQtyInCart(this.product); }
+  public get productQtyInCart(): number { return this._cartHelper.getProductQtyInCart(this.product._id); }
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
               private _cartHelper: CartHelperService) {}
@@ -50,15 +50,15 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     return image._id === this.product.displayImage._id;
   }
 
-  public addProduct(qty: number): void {
-    this._cartHelper.addProduct(this.product, qty);
+  public addProduct(qtyToAdd: number): void {
+    this._cartHelper.addProduct(this.product._id, this.product.quantityInStock, qtyToAdd);
   }
 
-  public subtractProduct(qty: number): void {
-    this._cartHelper.subtractProduct(this.product, qty);
+  public subtractProduct(qtyToSubtract: number): void {
+    this._cartHelper.subtractProduct(this.product._id, qtyToSubtract);
   }
 
   public addSimilarProductToCart(product: ProductModel): void {
-    this._cartHelper.addProduct(product, 1);
+    this._cartHelper.addProduct(product._id, product.quantityInStock, 1);
   }
 }
