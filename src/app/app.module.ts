@@ -13,11 +13,11 @@ import { CoreModule } from 'src/core/core.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-
+    
     SharedModule,
     CoreModule,
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent]
 })

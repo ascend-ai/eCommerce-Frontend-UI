@@ -16,6 +16,9 @@ export class ProductsBrokerService {
   private _product$: Subject<ProductModel> = new Subject();
   public product$: Observable<ProductModel> = this._product$.asObservable();
 
+  private _products$: Subject<Array<ProductModel>> = new Subject();
+  public products$: Observable<Array<ProductModel>> = this._products$.asObservable();
+
 
   constructor(private _productsData: ProductsDataService,
               private _notificationHelper: NotificationHelperService,
@@ -36,6 +39,27 @@ export class ProductsBrokerService {
           this._loadingHelper.stopLoading();
           this._pagination$.next(new PaginationModel());
           this._notificationHelper.handleError(err.error.message)
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  public getProductsWithIds(productIds: Array<string>): void {
+    this._loadingHelper.startLoading();
+    let products: Array<ProductModel> = [];
+    this._productsData.getProductsWithIds(productIds)
+      .pipe(
+        take(1),
+        tap(res => {
+          this._loadingHelper.stopLoading();
+          products = this._transformProducts(res.data);
+          this._products$.next(products);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._loadingHelper.stopLoading();
+          this._products$.next(products);
+          this._notificationHelper.handleError(err.error.message);
           return of();
         })
       )

@@ -56,6 +56,6 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
   }
 
   public addProductToCart(product: ProductModel): void {
-    this._cartHelper.addProduct(product, 1);
+    this._cartHelper.addProduct(product._id, product.quantityInStock, 1);
   }
 }
