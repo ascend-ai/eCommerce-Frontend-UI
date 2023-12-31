@@ -31,6 +31,10 @@
       <!-- Secondary nav items -->
       <ul class="navbar-nav ms-auto my-2 my-lg-0 nav-secondary">
         <li class="nav-item p-2">
+          <i class="fa-solid fa-magnifying-glass nav-link cursor-pointer"
+             (click)="openSearch()"></i>
+        </li>
+        <li class="nav-item p-2">
           <i class="fas fa-shopping-cart nav-link position-relative cursor-pointer"
              routerLink="/cart"
              routerLinkActive="active">
@@ -42,7 +46,7 @@
         <li class="nav-item p-2">
           <i class="fa-solid fa-user nav-link cursor-pointer"
              routerLink="/auth"
-             routerLinkActive="text-light"></i>
+             routerLinkActive="active"></i>
         </li>
       </ul>
     </div>
