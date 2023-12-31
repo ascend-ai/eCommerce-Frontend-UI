@@ -9,6 +9,7 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductItemComponent } from './components/product-list/product-item/product-item.component';
 import { ProductQtyControllerComponent } from './components/product-qty-controller/product-qty-controller.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 
@@ -21,7 +22,8 @@ import { ProductQtyControllerComponent } from './components/product-qty-controll
     CategoryCardComponent,
     ProductListComponent,
     ProductItemComponent,
-    ProductQtyControllerComponent
+    ProductQtyControllerComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { ProductQtyControllerComponent } from './components/product-qty-controll
     CategoryCardComponent,
     ProductListComponent,
     ProductItemComponent,
-    ProductQtyControllerComponent
+    ProductQtyControllerComponent,
+    SearchComponent
   ]
 })
 export class SharedModule { }

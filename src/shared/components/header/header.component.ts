@@ -15,4 +15,6 @@ export class HeaderComponent {
     this.isNavbarExpanded = !this.isNavbarExpanded;
   }
 
+  public openSearch(): void {}
+
 }
