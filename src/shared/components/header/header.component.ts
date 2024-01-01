@@ -1,4 +1,9 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +13,7 @@ import { Component, Input } from '@angular/core';
 export class HeaderComponent {
   public isNavbarExpanded = false;
   @Input() numberOfItemsInCart: number = 0;
+  @Output() openSearch: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -15,6 +21,7 @@ export class HeaderComponent {
     this.isNavbarExpanded = !this.isNavbarExpanded;
   }
 
-  public openSearch(): void {}
-
+  public onOpenSearch(): void {
+    this.openSearch.emit();
+  }
 }

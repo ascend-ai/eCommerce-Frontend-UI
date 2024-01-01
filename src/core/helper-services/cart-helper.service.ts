@@ -1,8 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { CartItemModel, ProductModel } from '../models';
-import { NotificationHelperService } from './notification-helper.service';
-import { CartItemInterface } from '../interfaces';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  Observable,
+  Subject
+} from 'rxjs';
+import {
+  NotificationHelperService
+} from './notification-helper.service';
+import {
+  CartItemInterface
+} from '../interfaces';
 
 @Injectable()
 export class CartHelperService {
@@ -87,7 +95,6 @@ export class CartHelperService {
 
   public removeProduct(productId: string): void {
     const index = this._cartList.findIndex(item => item.productId === productId);
-    console.log(index);
     if (index >= 0) {
       this._cartList.splice(index, 1);
       this._saveCart();

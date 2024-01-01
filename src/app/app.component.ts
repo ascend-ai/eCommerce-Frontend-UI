@@ -1,6 +1,19 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs';
-import { CartHelperService, LoadingHelperService, NotificationHelperService, NotificationStatusInterface } from 'src/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import {
+  takeWhile
+} from 'rxjs';
+import {
+  CartHelperService,
+  LoadingHelperService,
+  NotificationHelperService,
+  NotificationStatusInterface,
+  SearchHelperService
+} from 'src/core';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +23,14 @@ import { CartHelperService, LoadingHelperService, NotificationHelperService, Not
 export class AppComponent implements OnInit, OnDestroy {
   public notificationList: Array<NotificationStatusInterface> = [];
   public isAppLoading: boolean = false;
+  public isSearchOpen: boolean = false;
   public get totalItemsInCart(): number {
     return this._cartHelper.totalProducts;
   }
   private _subscribeMain: boolean = true;
   constructor(private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService,
+              private _searchHelper: SearchHelperService,
               private _cartHelper: CartHelperService,
               private _cdr: ChangeDetectorRef) {}
 
@@ -45,5 +60,20 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isAppLoading = isLoading;
         this._cdr.detectChanges();
       });
+
+    this._searchHelper.isSearchOpen$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(isOpen => {
+        this.isSearchOpen = isOpen;
+        this._cdr.detectChanges();
+      });
+  }
+
+  public onOpenSearch(): void {
+    this._searchHelper.openSearch();
+  }
+
+  public onCloseSearch(): void {
+    this._searchHelper.closeSearch();
   }
 }

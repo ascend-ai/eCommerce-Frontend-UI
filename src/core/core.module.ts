@@ -1,10 +1,32 @@
-import { NgModule } from '@angular/core';
-import { AuthBrokerService, ProductsBrokerService } from './broker-services';
-import { AuthDataService, ProductsDataService } from './data-services';
-import { AuthHelperService, CartHelperService, LoadingHelperService, NotificationHelperService } from './helper-services';
-import { AdminGuard, AuthGuard } from './guards';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RequestInterceptor, ResponseInterceptor } from './interceptors';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  AuthBrokerService,
+  ProductsBrokerService 
+} from './broker-services';
+import {
+  AuthDataService,
+  ProductsDataService
+} from './data-services';
+import {
+  AuthHelperService,
+  CartHelperService,
+  LoadingHelperService,
+  NotificationHelperService,
+  SearchHelperService
+} from './helper-services';
+import {
+  AdminGuard,
+  AuthGuard
+} from './guards';
+import {
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
+import {
+  RequestInterceptor,
+  ResponseInterceptor
+} from './interceptors';
 
 
 
@@ -20,6 +42,7 @@ import { RequestInterceptor, ResponseInterceptor } from './interceptors';
     NotificationHelperService,
     LoadingHelperService,
     CartHelperService,
+    SearchHelperService,
 
     AuthGuard,
     AdminGuard,
