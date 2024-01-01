@@ -1,7 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { mergeMap, of, takeWhile, tap } from 'rxjs';
-import { CartHelperService, DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE, FilterCriteriaModel, PaginationModel, ProductModel, ProductsBrokerService } from 'src/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import {
+  ActivatedRoute
+} from '@angular/router';
+import {
+  takeWhile
+} from 'rxjs';
+import {
+  CartHelperService,
+  DEFAULT_PAGE_INDEX,
+  DEFAULT_PAGE_SIZE,
+  FilterCriteriaModel,
+  PaginationModel,
+  ProductModel,
+  ProductsBrokerService
+} from 'src/core';
 
 @Component({
   selector: 'app-view-products',
@@ -38,10 +54,10 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
     this._route.queryParams
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(query => {
-        const {category} = query;
-        if (category) {
-          this._filter.category = category;
-        }
+
+        this._filter.category = query?.['category'];
+        this._filter.search = query?.['search'];
+
         this._getProducts();
       });
   }

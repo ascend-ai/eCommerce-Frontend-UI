@@ -6,10 +6,12 @@
   <title>E-commerce</title>
 </head>
 <body>
-  <app-header [numberOfItemsInCart]="totalItemsInCart"></app-header>
+  <app-header [numberOfItemsInCart]="totalItemsInCart"
+              (openSearch)="onOpenSearch()"></app-header>
   <div class="container-fluid p-0">
     <app-loading-spinner [isShowing]="isAppLoading"></app-loading-spinner>
-    <!-- <app-search></app-search> -->
+    <app-search [isSearchOpen]="isSearchOpen"
+                (closeSearch)="onCloseSearch()"></app-search>
     <router-outlet></router-outlet>
     <app-notifications [notificationList]="notificationList"
                        (hideNotification)="hideNotification($event)"></app-notifications>
