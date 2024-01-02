@@ -11,6 +11,7 @@ import { CartHelperService, ProductImageModel, ProductModel, ProductsBrokerServi
 export class ViewProductComponent implements OnInit, OnDestroy {
   public product: ProductModel = new ProductModel();
   private _subscribeMain: boolean = true;
+  public isCarouselOpen: boolean = false;
   public get productQtyInCart(): number { return this._cartHelper.getProductQtyInCart(this.product._id); }
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
@@ -61,4 +62,31 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   public addSimilarProductToCart(product: ProductModel): void {
     this._cartHelper.addProduct(product._id, product.quantityInStock, 1);
   }
+
+  public prevImage(): void {
+    const displayImageIndex = this._getImageIndex(this.product.displayImage._id);
+    if (displayImageIndex !== 0) {
+      this.setAsDisplayImage(this.product.images[displayImageIndex - 1]);
+    }
+  }
+
+  public nextImage(): void {
+    const displayImageIndex = this._getImageIndex(this.product.displayImage._id);
+    if (displayImageIndex !== (this.product.images.length - 1)) {
+      this.setAsDisplayImage(this.product.images[displayImageIndex + 1]);
+    }
+  }
+
+  private _getImageIndex(imageId: string): number {
+    return this.product.images.findIndex(img => img._id === imageId);
+  }
+
+  public closeCarousel(): void {
+    this.isCarouselOpen = false;
+  }
+
+  public openCarousel(): void {
+    this.isCarouselOpen = true;
+  }
+
 }

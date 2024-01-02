@@ -1,6 +1,27 @@
+.carousel-container {
+  z-index: 8;
+  height: 100vh;
+}
+
+.carousel-close {
+  z-index: 9;
+  font-size: 1.5em;
+}
+
+.carousel-img {
+  height: 50em;
+  width: 50em;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  background-color: whitesmoke;
+}
+
 .primary-img {
   height: 32em;
   width: 32em;
+  cursor: zoom-in;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
