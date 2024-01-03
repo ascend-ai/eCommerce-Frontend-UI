@@ -16,3 +16,18 @@ export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-
  * Regex from https://stackoverflow.com/a/16699507/14872437
  */
 export const PHONE_NUMBER_REGEX = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+
+export const COUNTRY_DATA: Record<string, Record<string, Array<string>>> = Object.freeze({
+  'America': {
+    'New York': ['New York City', 'Buffalo', 'Rochester'],
+    'California': ['Los Angeles', 'San Francisco', 'San Diego'],
+    'Texas': ['Houston', 'Dallas', 'Austin'],
+    'Florida': ['Miami', 'Orlando', 'Tampa'],
+  },
+  'India': {
+    'Maharashtra': ['Mumbai', 'Pune', 'Nagpur'],
+    'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai'],
+    'Karnataka': ['Bangalore', 'Mysore', 'Hubli'],
+    'Rajasthan': ['Jaipur', 'Udaipur', 'Jodhpur'],
+  }
+});

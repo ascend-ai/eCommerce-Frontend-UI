@@ -1,3 +1,6 @@
+import { AuthState } from '../enums';
+
 export interface AuthStateInterface {
-  isLoggedIn: boolean
+  name: AuthState,
+  isSuccessful: boolean
 }

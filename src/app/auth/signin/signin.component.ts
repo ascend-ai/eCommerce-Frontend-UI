@@ -1,8 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { takeWhile } from 'rxjs';
-import { AuthBrokerService, EMAIL_REGEX, SigninModel } from 'src/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  Router
+} from '@angular/router';
+import {
+  takeWhile
+} from 'rxjs';
+import {
+  AuthBrokerService,
+  AuthState,
+  EMAIL_REGEX,
+  SigninModel
+} from 'src/core';
 
 @Component({
   selector: 'app-signin',
@@ -10,7 +28,6 @@ import { AuthBrokerService, EMAIL_REGEX, SigninModel } from 'src/core';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit, OnDestroy {
-  public isSubmitted = false;
   public signinFormGroup!: FormGroup;
   public emailFormControl!: FormControl;
   public passwordFormControl!: FormControl;
@@ -21,8 +38,8 @@ export class SigninComponent implements OnInit, OnDestroy {
               private _authBroker: AuthBrokerService) { }
 
   ngOnInit(): void {
-    this._initSubscriptions();
     this._createSigninForm();
+    this._initSubscriptions();
   }
 
   ngOnDestroy(): void {
@@ -32,8 +49,8 @@ export class SigninComponent implements OnInit, OnDestroy {
   private _initSubscriptions(): void {
     this._authBroker.authState$
       .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(authState => {
-        if (authState.isLoggedIn) {
+      .subscribe(state => {
+        if (state.name === AuthState.LOGIN && state.isSuccessful) {
           this._router.navigate(['home']);
         }
       });
@@ -49,7 +66,6 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   public signin(): void {
-    this.isSubmitted = true;
     const signinData = new SigninModel(this.signinFormGroup.value);
     this._authBroker.login(signinData);
   }

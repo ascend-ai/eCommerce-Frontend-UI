@@ -9,7 +9,7 @@
             </span>
           </h2>
           <div class="container">
-            <form class="was-validate" 
+            <form class="needs-validation" 
                   [formGroup]="signinFormGroup"
                   (ngSubmit)="signin()">
               <!-- Email -->
@@ -36,8 +36,8 @@
                        [ngClass]="getInputValidationClasses('password')"
                        [formControl]="passwordFormControl">
                 <ng-container *ngIf="isInputValid('password')">
-                <small class="text-danger"
-                       *ngIf="passwordFormControl.errors?.['required']">Password is required</small>
+                  <small class="text-danger"
+                         *ngIf="passwordFormControl.errors?.['required']">Password is required</small>
                 </ng-container>
               </div>
   
