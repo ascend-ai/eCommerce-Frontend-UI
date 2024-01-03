@@ -9,99 +9,230 @@
             </span>
           </h2>
           <div class="container">
-            <form class="needs-validation" novalidate="">
+            <form class="needs-validation"
+                  [formGroup]="signupFormGroup"
+                  (ngSubmit)="signup()">
               <div class="row g-3">
+
+                <!-- Email -->
                 <div class="col-12 form-group">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="email">
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
+                  <input type="email"
+                         class="form-control"
+                         id="email"
+                         [ngClass]="getInputValidationClasses('email')"
+                         [formControl]="emailFormControl">
+                  <ng-container *ngIf="isInputValid('email')">
+                    <small class="text-danger"
+                           *ngIf="emailFormControl.errors?.['required']">
+                      Email is required
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="emailFormControl.errors?.['pattern']">
+                      Invalid email
+                    </small>
+                  </ng-container>
                 </div>
 
+                <!-- Password -->
                 <div class="col-12 form-group">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password">
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
+                  <input type="password"
+                         class="form-control"
+                         id="password"
+                         [ngClass]="getInputValidationClasses('password')"
+                         [formControl]="passwordFormControl">
+                  <ng-container *ngIf="isInputValid('password')">
+                  <small class="text-danger"
+                         *ngIf="passwordFormControl.errors?.['required']">
+                    Password is required
+                  </small>
+                  </ng-container>
                 </div>
 
+                <!-- Confirm password -->
                 <div class="col-12 form-group">
                   <label for="confirm-password" class="form-label">Confirm Password</label>
-                  <input type="confirm-password" class="form-control" id="confirm-password">
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
+                  <input type="password"
+                         class="form-control"
+                         id="confirm-password"
+                         [ngClass]="getInputValidationClasses('confirmPassword')"
+                         [formControl]="confirmPasswordFormControl">
+                  <ng-container *ngIf="isInputValid('confirmPassword')">
+                    <small class="text-danger"
+                           *ngIf="confirmPasswordFormControl.errors?.['mismatch']">
+                      Password mismatch
+                    </small>
+                  </ng-container>
                 </div>
-      
+
+                <!-- Phone number-->
+                <div class="col-12 form-group">
+                  <label for="phone" class="form-label">Phone number</label>
+                  <input type="text"
+                         class="form-control"
+                         id="phone"
+                         [ngClass]="getInputValidationClasses('phoneNumber')"
+                         [formControl]="phoneNumberFormControl">
+                  <ng-container *ngIf="isInputValid('phoneNumber')">
+                    <small class="text-danger"
+                           *ngIf="phoneNumberFormControl.errors?.['required']">
+                      Phone number required
+                    </small>
+                  </ng-container>
+                </div>
+
+                <!-- Address line 1 -->
                 <div class="col-12 form-group">
                   <label for="address-line-1" class="form-label">Address Line 1</label>
-                  <input type="text" class="form-control" id="address-line-1">
-                  <div class="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
+                  <input type="text"
+                         class="form-control"
+                         id="address-line-1"
+                         [ngClass]="getInputValidationClasses('streetAddressLine1')"
+                         [formControl]="streetAddressLine1FormControl">
+                  <ng-container *ngIf="isInputValid('streetAddressLine1')">
+                    <small class="text-danger"
+                           *ngIf="streetAddressLine1FormControl.errors?.['required']">
+                      Street address required
+                    </small>
+                  </ng-container>
                 </div>
-      
+
+                <!-- Address line 2 -->
                 <div class="col-12 form-group">
                   <label for="address-line-2" class="form-label">Address Line 2 <span class="text-body-secondary">(Optional)</span></label>
-                  <input type="text" class="form-control" id="address-line-2">
+                  <input type="text"
+                         class="form-control"
+                         id="address-line-2"
+                         [ngClass]="getInputValidationClasses('streetAddressLine2')"
+                         [formControl]="streetAddressLine2FormControl">
+                  <ng-container *ngIf="isInputValid('streetAddressLine2')">
+                    <small class="text-danger"
+                           *ngIf="streetAddressLine2FormControl.errors?.['required']">
+                      Street address line 2 required
+                    </small>
+                  </ng-container>
                 </div>
 
+                <!-- Address line 3 -->
                 <div class="col-12 form-group">
                   <label for="address-line-3" class="form-label">Address Line 3 <span class="text-body-secondary">(Optional)</span></label>
-                  <input type="text" class="form-control" id="address-line-3">
+                  <input type="text"
+                         class="form-control"
+                         id="address-line-3"
+                         [ngClass]="getInputValidationClasses('streetAddressLine3')"
+                         [formControl]="streetAddressLine3FormControl">
+                  <ng-container *ngIf="isInputValid('streetAddressLine3')">
+                    <small class="text-danger"
+                           *ngIf="streetAddressLine3FormControl.errors?.['required']">
+                      Street address line 3required
+                    </small>
+                  </ng-container>
                 </div>
 
-                <div class="col-md-6 form-group">
-                  <label for="city" class="form-label">City</label>
-                  <select class="form-select" id="city">
-                    <option value="">Choose...</option>
-                    <option>Mumbai</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-                </div>
-
-                <div class="col-md-6 form-group">
-                  <label for="state" class="form-label">State</label>
-                  <select class="form-select" id="state">
-                    <option value="">Choose...</option>
-                    <option>Maharashtra</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
-                  </div>
-                </div>
-      
+                <!-- Country -->
                 <div class="col-md-6 form-group">
                   <label for="country" class="form-label">Country</label>
-                  <select class="form-select" id="country">
-                    <option value="">Choose...</option>
-                    <option>India</option>
+                  <select class="form-select"
+                          id="country"
+                          [ngClass]="getInputValidationClasses('country')"
+                          [formControl]="countryFormControl">
+                    <option value=""
+                            disabled>
+                      Select country
+                    </option>
+                    <option *ngFor="let country of countries"
+                            [value]="country">
+                      {{ country }}
+                    </option>
                   </select>
-                  <div class="invalid-feedback">
-                    Please select a valid country.
-                  </div>
-                </div>
-      
-                <div class="col-md-6 form-group">
-                  <label for="zip" class="form-label">Zip</label>
-                  <input type="text" class="form-control" id="zip">
-                  <div class="invalid-feedback">
-                    Zip code required.
-                  </div>
+                  <ng-container *ngIf="isInputValid('country')">
+                    <small class="text-danger"
+                           *ngIf="countryFormControl.errors?.['required']">
+                      Country required
+                    </small>
+                  </ng-container>
                 </div>
 
+                <!-- State -->
+                <div class="col-md-6 form-group">
+                  <label for="state" class="form-label">State</label>
+                  <select class="form-select"
+                          id="state"
+                          [ngClass]="getInputValidationClasses('state')"
+                          [formControl]="stateFormControl">
+                    <option value=""
+                            disabled>
+                      Select state
+                    </option>
+                    <option *ngFor="let state of states"
+                            [value]="state">
+                      {{ state }}
+                    </option>
+                  </select>
+                  <ng-container *ngIf="isInputValid('state')">
+                    <small class="text-danger"
+                           *ngIf="stateFormControl.errors?.['required']">
+                      State required
+                    </small>
+                  </ng-container>
+                </div>
+
+                <!-- City -->
+                <div class="col-md-6 form-group">
+                  <label for="city" class="form-label">City</label>
+                  <select class="form-select"
+                          id="city"
+                          [ngClass]="getInputValidationClasses('city')"
+                          [formControl]="cityFormControl">
+                    <option value=""
+                            disabled>
+                      Select city
+                    </option>
+                    <option *ngFor="let city of cities"
+                            [value]="city">
+                      {{ city }}
+                    </option>
+                  </select>
+                  <ng-container *ngIf="isInputValid('city')">
+                    <small class="text-danger"
+                           *ngIf="cityFormControl.errors?.['required']">
+                      City required
+                    </small>
+                  </ng-container>
+                </div>
+
+                <!-- Zip code -->
+                <div class="col-md-6 form-group">
+                  <label for="zip" class="form-label">Zip</label>
+                  <input type="text"
+                         class="form-control"
+                         id="zip"
+                         [ngClass]="getInputValidationClasses('postalCode')"
+                         [formControl]="postalCodeFormControl">
+                  <ng-container *ngIf="isInputValid('postalCode')">
+                    <small class="text-danger"
+                           *ngIf="postalCodeFormControl.errors?.['required']">
+                      Zip code required
+                    </small>
+                  </ng-container>
+                </div>
+
+                <!-- Consent checkbox -->
                 <div class="col-md-12 form-group">
-                  <input type="checkbox" class="form-check-input me-1" id="use-info">
-                  <label class="form-check-label" for="use-info">Use this info for shipping</label>
+                  <input type="checkbox"
+                         class="form-check-input me-1"
+                         [ngClass]="getInputValidationClasses('consent')"
+                         [formControl]="consentFormControl"
+                         id="use-info">
+                  <label class="form-check-label" for="use-info">
+                    I consent to the use of the following information for product delivery purposes.
+                  </label>
                 </div>
 
                 <button class="btn btn-primary"
                         type="submit"
-                        [disabled]="null">
+                        [disabled]="signupFormGroup.invalid">
                   Submit
                 </button>
 

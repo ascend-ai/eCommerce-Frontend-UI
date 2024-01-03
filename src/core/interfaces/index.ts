@@ -1,5 +1,7 @@
 export * from './api-response.interface';
 export * from './signin.interface';
+export * from './user.interface';
+export * from './address.interface';
 export * from './notification-status.interface';
 export * from './access-token.interface';
 export * from './access-token-payload.interface';
