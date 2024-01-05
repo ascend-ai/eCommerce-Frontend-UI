@@ -13,6 +13,7 @@ import {
 export class HeaderComponent {
   public isNavbarExpanded = false;
   @Input() numberOfItemsInCart: number = 0;
+  @Input() canCreateProduct: boolean = false;
   @Output() openSearch: EventEmitter<any> = new EventEmitter();
 
   constructor() {}

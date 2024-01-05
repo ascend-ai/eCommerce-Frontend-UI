@@ -8,6 +8,7 @@ import {
   takeWhile
 } from 'rxjs';
 import {
+  AuthHelperService,
   CartHelperService,
   LoadingHelperService,
   NotificationHelperService,
@@ -27,12 +28,16 @@ export class AppComponent implements OnInit, OnDestroy {
   public get totalItemsInCart(): number {
     return this._cartHelper.totalProducts;
   }
+  public get canCreateProduct(): boolean {
+    return this._authHelper.isLoggedIn() && this._authHelper.isLoggedInUserAdminOrMod();
+  }
   private _subscribeMain: boolean = true;
   constructor(private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService,
               private _searchHelper: SearchHelperService,
               private _cartHelper: CartHelperService,
-              private _cdr: ChangeDetectorRef) {}
+              private _cdr: ChangeDetectorRef,
+              private _authHelper: AuthHelperService) {}
 
   ngOnInit(): void {
     this._initSubscriptions();

@@ -4,12 +4,14 @@ import {
   OnInit
 } from '@angular/core';
 import {
-  ActivatedRoute
+  ActivatedRoute,
+  Router
 } from '@angular/router';
 import {
   takeWhile
 } from 'rxjs';
 import {
+  AuthHelperService,
   CartHelperService,
   ProductImageModel,
   ProductModel,
@@ -25,10 +27,17 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   public product: ProductModel = new ProductModel();
   private _subscribeMain: boolean = true;
   public isCarouselOpen: boolean = false;
-  public get productQtyInCart(): number { return this._cartHelper.getProductQtyInCart(this.product._id); }
+  public get productQtyInCart(): number {
+    return this._cartHelper.getProductQtyInCart(this.product._id);
+  }
+  public get canEditProduct(): boolean {
+    return this._authHelper.isLoggedIn() && this._authHelper.isLoggedInUserAdminOrMod();
+  }
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
-              private _cartHelper: CartHelperService) {}
+              private _cartHelper: CartHelperService,
+              private _authHelper: AuthHelperService,
+              private _router: Router) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
@@ -100,6 +109,12 @@ export class ViewProductComponent implements OnInit, OnDestroy {
 
   public openCarousel(): void {
     this.isCarouselOpen = true;
+  }
+
+  public editProduct(): void {
+    this._router.navigate(['edit'], {
+      relativeTo: this._route,
+    })
   }
 
 }
