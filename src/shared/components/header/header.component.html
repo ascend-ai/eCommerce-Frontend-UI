@@ -30,6 +30,12 @@
 
       <!-- Secondary nav items -->
       <ul class="navbar-nav ms-auto my-2 my-lg-0 nav-secondary">
+        <li class="nav-item p-2"
+            *ngIf="canCreateProduct">
+          <i class="fa-solid fa-folder-plus nav-link position-relative cursor-pointer"
+             [routerLink]="['products', 'create']"
+             routerLinkActive="active"></i>
+        </li>
         <li class="nav-item p-2">
           <i class="fa-solid fa-magnifying-glass nav-link cursor-pointer"
              (click)="onOpenSearch()"></i>

@@ -30,7 +30,7 @@ export class AuthHelperService {
   /**
    * Use following method only if isLoggedIn() return true.
    */
-  public isLoggedInUserAdmin(): boolean {
+  public isLoggedInUserAdminOrMod(): boolean {
     try {
       const accessToken = <string>localStorage.getItem('accessToken');
       const { userRole } = jwtDecode<AccessTokenPayloadInterface>(accessToken);
