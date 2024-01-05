@@ -16,9 +16,18 @@
     <p class="card-subtitle mb-2 text-muted">
       ₹{{ product.price }}
     </p>
-    <div class="btn btn-outline-primary"
-         (click)="addProductToCard($event)">
-      Add to cart
-    </div>
+    <ng-container *ngIf="product.quantityInStock > 0; else outOfStock">
+      <button class="btn btn-outline-primary"
+              (click)="addProductToCard($event)">
+        Add to Cart
+      </button>
+    </ng-container>
+    <ng-template #outOfStock>
+      <div (click)="$event.stopPropagation()">
+        <button class="btn btn-outline-warning disabled">
+          Out of Stock
+        </button>
+      </div>
+    </ng-template>
   </div>
 </div>

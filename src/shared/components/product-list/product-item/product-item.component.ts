@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductModel } from 'src/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import {
+  ProductModel
+} from 'src/core';
 
 @Component({
   selector: 'app-product-item',
@@ -26,8 +35,7 @@ export class ProductItemComponent {
     return `url('${ this.product.displayImage.url }')`;
   }
 
-  constructor(private _router: Router,
-              private _route: ActivatedRoute) {}
+  constructor(private _router: Router) {}
 
   public changeDisplayImage(product: ProductModel): void {
     if (product.images.length > 1) {
@@ -50,5 +58,4 @@ export class ProductItemComponent {
     event.stopPropagation();
     this.addToCart.emit(this.product);
   }
-
 }

@@ -30,10 +30,6 @@ export class SearchComponent {
     this.closeSearch.emit();
   }
 
-  public negateCloseSearchEvent(event: Event): void {
-    event.stopPropagation();
-  }
-
   public onSearch(): void {
     if (!this.isSearchInvalid) {
       this._router.navigate(['/products'], {

@@ -63,16 +63,24 @@
         <p class="lead">
             {{ product.description }}
         </p>
-        <button class="btn btn-outline-primary"
-                *ngIf="productQtyInCart < 1; else qtyController"
-                (click)="addProduct(1)">
-            Add to cart
-        </button>
-        <ng-template #qtyController>
-          <app-product-qty-controller [qty]="productQtyInCart"
-                                      (add)="addProduct($event)"
-                                      (subtract)="subtractProduct($event)">
-          </app-product-qty-controller>
+        <ng-container *ngIf="product.quantityInStock > 0; else outOfStock">
+          <ng-container *ngIf="productQtyInCart < 1; else qtyController">
+            <button class="btn btn-outline-primary"
+                    (click)="addProduct(1)">
+                Add to Cart
+            </button>
+          </ng-container>
+          <ng-template #qtyController>
+            <app-product-qty-controller [qty]="productQtyInCart"
+                                        (add)="addProduct($event)"
+                                        (subtract)="subtractProduct($event)">
+            </app-product-qty-controller>
+          </ng-template>
+        </ng-container>
+        <ng-template #outOfStock>
+          <button class="btn btn-outline-warning disabled">
+              Out of Stock
+          </button>
         </ng-template>
       </div>
     </div>
