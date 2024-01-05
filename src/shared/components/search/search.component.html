@@ -2,7 +2,7 @@
      *ngIf="isSearchOpen"
      (click)="onCloseSearch()">
   <div class="input-group input-group-lg search"
-       (click)="negateCloseSearchEvent($event)">
+       (click)="$event.stopPropagation()">
     <input type="search"
            class="form-control"
            [formControl]="searchControl"
