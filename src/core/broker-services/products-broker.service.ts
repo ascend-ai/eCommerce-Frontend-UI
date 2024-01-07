@@ -1,11 +1,38 @@
-import { Injectable } from '@angular/core';
-import { ProductsDataService } from '../data-services';
-import { LoadingHelperService, NotificationHelperService } from '../helper-services';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subject, catchError, mergeMap, of, take, tap } from 'rxjs';
-import { ProductImageInterface, ProductInterface } from '../interfaces';
-import { FilterCriteriaModel, PaginationModel, ProductImageModel, ProductModel } from '../models';
-import { environment } from 'src/environments/environment';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  ProductsDataService
+} from '../data-services';
+import {
+  LoadingHelperService,
+  NotificationHelperService
+} from '../helper-services';
+import {
+  HttpErrorResponse
+} from '@angular/common/http';
+import {
+  Observable,
+  Subject,
+  catchError,
+  mergeMap,
+  of,
+  take,
+  tap
+} from 'rxjs';
+import {
+  ProductImageInterface,
+  ProductInterface
+} from '../interfaces';
+import {
+  FilterCriteriaModel,
+  PaginationModel,
+  ProductImageModel,
+  ProductModel
+} from '../models';
+import {
+  environment
+} from 'src/environments/environment';
 
 @Injectable()
 export class ProductsBrokerService {
@@ -59,6 +86,106 @@ export class ProductsBrokerService {
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();
           this._products$.next(products);
+          this._notificationHelper.handleError(err.error.message);
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  public editProductBasicDetails(productId: string, data: Record<string, any>): void {
+    this._loadingHelper.startLoading();
+    let product: ProductModel = new ProductModel();
+    this._productsData.editProductBasicDetails(productId, data)
+      .pipe(
+        take(1),
+        mergeMap(res => {
+          product = this._transformProducts([res.data])[0];
+          return this._productsData.getProductsWithIds(product.similarProducts);
+        }),
+        tap(res => {
+          this._loadingHelper.stopLoading();
+          product.similarProducts = this._transformProducts(res.data);
+          this._product$.next(product);
+          this._notificationHelper.handleSuccess('Product updated!');
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._loadingHelper.stopLoading();
+          this._notificationHelper.handleError(err.error.message);
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  public addNewProductImage(productId: string, imageData: FormData): void {
+    this._loadingHelper.startLoading();
+    let product: ProductModel = new ProductModel();
+    this._productsData.addNewProductImage(productId, imageData)
+      .pipe(
+        take(1),
+        mergeMap(res => {
+          product = this._transformProducts([res.data])[0];
+          return this._productsData.getProductsWithIds(product.similarProducts);
+        }),
+        tap(res => {
+          this._loadingHelper.stopLoading();
+          product.similarProducts = this._transformProducts(res.data);
+          this._product$.next(product);
+          this._notificationHelper.handleSuccess('Product updated!');
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._loadingHelper.stopLoading();
+          this._notificationHelper.handleError(err.error.message);
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  public deleteProductImage(productId: string, imageId: string): void {
+    this._loadingHelper.startLoading();
+    let product: ProductModel = new ProductModel();
+    this._productsData.deleteProductImage(productId, imageId)
+      .pipe(
+        take(1),
+        mergeMap(res => {
+          product = this._transformProducts([res.data])[0];
+          return this._productsData.getProductsWithIds(product.similarProducts);
+        }),
+        tap(res => {
+          this._loadingHelper.stopLoading();
+          product.similarProducts = this._transformProducts(res.data);
+          this._product$.next(product);
+          this._notificationHelper.handleSuccess('Product updated!');
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._loadingHelper.stopLoading();
+          this._notificationHelper.handleError(err.error.message);
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  public rearrangeProductImages(productId: string, imageIds: Array<string>): void {
+    this._loadingHelper.startLoading();
+    let product: ProductModel = new ProductModel();
+    this._productsData.reaggangeProductImages(productId, imageIds)
+      .pipe(
+        take(1),
+        mergeMap(res => {
+          product = this._transformProducts([res.data])[0];
+          return this._productsData.getProductsWithIds(product.similarProducts);
+        }),
+        tap(res => {
+          this._loadingHelper.stopLoading();
+          product.similarProducts = this._transformProducts(res.data);
+          this._product$.next(product);
+          this._notificationHelper.handleSuccess('Product updated!');
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
         })

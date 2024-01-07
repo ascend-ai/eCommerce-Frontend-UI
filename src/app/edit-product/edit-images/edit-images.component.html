@@ -1,1 +1,55 @@
-<p>edit-images works!</p>
+<div class="container">
+  <div class="row my-4">
+    <div class="col">
+      <input type="file"
+             class="d-none"
+             (change)="onFileSelected($event)"
+             #fileUpload>
+    
+      <button class="btn btn-primary btn-lg file-upload"
+              type="button"
+              (click)="fileUpload.click()"
+              [disabled]="product.images.length === 3">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>&nbsp;Upload image</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row my-4">
+    <div class="col"
+         cdkDropListGroup>
+      <div class="d-inline-flex border p-2 image-list"
+           cdkDropList
+           cdkDropListOrientation="horizontal"
+           [cdkDropListData]="product.images"
+           (cdkDropListDropped)="imageDrop($event)">
+        <div class="img-fluid border image"
+             cdkDrag
+             *ngFor="let image of product.images; let i = index;"
+             [style.backgroundImage]="getImagePath(image.url)">
+          <span class="position-absolute top-0 end-0 text-danger p-1 cursor-pointer"
+                (click)="deleteImage(i)">
+            <i class="fas fa-trash fa-lg"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4">
+    <div class="col d-flex">
+      <button class="btn btn-primary"
+              type="button"
+              (click)="null">
+        Submit
+      </button>
+  
+      <button class="btn btn-danger ms-1"
+              type="button"
+              (click)="null">
+        Reset
+      </button>
+    </div>
+  </div>
+</div>
