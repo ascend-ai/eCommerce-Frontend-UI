@@ -1,9 +1,24 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ApiResponseModel, FilterCriteriaModel } from '../models';
-import { Injectable } from '@angular/core';
-import { PaginationInterface, ProductInterface } from '../interfaces';
+import {
+  HttpClient,
+  HttpParams
+} from '@angular/common/http';
+import {
+  Observable
+} from 'rxjs';
+import {
+  environment
+} from 'src/environments/environment';
+import {
+  ApiResponseModel,
+  FilterCriteriaModel
+} from '../models';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  PaginationInterface,
+  ProductInterface
+} from '../interfaces';
 
 @Injectable()
 export class ProductsDataService {
@@ -29,6 +44,33 @@ export class ProductsDataService {
   public getProduct(productId: string): Observable<ApiResponseModel<ProductInterface>> {
     return this._http.get<ApiResponseModel<ProductInterface>>(
       this._apiUrl + `/products/${productId}`);
+  }
+
+  public editProductBasicDetails(productId: string, data: Record<string, any>): Observable<ApiResponseModel<ProductInterface>> {
+    return this._http.put<ApiResponseModel<ProductInterface>>(
+      this._apiUrl + `/products/${productId}/basic-details`,
+      data
+    );
+  }
+
+  public addNewProductImage(productId: string, imageData: FormData): Observable<ApiResponseModel<ProductInterface>> {
+    return this._http.post<ApiResponseModel<ProductInterface>>(
+      this._apiUrl + `/products/${productId}/images`,
+      imageData
+    );
+  }
+
+  public deleteProductImage(productId: string, imageId: string): Observable<ApiResponseModel<ProductInterface>> {
+    return this._http.delete<ApiResponseModel<ProductInterface>>(
+      this._apiUrl + `/products/${productId}/images/${imageId}`,
+    );
+  }
+
+  public reaggangeProductImages(productId: string, imageIds: Array<string>): Observable<ApiResponseModel<ProductInterface>> {
+    return this._http.put<ApiResponseModel<ProductInterface>>(
+      this._apiUrl + `/products/${productId}/images`,
+      imageIds
+    );
   }
 
   private _getQueryParamsForProductFilter(filterCriteria: FilterCriteriaModel): HttpParams {

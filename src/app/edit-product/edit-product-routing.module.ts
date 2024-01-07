@@ -18,7 +18,7 @@ const routes: Routes = [
       },
       {
         path: 'basic-details',
-        component: EditBasicDetailsComponent
+        component: EditBasicDetailsComponent,
       },
       {
         path: 'images',
