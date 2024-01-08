@@ -2,9 +2,9 @@
   <form class="needs-validation"
         [formGroup]="basicDetailsFG"
         (ngSubmit)="submit()">
-    <!-- Name -->
     <div class="row my-2">
-      <div class="col-3 form-group">
+      <!-- Name -->
+      <div class="col-12 col-xl-3 mb-2 mb-xl-0 form-group">
         <label for="name" class="form-label">Name:</label>
         <input type="text"
                class="form-control"
@@ -20,7 +20,7 @@
       </div>
 
       <!-- Quantity in stock -->
-      <div class="col-3 form-group">
+      <div class="col-12 col-xl-3 form-group">
         <label for="qty-in-stock" class="form-label">Quantity in Stock:</label>
         <input type="number"
                class="form-control"
@@ -38,7 +38,7 @@
 
     <!-- Descripton -->
     <div class="row my-2">
-      <div class="col-6 form-group">
+      <div class="col-12 col-xl-6 form-group">
         <label for="description" class="form-label">Description:</label>
         <textarea class="form-control"
                   cols="30"
@@ -59,7 +59,7 @@
 
     <div class="row my-2">
       <!-- Category -->
-      <div class="col-3 form-group">
+      <div class="col-12 col-xl-3 mb-2 mb-xl-0 form-group">
         <label for="category" class="form-label">Category</label>
         <select class="form-select"
                 id="category"
@@ -83,7 +83,7 @@
       </div>
 
       <!-- Price -->
-      <div class="col-3 form-group">
+      <div class="col-12 col-xl-3 form-group">
         <label for="price" class="form-label">Price</label>
         <input type="number"
                class="form-control"

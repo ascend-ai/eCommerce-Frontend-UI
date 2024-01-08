@@ -28,6 +28,9 @@ import {
 import {
   DragDropModule
 } from '@angular/cdk/drag-drop';
+import {
+  SharedModule
+} from 'src/shared/shared.module';
 
 
 
@@ -40,6 +43,7 @@ import {
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     DragDropModule,
     EditProductRoutingModule,

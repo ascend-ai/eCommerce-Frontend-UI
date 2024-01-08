@@ -1,8 +1,6 @@
 import {
   Component,
-  EventEmitter,
   Input,
-  Output
 } from '@angular/core';
 
 @Component({
@@ -11,10 +9,10 @@ import {
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  public isNavbarExpanded = false;
+  public isNavbarExpanded: boolean = false;
+  public isSearchOpen: boolean = false;
   @Input() numberOfItemsInCart: number = 0;
   @Input() canCreateProduct: boolean = false;
-  @Output() openSearch: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -22,7 +20,7 @@ export class HeaderComponent {
     this.isNavbarExpanded = !this.isNavbarExpanded;
   }
 
-  public onOpenSearch(): void {
-    this.openSearch.emit();
+  public openSearch(): void {
+    this.isSearchOpen = true;
   }
 }

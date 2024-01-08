@@ -56,7 +56,7 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;
-        this.basicDetailsFG.patchValue(product);
+        this.basicDetailsFG.reset(product);
       });
   }
 
@@ -147,12 +147,12 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
   }
 
   public submit(): void {
-    this._productsBroker.editProductBasicDetails(this.product._id, this.basicDetailsFG.value);
+    if (confirm('Are you sure you want to update the product details?')) {
+      this._productsBroker.editProductBasicDetails(this.product._id, this.basicDetailsFG.value);
+    }
   }
 
   public resetForm(): void {
-    this.basicDetailsFG.patchValue(this.product);
+    this.basicDetailsFG.reset(this.product);
   }
-
-
 }

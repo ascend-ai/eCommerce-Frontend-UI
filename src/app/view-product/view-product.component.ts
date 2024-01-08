@@ -25,6 +25,8 @@ import {
 })
 export class ViewProductComponent implements OnInit, OnDestroy {
   public product: ProductModel = new ProductModel();
+  public carouselDisplayImage: ProductImageModel = new ProductImageModel();
+  public carouselImages: Array<ProductImageModel> = [];
   private _subscribeMain: boolean = true;
   public isCarouselOpen: boolean = false;
   public get productQtyInCart(): number {
@@ -85,36 +87,16 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     this._cartHelper.addProduct(product._id, product.quantityInStock, 1);
   }
 
-  public prevImage(): void {
-    const displayImageIndex = this._getImageIndex(this.product.displayImage._id);
-    if (displayImageIndex !== 0) {
-      this.setAsDisplayImage(this.product.images[displayImageIndex - 1]);
-    }
-  }
-
-  public nextImage(): void {
-    const displayImageIndex = this._getImageIndex(this.product.displayImage._id);
-    if (displayImageIndex !== (this.product.images.length - 1)) {
-      this.setAsDisplayImage(this.product.images[displayImageIndex + 1]);
-    }
-  }
-
-  private _getImageIndex(imageId: string): number {
-    return this.product.images.findIndex(img => img._id === imageId);
-  }
-
-  public closeCarousel(): void {
-    this.isCarouselOpen = false;
-  }
-
-  public openCarousel(): void {
-    this.isCarouselOpen = true;
-  }
-
   public editProduct(): void {
     this._router.navigate(['edit'], {
       relativeTo: this._route,
     })
+  }
+
+  public openCarousel(): void {
+    this.carouselDisplayImage = new ProductImageModel(this.product.displayImage);
+    this.carouselImages = this.product.images.map(img => new ProductImageModel(img));
+    this.isCarouselOpen = true;
   }
 
 }

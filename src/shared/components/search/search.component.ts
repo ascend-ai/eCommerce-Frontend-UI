@@ -19,15 +19,17 @@ import {
 })
 export class SearchComponent {
   @Input() isSearchOpen: boolean = false;
-  @Output() closeSearch: EventEmitter<any> = new EventEmitter();
+  @Output() isSearchOpenChange: EventEmitter<boolean> = new EventEmitter();
+
   public searchControl: FormControl = new FormControl<string>('', Validators.required);
+
   public get isSearchInvalid(): boolean {
     return (this.searchControl.touched || this.searchControl.dirty) && !!this.searchControl.errors;
   }
   constructor(private _router: Router) {}
 
   public onCloseSearch(): void {
-    this.closeSearch.emit();
+    this.isSearchOpenChange.emit(false);
   }
 
   public onSearch(): void {
@@ -38,7 +40,7 @@ export class SearchComponent {
         }, 
       })
       this.searchControl.reset();
-      this.closeSearch.emit();
+      this.isSearchOpenChange.emit(false);
     }
   }
 }
