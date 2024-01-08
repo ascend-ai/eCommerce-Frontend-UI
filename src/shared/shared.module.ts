@@ -34,7 +34,12 @@ import {
 import {
   SearchComponent
 } from './components/search/search.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  ProductImageCarouselComponent
+} from './components/product-image-carousel/product-image-carousel.component';
 
 
 
@@ -48,7 +53,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductListComponent,
     ProductItemComponent,
     ProductQtyControllerComponent,
-    SearchComponent
+    SearchComponent,
+    ProductImageCarouselComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +70,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductListComponent,
     ProductItemComponent,
     ProductQtyControllerComponent,
-    SearchComponent
+    SearchComponent,
+    ProductImageCarouselComponent
   ]
 })
 export class SharedModule { }

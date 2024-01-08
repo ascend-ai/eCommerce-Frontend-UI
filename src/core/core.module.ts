@@ -13,8 +13,7 @@ import {
   AuthHelperService,
   CartHelperService,
   LoadingHelperService,
-  NotificationHelperService,
-  SearchHelperService
+  NotificationHelperService
 } from './helper-services';
 import {
   AdminGuard,
@@ -42,7 +41,6 @@ import {
     NotificationHelperService,
     LoadingHelperService,
     CartHelperService,
-    SearchHelperService,
 
     AuthGuard,
     AdminGuard,

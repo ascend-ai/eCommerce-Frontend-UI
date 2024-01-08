@@ -1,28 +1,7 @@
 <!-- Zoom-in carousel -->
-<div class="container-fluid bg-black bg-opacity-75 position-fixed top-0 start-0 d-flex justify-content-center align-items-center carousel-container"
-     *ngIf="isCarouselOpen">
-  <span class="text-light position-absolute top-0 end-0 m-3 p-2 cursor-pointer carousel-close"
-        (click)="closeCarousel()">
-    <i class="bi bi-x-lg"></i>
-  </span>
-  <div class="carousel slide">
-    <div class="carousel-inner">
-      <div *ngFor="let image of product.images; let i = index;"
-           class="carousel-item img-fluid carousel-img"
-           [style.backgroundImage]="getImagePath(image.url)"
-           [class.active]="isImageDisplayed(image)">
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev"
-          (click)="prevImage()">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next"
-          (click)="nextImage()">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-</div>
+<app-product-image-carousel [(isCarouselOpen)]="isCarouselOpen"
+                            [carouselDisplayImage]="carouselDisplayImage"
+                            [carouselImages]="carouselImages"></app-product-image-carousel>
 
 <!-- Primary content -->
 <div class="container px-4 px-lg-5 my-5">

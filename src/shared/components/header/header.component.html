@@ -38,7 +38,7 @@
         </li>
         <li class="nav-item p-2">
           <i class="fa-solid fa-magnifying-glass nav-link cursor-pointer"
-             (click)="onOpenSearch()"></i>
+             (click)="openSearch()"></i>
         </li>
         <li class="nav-item p-2">
           <i class="fas fa-shopping-cart nav-link position-relative cursor-pointer"
@@ -58,3 +58,4 @@
     </div>
   </div>
 </nav>
+<app-search [(isSearchOpen)]="isSearchOpen"></app-search>

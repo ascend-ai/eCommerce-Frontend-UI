@@ -7,12 +7,9 @@
 </head>
 <body>
   <app-header [numberOfItemsInCart]="totalItemsInCart"
-              [canCreateProduct]="canCreateProduct"
-              (openSearch)="onOpenSearch()"></app-header>
+              [canCreateProduct]="canCreateProduct"></app-header>
   <div class="container-fluid p-0">
     <app-loading-spinner [isShowing]="isAppLoading"></app-loading-spinner>
-    <app-search [isSearchOpen]="isSearchOpen"
-                (closeSearch)="onCloseSearch()"></app-search>
     <router-outlet></router-outlet>
     <app-notifications [notificationList]="notificationList"
                        (hideNotification)="hideNotification($event)"></app-notifications>

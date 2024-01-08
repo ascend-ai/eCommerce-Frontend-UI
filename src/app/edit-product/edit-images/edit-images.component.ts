@@ -26,6 +26,10 @@ import {
 })
 export class EditImagesComponent implements OnInit, OnDestroy {
   public product: ProductModel = new ProductModel();
+  public images: Array<ProductImageModel> = [];
+  public isCarouselOpen: boolean = false;
+  public carouselDisplayImage: ProductImageModel = new ProductImageModel();
+  public carouselImages: Array<ProductImageModel> = [];
   private _subscribeMain: boolean = true;
   public list = [1, 2, 3, 4]
 
@@ -45,6 +49,7 @@ export class EditImagesComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;
+        this.images = product.images.map(img => new ProductImageModel(img));
       });
   }
 
@@ -64,10 +69,12 @@ export class EditImagesComponent implements OnInit, OnDestroy {
   }
 
   public deleteImage(imageIndex: number): void {
-    this._productsBroker.deleteProductImage(
-      this.product._id,
-      this.product.images[imageIndex]._id
-    );
+    if (confirm('Are you sure you want to delete this product image?')) {
+      this._productsBroker.deleteProductImage(
+        this.product._id,
+        this.images[imageIndex]._id
+      );
+    }
   }
 
   public imageDrop(event: CdkDragDrop<Array<ProductImageModel>>): void {
@@ -81,7 +88,33 @@ export class EditImagesComponent implements OnInit, OnDestroy {
   public saveProductArrangement(): void {
     this._productsBroker.rearrangeProductImages(
       this.product._id,
-      this.product.images.map(img => img._id)
+      this.images.map(img => img._id)
     );
+  }
+
+  public get areImagesShuffled(): boolean {
+    for (let i = 0; i < this.product.images.length; i++) {
+      if (this.product.images[i]._id !== this.images[i]._id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public resetImageOrder(): void {
+    this.images = this.product.images.map(img => new ProductImageModel(img));
+  }
+
+  public changeImageOrder(): void {
+    this._productsBroker.rearrangeProductImages(
+      this.product._id,
+      this.images.map(img => img._id)
+    );
+  }
+
+  public openCarousel(image: ProductImageModel): void {
+    this.carouselDisplayImage = new ProductImageModel(image);
+    this.carouselImages = this.images.map(img => new ProductImageModel(img));
+    this.isCarouselOpen = true;
   }
 }
