@@ -40,6 +40,8 @@ import {
 import {
   ProductImageCarouselComponent
 } from './components/product-image-carousel/product-image-carousel.component';
+import { BackgroundImagePipe } from './pipes/background-image.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 
 
@@ -54,7 +56,10 @@ import {
     ProductItemComponent,
     ProductQtyControllerComponent,
     SearchComponent,
-    ProductImageCarouselComponent
+    ProductImageCarouselComponent,
+
+    BackgroundImagePipe,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
@@ -71,7 +76,10 @@ import {
     ProductItemComponent,
     ProductQtyControllerComponent,
     SearchComponent,
-    ProductImageCarouselComponent
+    ProductImageCarouselComponent,
+
+    BackgroundImagePipe,
+    CapitalizePipe
   ]
 })
 export class SharedModule { }

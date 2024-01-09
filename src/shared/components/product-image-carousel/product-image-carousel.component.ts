@@ -48,10 +48,6 @@ export class ProductImageCarouselComponent {
     return this.carouselImages.findIndex(img => img._id === imageId);
   }
 
-  public getImagePath(baseImgPath: string): string {
-    return `url('${ baseImgPath }')`;
-  }
-
   public isImageDisplayed(image: ProductImageModel): boolean {
     return image._id === this.carouselDisplayImage._id;
   }

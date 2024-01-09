@@ -136,16 +136,6 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
      };
   }
 
-  public capitalizeCategoryName(categoryName: string): string {
-    return categoryName
-      .split('_')
-      .map(word => {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      })
-      .join(' ')
-      .trim();
-  }
-
   public submit(): void {
     if (confirm('Are you sure you want to update the product details?')) {
       this._productsBroker.editProductBasicDetails(this.product._id, this.basicDetailsFG.value);

@@ -71,7 +71,7 @@
           </option>
           <option *ngFor="let category of categories"
                   [value]="category">
-            {{ capitalizeCategoryName(category) }}
+            {{ category | capitalize:'_' }}
           </option>
         </select>
         <ng-container *ngIf="isInputValid('category')">

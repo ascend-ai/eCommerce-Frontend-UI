@@ -3,10 +3,10 @@
      (mouseleave)="resetDisplayImage(product)"
      (click)="viewProduct()">
   <div class="badge bg-info text-white position-absolute product-card-badge">
-    {{ capitalizedCategoryName }}
+    {{ product.category | capitalize:'_' }}
   </div>
   <div class="img-fluid product-card-img"
-       [style.backgroundImage]="displayImagePath"></div>
+       [style.backgroundImage]="product.displayImage.url | backgroundImage"></div>
   <div class="card-body d-flex flex-column justify-content-end align-items-center p-4 product-card-body">
     <h5 class="card-title">
       <strong>
