@@ -1,0 +1,16 @@
+.product-item {
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+.product-image {
+  height: 6em;
+  // width: 8em;
+  // background-repeat: no-repeat;
+  // background-attachment: scroll;
+  // background-position: center;
+  // background-size: cover;
+  // background-color: whitesmoke;
+}

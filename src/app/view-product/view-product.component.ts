@@ -63,10 +63,6 @@ export class ViewProductComponent implements OnInit, OnDestroy {
       });
   }
 
-  public getImagePath(baseImgPath: string): string {
-    return `url('${ baseImgPath }')`;
-  }
-
   public setAsDisplayImage(image: ProductImageModel): void {
     this.product.displayImage = image;
   }

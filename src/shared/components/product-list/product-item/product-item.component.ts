@@ -21,19 +21,6 @@ export class ProductItemComponent {
   private _imgShuffleDelay: number = 700;
   @Input() product: ProductModel = new ProductModel();
   @Output() addToCart: EventEmitter<ProductModel> = new EventEmitter();
-  public get capitalizedCategoryName(): string {
-    return this.product.category
-      .split('_')
-      .map(word => {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      })
-      .join(' ')
-      .trim();
-  }
-
-  public get displayImagePath(): string {
-    return `url('${ this.product.displayImage.url }')`;
-  }
 
   constructor(private _router: Router) {}
 

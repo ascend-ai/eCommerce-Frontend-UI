@@ -15,7 +15,7 @@
             <!-- Secondary Images -->
             <div class="img-fluid border border-2 mb-3 me-3 me-xl-0 cursor-pointer secondary-img"
                  *ngFor="let image of product.images; let i = index;"
-                 [style.backgroundImage]="getImagePath(image.url)"
+                 [style.backgroundImage]="image.url | backgroundImage"
                  (click)="setAsDisplayImage(image)"
                  [class.border-info]="isImageDisplayed(image)">
             </div>
@@ -24,7 +24,7 @@
           <!-- Primary Image -->
           <div class="img-fluid border border-2 border-info primary-img"
                (click)="openCarousel()"
-               [style.backgroundImage]="getImagePath(product.displayImage.url)"></div>
+               [style.backgroundImage]="product.displayImage.url | backgroundImage"></div>
         </div>
       </div>
       <div class="col-xl-5">

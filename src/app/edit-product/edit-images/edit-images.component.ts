@@ -64,10 +64,6 @@ export class EditImagesComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getImagePath(baseImgPath: string): string {
-    return `url('${ baseImgPath }')`;
-  }
-
   public deleteImage(imageIndex: number): void {
     if (confirm('Are you sure you want to delete this product image?')) {
       this._productsBroker.deleteProductImage(
