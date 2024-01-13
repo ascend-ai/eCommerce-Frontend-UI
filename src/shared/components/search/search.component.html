@@ -1,15 +1,12 @@
-<div class="container-fluid bg-light bg-opacity-75 position-fixed top-0 start-0 d-flex justify-content-center align-items-center search-container"
-     *ngIf="isSearchOpen"
-     (click)="onCloseSearch()">
-  <div class="input-group input-group-lg search"
-       (click)="$event.stopPropagation()">
-    <input type="search"
-           class="form-control"
-           [formControl]="searchControl"
-           (keydown.enter)="onSearch()"
-           placeholder="Search something">
-    <button class="btn btn-primary"
-            (click)="onSearch()"
-            [disabled]="isSearchInvalid">Search</button>
-  </div>
+<div class="input-group input-group-lg w-100"
+     (click)="$event.stopPropagation()">
+  <input type="search"
+         class="form-control"
+         [formControl]="searchControl"
+         (keydown.enter)="onSearch($event)"
+         placeholder="Search something">
+  <button class="btn btn-primary"
+          type="button"
+          (click)="onSearch($event)"
+          [disabled]="isSearchInvalid">Search</button>
 </div>

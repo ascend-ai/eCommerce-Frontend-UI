@@ -2,15 +2,12 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output
+  Output,
 } from '@angular/core';
 import {
   FormControl,
   Validators
 } from '@angular/forms';
-import {
-  Router
-} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -18,29 +15,26 @@ import {
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  @Input() isSearchOpen: boolean = false;
-  @Output() isSearchOpenChange: EventEmitter<boolean> = new EventEmitter();
-
+  @Output() search: EventEmitter<string> = new EventEmitter();
+  @Input() reset: boolean = false;
   public searchControl: FormControl = new FormControl<string>('', Validators.required);
 
   public get isSearchInvalid(): boolean {
     return (this.searchControl.touched || this.searchControl.dirty) && !!this.searchControl.errors;
   }
-  constructor(private _router: Router) {}
 
-  public onCloseSearch(): void {
-    this.isSearchOpenChange.emit(false);
-  }
+  constructor() {}
 
-  public onSearch(): void {
+  public onSearch(event: Event): void {
+    if (event instanceof KeyboardEvent) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     if (!this.isSearchInvalid) {
-      this._router.navigate(['/products'], {
-        queryParams: {
-          search: this.searchControl.value
-        }, 
-      })
-      this.searchControl.reset();
-      this.isSearchOpenChange.emit(false);
+      this.search.emit(this.searchControl.value);
+      if (this.reset) {
+        this.searchControl.reset();
+      }
     }
   }
 }
