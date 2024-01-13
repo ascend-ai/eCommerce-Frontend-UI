@@ -3,7 +3,7 @@ import { ProductImageInterface } from '../interfaces';
 export class ProductImageModel implements ProductImageInterface {
   _id: string;
   url: string;
-  constructor(data: ProductImageInterface = {
+  constructor(data: ProductImageInterface | ProductImageModel = {
     _id: '',
     url: ''
   }) {

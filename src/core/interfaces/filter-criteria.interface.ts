@@ -1,4 +1,6 @@
-import { ProductCategory } from '../enums';
+import {
+  ProductCategory
+} from '../enums';
 
 export interface FilterCriteriaInterface {
   page: number;

@@ -23,6 +23,7 @@ import {
   EditProductHelperService
 } from './edit-product-helper.service';
 import {
+  FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
 import {
@@ -44,6 +45,7 @@ import {
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     ReactiveFormsModule,
     DragDropModule,
     EditProductRoutingModule,

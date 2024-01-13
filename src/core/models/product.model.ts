@@ -3,6 +3,7 @@ import { ProductInterface } from '../interfaces';
 import { ProductImageModel } from './product-image.model';
 
 export class ProductModel implements ProductInterface {
+  // API properties
   _id: string;
   name: string;
   description: string;
@@ -10,10 +11,12 @@ export class ProductModel implements ProductInterface {
   isPopular: boolean;
   quantityInStock: number;
   images: Array<ProductImageModel>;
-  displayImage: ProductImageModel;
   similarProducts: Array<any>;
   category: ProductCategory;
-  constructor(data: ProductInterface = {
+
+  // UI properties
+  displayImage: ProductImageModel;
+  constructor(data: ProductInterface | ProductModel = {
     _id: '',
     name: '',
     description: '',
@@ -22,7 +25,8 @@ export class ProductModel implements ProductInterface {
     quantityInStock: 0,
     images: [],
     similarProducts: [],
-    category: ProductCategory.OTHERS
+    category: ProductCategory.OTHERS,
+    displayImage: new ProductImageModel(),
   }) {
     this._id = data?._id || '';
     this.name = data?.name || '';
@@ -31,8 +35,8 @@ export class ProductModel implements ProductInterface {
     this.isPopular = data?.isPopular || false;
     this.quantityInStock = data?.quantityInStock || 0;
     this.images = data?.images || [];
-    this.displayImage = new ProductImageModel();
     this.similarProducts = data?.similarProducts || [];
     this.category = data?.category || ProductCategory.OTHERS;
+    this.displayImage = data?.displayImage || new ProductImageModel();
   }
 };

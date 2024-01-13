@@ -7,7 +7,7 @@ export class PaginationModel<T> implements PaginationInterface<T> {
   totalPages: number;
   page: number;
   size: number;
-  constructor(data: PaginationInterface<T> = {
+  constructor(data: PaginationInterface<T> | PaginationModel<T> = {
     content: [],
     totalElements: 0,
     totalPages: 0,

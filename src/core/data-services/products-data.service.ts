@@ -9,13 +9,13 @@ import {
   environment
 } from 'src/environments/environment';
 import {
-  ApiResponseModel,
   FilterCriteriaModel
 } from '../models';
 import {
   Injectable
 } from '@angular/core';
 import {
+  ApiResponseInterface,
   PaginationInterface,
   ProductInterface
 } from '../interfaces';
@@ -26,50 +26,57 @@ export class ProductsDataService {
 
   constructor(private _http: HttpClient) {}
 
-  public getProducts(filterCriteria: FilterCriteriaModel): Observable<ApiResponseModel<PaginationInterface<ProductInterface>>> {
+  public getProducts(filterCriteria: FilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<ProductInterface>>> {
     const params = this._getQueryParamsForProductFilter(filterCriteria);
-    return this._http.get<ApiResponseModel<PaginationInterface<ProductInterface>>>(
+    return this._http.get<ApiResponseInterface<PaginationInterface<ProductInterface>>>(
       this._apiUrl + '/products',
       { params }
     );
   }
 
-  public getProductsWithIds(productIds: Array<string>): Observable<ApiResponseModel<Array<ProductInterface>>> {
-    return this._http.post<ApiResponseModel<Array<ProductInterface>>>(
+  public getProductsWithIds(productIds: Array<string>): Observable<ApiResponseInterface<Array<ProductInterface>>> {
+    return this._http.post<ApiResponseInterface<Array<ProductInterface>>>(
       this._apiUrl + '/products/with-ids',
       productIds
     );
   }
 
-  public getProduct(productId: string): Observable<ApiResponseModel<ProductInterface>> {
-    return this._http.get<ApiResponseModel<ProductInterface>>(
+  public getProduct(productId: string): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.get<ApiResponseInterface<ProductInterface>>(
       this._apiUrl + `/products/${productId}`);
   }
 
-  public editProductBasicDetails(productId: string, data: Record<string, any>): Observable<ApiResponseModel<ProductInterface>> {
-    return this._http.put<ApiResponseModel<ProductInterface>>(
+  public editProductBasicDetails(productId: string, data: Record<string, any>): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.put<ApiResponseInterface<ProductInterface>>(
       this._apiUrl + `/products/${productId}/basic-details`,
       data
     );
   }
 
-  public addNewProductImage(productId: string, imageData: FormData): Observable<ApiResponseModel<ProductInterface>> {
-    return this._http.post<ApiResponseModel<ProductInterface>>(
+  public addNewProductImage(productId: string, imageData: FormData): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.post<ApiResponseInterface<ProductInterface>>(
       this._apiUrl + `/products/${productId}/images`,
       imageData
     );
   }
 
-  public deleteProductImage(productId: string, imageId: string): Observable<ApiResponseModel<ProductInterface>> {
-    return this._http.delete<ApiResponseModel<ProductInterface>>(
+  public deleteProductImage(productId: string, imageId: string): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.delete<ApiResponseInterface<ProductInterface>>(
       this._apiUrl + `/products/${productId}/images/${imageId}`,
     );
   }
 
-  public reaggangeProductImages(productId: string, imageIds: Array<string>): Observable<ApiResponseModel<ProductInterface>> {
-    return this._http.put<ApiResponseModel<ProductInterface>>(
+  public reaggangeProductImages(productId: string, imageIds: Array<string>): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.put<ApiResponseInterface<ProductInterface>>(
       this._apiUrl + `/products/${productId}/images`,
       imageIds
+    );
+  }
+
+  public updateSimilarProducts(productId: string, similarProducts: Array<string>): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.put<ApiResponseInterface<ProductInterface>>(
+      this._apiUrl + `/products/${productId}/similar-products`,
+      similarProducts
     );
   }
 

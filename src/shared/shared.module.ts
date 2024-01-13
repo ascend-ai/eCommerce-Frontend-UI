@@ -35,6 +35,7 @@ import {
   SearchComponent
 } from './components/search/search.component';
 import {
+  FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
 import {
@@ -42,6 +43,8 @@ import {
 } from './components/product-image-carousel/product-image-carousel.component';
 import { BackgroundImagePipe } from './pipes/background-image.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { PushAndPullComponent } from './components/push-and-pull/push-and-pull.component';
+import { PnpItemComponent } from './components/push-and-pull/pnp-item/pnp-item.component';
 
 
 
@@ -57,14 +60,17 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     ProductQtyControllerComponent,
     SearchComponent,
     ProductImageCarouselComponent,
+    PushAndPullComponent,
+    PnpItemComponent,
 
     BackgroundImagePipe,
-    CapitalizePipe
+    CapitalizePipe,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,
@@ -77,9 +83,10 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     ProductQtyControllerComponent,
     SearchComponent,
     ProductImageCarouselComponent,
+    PushAndPullComponent,
 
     BackgroundImagePipe,
-    CapitalizePipe
+    CapitalizePipe,
   ]
 })
 export class SharedModule { }

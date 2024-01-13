@@ -1,66 +1,17 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <!-- Search -->
+  <div class="row my-4">
+    <!-- Search -->
+    <div class="col-5">
+      <app-search (search)="onSearch($event)"
+                  [reset]="false"></app-search>
     </div>
   </div>
-  <div class="row">
-    <div class="col-6">
-      <h5>Products</h5>
-      <div class="list-group">
-        <div class="list-group-item" style="max-width: 540px;">
-          <div class="row">
-            <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="list-group-item" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-6">
-      <h5>Similar Products</h5>
-      <div class="border p-3 w-100 d-flex flex-column">
-
-        <div class="card mb-3 w-100 product-item"
-             *ngFor="let similarProduct of product.similarProducts; let i = index;">
-          <div class="row">
-            <div class="col-4">
-              <img [src]="similarProduct.displayImage.url"
-                   class="img-fluid rounded-start product-image">
-            </div>
-                   
-            <div class="col-8">
-              <div class="card-body">
-                <h5 class="card-title">{{ similarProduct.name }}</h5>
-                <p class="card-text text-truncate">{{ similarProduct.description }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <!-- Push & Pull -->
+  <app-push-and-pull [paginator]="pagination"
+                     [assigned]="product.similarProducts"
+                     [itemUnderEdit]="product"
+                     (page)="goToPage($event)"
+                     (update)="onUpdate($event)">
+  </app-push-and-pull>
 </div>
