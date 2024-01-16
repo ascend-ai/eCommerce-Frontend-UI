@@ -13,18 +13,18 @@
       <!-- Primary nav items-->
       <ul class="navbar-nav me-auto my-2 my-lg-0 nav-primary">
         <li class="nav-item">
-          <a class="nav-link"
-             routerLink="/home"
+          <a class="nav-link cursor-pointer"
+             (click)="navigate(['/home'])"
              routerLinkActive="active">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"
-             routerLink="/customization"
+          <a class="nav-link cursor-pointer"
+             (click)="navigate(['/customization'])"
              routerLinkActive="active">Customization</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"
-             routerLink="/pop-up"
+          <a class="nav-link cursor-pointer"
+             (click)="navigate(['/pop-up'])"
              routerLinkActive="active">Pop-up</a>
         </li>
       </ul>
@@ -34,7 +34,7 @@
         <li class="nav-item p-2"
             *ngIf="canCreateProduct">
           <i class="fa-solid fa-folder-plus nav-link position-relative cursor-pointer"
-             [routerLink]="['products', 'create']"
+             (click)="navigate(['products', 'create'])"
              routerLinkActive="active"></i>
         </li>
         <li class="nav-item p-2">
@@ -43,7 +43,7 @@
         </li>
         <li class="nav-item p-2">
           <i class="fas fa-shopping-cart nav-link position-relative cursor-pointer"
-             routerLink="/cart"
+             (click)="navigate(['/cart'])"
              routerLinkActive="active">
             <span class="position-absolute top-0 start-40 translate-middle badge rounded-pill bg-danger">
               {{ numberOfItemsInCart }}
@@ -52,7 +52,7 @@
         </li>
         <li class="nav-item p-2">
           <i class="fa-solid fa-user nav-link cursor-pointer"
-             routerLink="/auth"
+             (click)="navigate(['/auth'])"
              routerLinkActive="active"></i>
         </li>
       </ul>
@@ -65,5 +65,6 @@
      *ngIf="isSearchOpen"
      (click)="closeSearch()">
   <app-search (search)="onSearch($event)"
+              [isInputLarge]="true"
               [reset]="true"></app-search>
 </div>

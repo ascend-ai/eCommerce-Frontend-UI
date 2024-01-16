@@ -27,7 +27,9 @@ import {
 import {
   AuthStateInterface
 } from '../interfaces';
-import { AuthState, UserRole } from '../enums';
+import {
+  AuthState
+} from '../enums';
 
 @Injectable()
 export class AuthBrokerService {

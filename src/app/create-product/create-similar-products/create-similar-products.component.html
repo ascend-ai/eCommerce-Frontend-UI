@@ -1,0 +1,7 @@
+<div class="container">
+  <app-push-and-pull [paginator]="pagination"
+                     [(assigned)]="similarProducts"
+                     (search)="onSearch($event)"
+                     (page)="goToPage($event)">
+  </app-push-and-pull>
+</div>

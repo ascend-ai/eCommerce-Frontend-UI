@@ -7,34 +7,41 @@ import {
   DEFAULT_PAGE_INDEX,
   FilterCriteriaModel,
   PaginationModel,
-  ProductModel,
   ProductsBrokerService,
   UseablePushAndPullItemModelType
 } from 'src/core';
 import {
-  EditProductHelperService
-} from '../edit-product-helper.service';
+  CreateProductHelperService
+} from '../create-product-helper.service';
 import {
   takeWhile
 } from 'rxjs';
 
 @Component({
-  selector: 'app-edit-similar-products',
-  templateUrl: './edit-similar-products.component.html',
-  styleUrls: ['./edit-similar-products.component.scss']
+  selector: 'app-create-similar-products',
+  templateUrl: './create-similar-products.component.html',
+  styleUrls: ['./create-similar-products.component.scss']
 })
-export class EditSimilarProductsComponent implements OnInit, OnDestroy {
+export class CreateSimilarProductsComponent implements OnInit, OnDestroy {
   public pagination: PaginationModel<UseablePushAndPullItemModelType> = new PaginationModel();
-  public product: ProductModel = new ProductModel();
-  public similarProducts: Array<UseablePushAndPullItemModelType> = [];
+  public get similarProducts(): Array<UseablePushAndPullItemModelType> {
+    return this._similarProducts;
+  }
+  public set similarProducts(assigned: Array<UseablePushAndPullItemModelType>) {
+    this._similarProducts = assigned;
+    this._createProductHelper.saveSimilarProducts(assigned);
+  }
+  public _similarProducts: Array<UseablePushAndPullItemModelType> = [];
   private _filter: FilterCriteriaModel = new FilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
     size: 4
   });
   private _subscribeMain: boolean = true;
 
+  
+
   constructor(private _productsBroker: ProductsBrokerService,
-              private _editProductHelper: EditProductHelperService) {}
+              private _createProductHelper: CreateProductHelperService) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
@@ -46,11 +53,10 @@ export class EditSimilarProductsComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscriptions(): void {
-    this._editProductHelper.productForEdit$
+    this._createProductHelper.similarProducts$
       .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(product => {
-        this.product = product;
-        this.similarProducts = product.similarProducts;
+      .subscribe(similarProducts => {
+        this._similarProducts = similarProducts
       });
 
     this._productsBroker.pagination$
@@ -70,32 +76,8 @@ export class EditSimilarProductsComponent implements OnInit, OnDestroy {
     this._productsBroker.getProducts(this._filter);
   }
 
-
   public goToPage(pageIndex: number): void {
     this._filter.page = pageIndex;
     this._getProducts();
-  }
-
-  public onUpdate(): void {
-    this._productsBroker.updateSimilarProducts(
-      this.product._id,
-      this.similarProducts.map(product => product._id)
-    )
-  }
-
-  public resetSimilarProductsItems(): void {
-    this.similarProducts = this.product.similarProducts;
-  }
-
-  public get areSimilarProductsChanged(): boolean {
-    if (this.product.similarProducts.length === this.similarProducts.length) {
-      for (let i = 0; i < this.product.similarProducts.length; i++) {
-        if (this.product.similarProducts[i]._id !== this.similarProducts[i]._id) {
-          return true;
-        }
-      }
-      return false;
-    }
-    return true
   }
 }

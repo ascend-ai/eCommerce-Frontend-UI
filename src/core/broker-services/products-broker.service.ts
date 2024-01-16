@@ -218,6 +218,31 @@ export class ProductsBrokerService {
       .subscribe();
   }
 
+  public createProduct(productData: FormData): void {
+    this._loadingHelper.startLoading();
+    let product: ProductModel = new ProductModel();
+    this._productsData.createProduct(productData)
+      .pipe(
+        take(1),
+        mergeMap(res => {
+          product = this._transformProducts([res.data])[0];
+          return this._productsData.getProductsWithIds(product.similarProducts);
+        }),
+        tap(res => {
+          this._loadingHelper.stopLoading();
+          product.similarProducts = this._transformProducts(res.data);
+          this._product$.next(product);
+          this._notificationHelper.handleSuccess('Product created successfully!');
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._loadingHelper.stopLoading();
+          this._notificationHelper.handleError(err.error.message);
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
   public getProduct(productId: string): void {
     this._loadingHelper.startLoading();
     let product: ProductModel = new ProductModel();

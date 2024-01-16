@@ -1,5 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NotificationStatusInterface } from 'src/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
+import {
+  NotificationStatusInterface
+} from 'src/core';
 
 @Component({
   selector: 'app-notifications',

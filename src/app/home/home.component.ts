@@ -1,7 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { takeWhile } from 'rxjs';
-import { CartHelperService, DEFAULT_PAGE_INDEX, FilterCriteriaModel, PaginationModel, ProductCategory, ProductModel, ProductsBrokerService } from 'src/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import {
+  takeWhile
+} from 'rxjs';
+import {
+  CartHelperService,
+  DEFAULT_PAGE_INDEX,
+  FilterCriteriaModel,
+  PaginationModel,
+  ProductCategory,
+  ProductModel,
+  ProductsBrokerService
+} from 'src/core';
 
 @Component({
   selector: 'app-home',
