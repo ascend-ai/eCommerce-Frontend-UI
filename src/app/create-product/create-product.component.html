@@ -1,1 +1,38 @@
-<p>create-product works!</p>
+<section class="my-5 mx-5">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="basic-details"
+         routerLinkActive="active">
+        Basic Details
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="images"
+         routerLinkActive="active">
+        Images
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="similar-products"
+         routerLinkActive="active">
+        Similar Products
+      </a>
+    </li>
+  </ul>
+</section>
+<router-outlet></router-outlet>
+<div class="container">
+  <div class="rol">
+    <div class="col d-grid">
+      <button class="btn btn-lg btn-primary"
+              type="submit"
+              (click)="createProduct()"
+              [disabled]="!isCreateProductValid">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

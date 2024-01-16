@@ -1,11 +1,19 @@
-import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
-import { AccessTokenPayloadInterface } from '../interfaces';
-import { UserRole } from '../enums';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  jwtDecode
+} from 'jwt-decode';
+import {
+  AccessTokenPayloadInterface
+} from '../interfaces';
+import {
+  UserRole
+} from '../enums';
 
 @Injectable()
 export class AuthHelperService {
-  private SEC_TO_MILLISEC = 1000;
+  private readonly SEC_TO_MILLISEC = 1000;
 
   constructor() { }
 

@@ -17,8 +17,8 @@ import {
   styleUrls: ['./product-item.component.scss']
 })
 export class ProductItemComponent {
+  private readonly IMG_SHUFFLE_EDELAY: number = 700;
   private _imgTimeoutId: any;
-  private _imgShuffleDelay: number = 700;
   @Input() product: ProductModel = new ProductModel();
   @Output() addToCart: EventEmitter<ProductModel> = new EventEmitter();
 
@@ -28,7 +28,7 @@ export class ProductItemComponent {
     if (product.images.length > 1) {
       this._imgTimeoutId = setTimeout(() => {
         product.displayImage = product.images[1];
-      }, this._imgShuffleDelay)
+      }, this.IMG_SHUFFLE_EDELAY)
     }
   }
 
@@ -38,7 +38,7 @@ export class ProductItemComponent {
   }
 
   public viewProduct(): void {
-    this._router.navigate(['products', this.product._id])
+    this._router.navigate(['products', this.product._id]);
   }
 
   public addProductToCard(event: Event): void {

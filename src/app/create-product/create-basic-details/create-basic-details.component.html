@@ -1,0 +1,115 @@
+<div class="container">
+  <form class="needs-validation"
+        [formGroup]="basicDetailsFG">
+    <div class="row my-2">
+      <!-- Name -->
+      <div class="col-12 col-xl-3 mb-2 mb-xl-0 form-group">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text"
+               class="form-control"
+               id="name"
+               [ngClass]="getInputValidationClasses('name')"
+               [formControl]="nameFC">
+        <ng-container *ngIf="isInputValid('name')">
+          <small class="text-danger"
+                  *ngIf="nameFC.errors?.['required']">
+            Name is required
+          </small>
+        </ng-container>
+      </div>
+
+      <!-- Quantity in stock -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="qty-in-stock" class="form-label">Quantity in Stock:</label>
+        <input type="number"
+               class="form-control"
+               id="qty-in-stock"
+               [ngClass]="getInputValidationClasses('quantityInStock')"
+               [formControl]="qtyInStockFC">
+        <ng-container *ngIf="isInputValid('quantityInStock')">
+          <small class="text-danger"
+                  *ngIf="qtyInStockFC.errors?.['required']">
+            Quantity is required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Descripton -->
+    <div class="row my-2">
+      <div class="col-12 col-xl-6 form-group">
+        <label for="description" class="form-label">Description:</label>
+        <textarea class="form-control"
+                  cols="30"
+                  rows="6"
+                  id="description"
+                  [ngClass]="getInputValidationClasses('description')"
+                  [formControl]="descriptionFC">
+        </textarea>
+        <ng-container *ngIf="isInputValid('description')">
+        <small class="text-danger"
+                *ngIf="descriptionFC.errors?.['required']">
+          Description is required
+        </small>
+        </ng-container>
+      </div>
+    </div>
+
+
+    <div class="row my-2">
+      <!-- Category -->
+      <div class="col-12 col-xl-3 mb-2 mb-xl-0 form-group">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select"
+                id="category"
+                [ngClass]="getInputValidationClasses('category')"
+                [formControl]="categoryFC">
+          <option value=""
+                  disabled>
+            Select category
+          </option>
+          <option *ngFor="let category of categories"
+                  [value]="category">
+            {{ category | capitalize:'_' }}
+          </option>
+        </select>
+        <ng-container *ngIf="isInputValid('category')">
+          <small class="text-danger"
+                  *ngIf="categoryFC.errors?.['required']">
+            Category required
+          </small>
+        </ng-container>
+      </div>
+
+      <!-- Price -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="price" class="form-label">Price</label>
+        <input type="number"
+               class="form-control"
+               id="price"
+               [ngClass]="getInputValidationClasses('price')"
+               [formControl]="priceFC">
+        <ng-container *ngIf="isInputValid('price')">
+          <small class="text-danger"
+                  *ngIf="priceFC.errors?.['required']">
+            Price is required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Is popular -->
+    <div class="row my-3">
+      <div class="col-6 form-group">
+        <input type="checkbox"
+                class="form-check-input me-1"
+                [ngClass]="getInputValidationClasses('isPopular')"
+                [formControl]="isPopularFC"
+                id="popular">
+        <label class="form-check-label" for="popular">
+          Set popular
+        </label>
+      </div>
+    </div>
+  </form>
+</div>

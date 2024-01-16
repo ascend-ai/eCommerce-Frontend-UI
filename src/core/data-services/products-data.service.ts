@@ -80,6 +80,13 @@ export class ProductsDataService {
     );
   }
 
+  public createProduct(productData: FormData): Observable<ApiResponseInterface<ProductInterface>> {
+    return this._http.post<ApiResponseInterface<ProductInterface>>(
+      this._apiUrl + '/products',
+      productData
+    );
+  }
+
   private _getQueryParamsForProductFilter(filterCriteria: FilterCriteriaModel): HttpParams {
     let params = new HttpParams()
       .set('size', filterCriteria.size)

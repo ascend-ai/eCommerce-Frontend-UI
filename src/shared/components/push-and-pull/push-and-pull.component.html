@@ -1,4 +1,12 @@
 <div class="row my-4">
+  <!-- Search -->
+  <div class="col-5">
+    <app-search (search)="onSearch($event)"
+                [reset]="false"></app-search>
+  </div>
+</div>
+
+<div class="row my-4">
   <!-- All products -->
   <div class="col-5">
     <h5>All</h5>
@@ -91,24 +99,5 @@
                     [init]="item"></app-pnp-item>
 
     </div>
-  </div>
-</div>
-
-<!-- Save & Reset buttons -->
-<div class="row my-4">
-  <div class="col d-flex">
-    <button class="btn btn-primary"
-            type="button"
-            [disabled]="!areAssignedItemsChanged"
-            (click)="updateAssignedItems()">
-      Save
-    </button>
-
-    <button class="btn btn-danger ms-1"
-            type="button"
-            [disabled]="!areAssignedItemsChanged"
-            (click)="resetAssignedItems()">
-      Reset
-    </button>
   </div>
 </div>

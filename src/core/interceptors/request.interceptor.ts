@@ -1,12 +1,22 @@
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-
-import { Observable } from 'rxjs';
-import { AuthHelperService } from '../helper-services';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest
+} from '@angular/common/http';
+import {
+  Observable
+} from 'rxjs';
+import {
+  AuthHelperService
+} from '../helper-services';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  private AUTHORIZATION_HEADER_PREFIX = 'Bearer ';
+  private readonly AUTHORIZATION_HEADER_PREFIX = 'Bearer ';
 
   constructor(private _authHelper: AuthHelperService) {}
 

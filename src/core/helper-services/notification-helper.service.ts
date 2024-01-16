@@ -14,8 +14,8 @@ export class NotificationHelperService {
   private _notifications$: Subject<Array<NotificationStatusInterface>> = new Subject();
   public notifications$: Observable<Array<NotificationStatusInterface>> = this._notifications$.asObservable();
   private _notifications: Array<NotificationStatusInterface> = [];
-  private NOTIFICATION_DURATION: number = 6000;
-  private MAX_NOTIFICATIONS = 3;
+  private readonly NOTIFICATION_DURATION: number = 6000;
+  private readonly MAX_NOTIFICATIONS = 3;
 
 
   constructor() { }

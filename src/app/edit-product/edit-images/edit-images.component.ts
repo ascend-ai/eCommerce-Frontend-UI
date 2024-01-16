@@ -31,7 +31,6 @@ export class EditImagesComponent implements OnInit, OnDestroy {
   public carouselDisplayImage: ProductImageModel = new ProductImageModel();
   public carouselImages: Array<ProductImageModel> = [];
   private _subscribeMain: boolean = true;
-  public list = [1, 2, 3, 4]
 
   constructor(private _productsBroker: ProductsBrokerService,
               private _editProductHelper: EditProductHelperService) {}
@@ -101,7 +100,7 @@ export class EditImagesComponent implements OnInit, OnDestroy {
     this.images = this.product.images.map(img => new ProductImageModel(img));
   }
 
-  public changeImageOrder(): void {
+  public updateImageOrder(): void {
     this._productsBroker.rearrangeProductImages(
       this.product._id,
       this.images.map(img => img._id)

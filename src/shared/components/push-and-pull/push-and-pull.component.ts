@@ -19,8 +19,8 @@ import {
 })
 export class PushAndPullComponent {
   @Output() page: EventEmitter<number> = new EventEmitter();
-  @Output() update: EventEmitter<Array<string>> = new EventEmitter();
-  @Input() itemUnderEdit!: UseablePushAndPullItemModelType;
+  @Output() search: EventEmitter<string> = new EventEmitter();
+  @Input() itemUnderEdit: UseablePushAndPullItemModelType | undefined;
   @Input() set paginator(pagination: PaginationModel<UseablePushAndPullItemModelType>) {
     this._pagination = pagination;
     this.items = pagination.content.map(item => {
@@ -37,44 +37,30 @@ export class PushAndPullComponent {
     });
   }
   @Input() set assigned(assigned: Array<UseablePushAndPullItemModelType>) {
-    this._initiallyAssignedData = assigned;
-    this.assignedItems = assigned.map(item => {
-      if (item instanceof ProductModel) {
+    if (Array.isArray(assigned)) {
+      this.assignedItems = assigned.map(item => {
+        if (item instanceof ProductModel) {
+          return {
+            data: new ProductModel(item),
+            isSelected: false,
+          };
+        }
         return {
-          data: new ProductModel(item),
+          data: new UserModel(item),
           isSelected: false,
         };
-      }
-      return {
-        data: new UserModel(item),
-        isSelected: false,
-      };
-    });
+      });
+    }
   }
+  @Output() assignedChange: EventEmitter<Array<UseablePushAndPullItemModelType>> = new EventEmitter();
   public items: Array<PushAndPullItemInterface<UseablePushAndPullItemModelType>> = [];
   public assignedItems: Array<PushAndPullItemInterface<UseablePushAndPullItemModelType>> = [];
   private _pagination: PaginationModel<UseablePushAndPullItemModelType> = new PaginationModel();
-  private _initiallyAssignedData: Array<UseablePushAndPullItemModelType> = [];
 
   constructor() {}
 
-  public updateAssignedItems(): void {
-    this.update.emit(this.assignedItems.map(item => item.data._id));
-  }
-
-  public resetAssignedItems(): void {
-    this.assignedItems = this._initiallyAssignedData.map(item => {
-      if (item instanceof ProductModel) {
-        return {
-          data: new ProductModel(item),
-          isSelected: false,
-        };
-      }
-      return {
-        data: new UserModel(item),
-        isSelected: false,
-      };
-    });
+  public onSearch(searchText: string): void {
+    this.search.emit(searchText);
   }
 
   public get isAnyItemsSelected(): boolean {
@@ -82,18 +68,6 @@ export class PushAndPullComponent {
   }
   public get isAnyAssignedItemsSelected(): boolean {
     return this.assignedItems.some(item => item.isSelected);
-  }
-
-  public get areAssignedItemsChanged(): boolean {
-    if (this._initiallyAssignedData.length === this.assignedItems.length) {
-      for (let i = 0; i < this._initiallyAssignedData.length; i++) {
-        if (this._initiallyAssignedData[i]._id !== this.assignedItems[i].data._id) {
-          return true;
-        }
-      }
-      return false;
-    }
-    return true
   }
 
   public addToAssigned(): void {
@@ -114,6 +88,12 @@ export class PushAndPullComponent {
         }
       }
     }
+    this.assignedChange.emit(this.assignedItems.map(item => item.data));
+  }
+
+  public removeFromAssigned(): void {
+    this.assignedItems = this.assignedItems.filter(item => !item.isSelected);
+    this.assignedChange.emit(this.assignedItems.map(item => item.data));
   }
 
   public isItemInAssignedItems(item: PushAndPullItemInterface<UseablePushAndPullItemModelType>): boolean {
@@ -122,11 +102,7 @@ export class PushAndPullComponent {
   }
 
   public isItemUnderEdit(item: PushAndPullItemInterface<UseablePushAndPullItemModelType>): boolean {
-    return item.data._id === this.itemUnderEdit._id;
-  }
-
-  public removeFromAssigned(): void {
-    this.assignedItems = this.assignedItems.filter(item => !item.isSelected);
+    return !!this.itemUnderEdit && (item.data._id === this.itemUnderEdit._id);
   }
 
   public get isFirstPage(): boolean {

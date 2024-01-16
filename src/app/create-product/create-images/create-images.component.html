@@ -1,0 +1,55 @@
+<div class="container">
+
+  <!-- File upload -->
+  <div class="row my-4">
+    <div class="col">
+      <input type="file"
+             class="d-none"
+             multiple
+             (change)="onFileSelected($event)"
+             #fileUpload>
+    
+      <button class="btn btn-primary btn-lg file-upload"
+              type="button"
+              (click)="fileUpload.click()"
+              [disabled]="files.length === 3">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>&nbsp;Upload image</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- File display -->
+  <div class="row my-4">
+    <div class="col">
+      <table class="table"
+             cdkDropListGroup>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Size</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody class="file-list"
+               cdkDropList
+               cdkDropListOrientation="vertical"
+               [cdkDropListData]="files"
+               (cdkDropListDropped)="drop($event)">
+          <tr class="file"
+              *ngFor="let file of files; let i = index;"
+              cdkDrag>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ file.name }}</td>
+            <td>{{ getInKb(file.size) }}</td>
+            <td>
+              <i class="fas fa-trash fa-lg text-danger cursor-pointer"
+                 (click)="deleteFile(i)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

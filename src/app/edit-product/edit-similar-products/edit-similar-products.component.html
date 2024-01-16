@@ -1,17 +1,27 @@
 <div class="container">
+  <app-push-and-pull [paginator]="pagination"
+                     [(assigned)]="similarProducts"
+                     [itemUnderEdit]="product"
+                     (search)="onSearch($event)"
+                     (page)="goToPage($event)">
+  </app-push-and-pull>
+
+  <!-- Save & Reset buttons -->
   <div class="row my-4">
-    <!-- Search -->
-    <div class="col-5">
-      <app-search (search)="onSearch($event)"
-                  [reset]="false"></app-search>
+    <div class="col d-flex">
+      <button class="btn btn-primary"
+              type="button"
+              [disabled]="!areSimilarProductsChanged"
+              (click)="onUpdate()">
+        Update
+      </button>
+
+      <button class="btn btn-danger ms-1"
+              type="button"
+              [disabled]="!areSimilarProductsChanged"
+              (click)="resetSimilarProductsItems()">
+        Reset
+      </button>
     </div>
   </div>
-
-  <!-- Push & Pull -->
-  <app-push-and-pull [paginator]="pagination"
-                     [assigned]="product.similarProducts"
-                     [itemUnderEdit]="product"
-                     (page)="goToPage($event)"
-                     (update)="onUpdate($event)">
-  </app-push-and-pull>
 </div>

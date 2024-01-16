@@ -17,6 +17,7 @@ import {
 export class SearchComponent {
   @Output() search: EventEmitter<string> = new EventEmitter();
   @Input() reset: boolean = false;
+  @Input() isInputLarge: boolean = false;
   public searchControl: FormControl = new FormControl<string>('', Validators.required);
 
   public get isSearchInvalid(): boolean {

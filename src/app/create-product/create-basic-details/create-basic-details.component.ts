@@ -4,30 +4,27 @@ import {
   OnInit
 } from '@angular/core';
 import {
-  takeWhile
-} from 'rxjs';
-import {
-  ProductCategory,
-  ProductModel,
-  ProductsBrokerService
-} from 'src/core';
-import {
-  EditProductHelperService
-} from '../edit-product-helper.service';
-import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
+import {
+  takeWhile
+} from 'rxjs';
+import {
+  ProductCategory
+} from 'src/core';
+import {
+  CreateProductHelperService
+} from '../create-product-helper.service';
 
 @Component({
-  selector: 'app-edit-basic-details',
-  templateUrl: './edit-basic-details.component.html',
-  styleUrls: ['./edit-basic-details.component.scss']
+  selector: 'app-create-basic-details',
+  templateUrl: './create-basic-details.component.html',
+  styleUrls: ['./create-basic-details.component.scss']
 })
-export class EditBasicDetailsComponent implements OnInit, OnDestroy {
-  public product: ProductModel = new ProductModel();
+export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
   public categories: Array<ProductCategory> = Object.values(ProductCategory).filter(value => typeof value === 'string');
   public basicDetailsFG!: FormGroup;
   public nameFC!: FormControl;
@@ -37,9 +34,11 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
   public priceFC!: FormControl;
   public isPopularFC!: FormControl;
   private _subscribeMain: boolean = true;
+  private get _isFormNewlyInitialized(): boolean {
+    return this._subscribeMain && this.basicDetailsFG.untouched && this.basicDetailsFG.pristine;
+  }
 
-  constructor(private _productsBroker: ProductsBrokerService,
-              private _editProductHelper: EditProductHelperService,
+  constructor(private _createProductHelper: CreateProductHelperService,
               private _fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -52,11 +51,17 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscriptions(): void {
-    this._editProductHelper.productForEdit$
+    this._createProductHelper.basicDetails$
+      .pipe(takeWhile(() => this._isFormNewlyInitialized))
+      .subscribe(basicDetails => {
+        this.basicDetailsFG.reset(basicDetails);
+      });
+
+    this.basicDetailsFG.valueChanges
       .pipe(takeWhile(() => this._subscribeMain))
-      .subscribe(product => {
-        this.product = product;
-        this.basicDetailsFG.reset(product);
+      .subscribe(basicDetails => {
+        this._createProductHelper.saveBasicDetails(basicDetails);
+        this._createProductHelper.setBasicDetailsValidity(this.basicDetailsFG.valid);
       });
   }
 
@@ -134,13 +139,5 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
       'is-invalid': (formControl.touched || formControl.dirty) && !!formControl.errors,
       'is-valid': (formControl.touched || formControl.dirty) && !formControl.errors
      };
-  }
-
-  public submit(): void {
-    this._productsBroker.editProductBasicDetails(this.product._id, this.basicDetailsFG.value);
-  }
-
-  public resetForm(): void {
-    this.basicDetailsFG.reset(this.product);
   }
 }

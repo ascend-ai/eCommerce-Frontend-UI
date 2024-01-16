@@ -2,7 +2,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router
+} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +24,7 @@ export class HeaderComponent {
   }
 
   public openSearch(): void {
+    this.isNavbarExpanded = false;
     this.isSearchOpen = true;
   }
 
@@ -36,5 +39,10 @@ export class HeaderComponent {
       }, 
     })
     this.isSearchOpen = false;
+  }
+
+  public navigate(path: Array<string>): void {
+    this.isNavbarExpanded = false;
+    this._router.navigate(path);
   }
 }
