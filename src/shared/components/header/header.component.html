@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand">Style it by Rose</a>
+    <a class="navbar-brand">{{ COMPANY_NAME }}</a>
     <button class="navbar-toggler"
             type="button"
             [class.collapsed]="!isNavbarExpanded"
@@ -15,17 +15,17 @@
         <li class="nav-item">
           <a class="nav-link cursor-pointer"
              (click)="navigate(['/home'])"
-             routerLinkActive="active">Home</a>
+             [class.active]="isRouterLinkActive('/home')">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link cursor-pointer"
              (click)="navigate(['/customization'])"
-             routerLinkActive="active">Customization</a>
+             [class.active]="isRouterLinkActive('/customization')">Customization</a>
         </li>
         <li class="nav-item">
           <a class="nav-link cursor-pointer"
              (click)="navigate(['/pop-up'])"
-             routerLinkActive="active">Pop-up</a>
+             [class.active]="isRouterLinkActive('/pop-up')">Pop-up</a>
         </li>
       </ul>
 
@@ -35,7 +35,7 @@
             *ngIf="canCreateProduct">
           <i class="fa-solid fa-folder-plus nav-link position-relative cursor-pointer"
              (click)="navigate(['products', 'create'])"
-             routerLinkActive="active"></i>
+             [class.active]="isRouterLinkActive('/products/create')"></i>
         </li>
         <li class="nav-item p-2">
           <i class="fa-solid fa-magnifying-glass nav-link cursor-pointer"
@@ -44,7 +44,7 @@
         <li class="nav-item p-2">
           <i class="fas fa-shopping-cart nav-link position-relative cursor-pointer"
              (click)="navigate(['/cart'])"
-             routerLinkActive="active">
+             [class.active]="isRouterLinkActive('/cart')">
             <span class="position-absolute top-0 start-40 translate-middle badge rounded-pill bg-danger">
               {{ numberOfItemsInCart }}
             </span>
@@ -53,7 +53,7 @@
         <li class="nav-item p-2">
           <i class="fa-solid fa-user nav-link cursor-pointer"
              (click)="navigate(['/auth'])"
-             routerLinkActive="active"></i>
+             [class.active]="isRouterLinkActive('/auth') || isRouterLinkActive('/my-profile')"></i>
         </li>
       </ul>
     </div>

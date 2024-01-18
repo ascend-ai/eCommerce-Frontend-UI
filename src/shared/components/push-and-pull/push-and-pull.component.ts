@@ -22,7 +22,7 @@ export class PushAndPullComponent {
   @Output() search: EventEmitter<string> = new EventEmitter();
   @Input() itemUnderEdit: UseablePushAndPullItemModelType | undefined;
   @Input() set paginator(pagination: PaginationModel<UseablePushAndPullItemModelType>) {
-    this._pagination = pagination;
+    this.pagination = pagination;
     this.items = pagination.content.map(item => {
       if (item instanceof ProductModel) {
         return {
@@ -55,7 +55,7 @@ export class PushAndPullComponent {
   @Output() assignedChange: EventEmitter<Array<UseablePushAndPullItemModelType>> = new EventEmitter();
   public items: Array<PushAndPullItemInterface<UseablePushAndPullItemModelType>> = [];
   public assignedItems: Array<PushAndPullItemInterface<UseablePushAndPullItemModelType>> = [];
-  private _pagination: PaginationModel<UseablePushAndPullItemModelType> = new PaginationModel();
+  public pagination: PaginationModel<UseablePushAndPullItemModelType> = new PaginationModel();
 
   constructor() {}
 
@@ -105,37 +105,7 @@ export class PushAndPullComponent {
     return !!this.itemUnderEdit && (item.data._id === this.itemUnderEdit._id);
   }
 
-  public get isFirstPage(): boolean {
-    return this._pagination.page === 0;
-  }
-
-  public get isLastPage(): boolean {
-    return (this._pagination.totalPages > 0) ? (this._pagination.page === (this._pagination.totalPages - 1)) : true;
-  }
-
-  public get pageIndicator(): string {
-    let currentPage = this._pagination.page;
-    (this._pagination.totalPages > 0) ? (currentPage++) : null
-    return `${currentPage} / ${this._pagination.totalPages}`;
-  }
-
-  public goToFirstPage(): void {
-    this._goToPage(0);
-  }
-
-  public goToPreviousPage(): void {
-    this._goToPage(this._pagination.page - 1);
-  }
-
-  public goToNextPage(): void {
-    this._goToPage(this._pagination.page + 1);
-  }
-
-  public goToLastPage(): void {
-    this._goToPage(this._pagination.totalPages - 1);
-  }
-
-  private _goToPage(pageIndex: number): void {
+  public goToPage(pageIndex: number): void {
     this.page.emit(pageIndex);
   }
 }

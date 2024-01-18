@@ -1,7 +1,23 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { AdminGuard, AuthGuard } from 'src/core';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  RouterModule,
+  Routes
+} from '@angular/router';
+import {
+  NotFoundComponent
+} from './static/not-found/not-found.component';
+import {
+  AdminGuard,
+  AuthGuard
+} from 'src/core';
+import {
+  PaymentSuccessComponent
+} from './static/payment-success/payment-success.component';
+import {
+  PaymentProcessingComponent
+} from './static/payment-processing/payment-processing.component';
 
 const routes: Routes = [
   {
@@ -48,6 +64,14 @@ const routes: Routes = [
   {
     path: 'not-found',
     component: NotFoundComponent
+  },
+  {
+    path: 'payment-success',
+    component: PaymentSuccessComponent
+  },
+  {
+    path: 'payment-processing',
+    component: PaymentProcessingComponent
   },
   {
     path: '**',

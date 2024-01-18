@@ -22,20 +22,20 @@ import {
 
 @Injectable()
 export class AuthDataService {
-  private _apiUrl: string = environment.apiUrl;
+  private readonly API_URL: string = environment.apiUrl;
 
   constructor(private _http: HttpClient) {}
 
   public login(siginData: SigninModel): Observable<ApiResponseModel<AccessTokenInterface>> {
     return this._http.post<ApiResponseModel<AccessTokenInterface>>(
-      this._apiUrl + '/auth/signin',
+      this.API_URL + '/auth/signin',
       siginData
     );
   }
 
   public register(sigupData: UserModel): Observable<ApiResponseModel<UserInterface>> {
     return this._http.post<ApiResponseModel<UserInterface>>(
-      this._apiUrl + '/auth/signup',
+      this.API_URL + '/auth/signup',
       sigupData
     );
   }
