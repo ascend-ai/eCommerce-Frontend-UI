@@ -3,17 +3,20 @@ import {
 } from '@angular/core';
 import {
   AuthBrokerService,
+  OrderBrokerService,
   ProductsBrokerService 
 } from './broker-services';
 import {
   AuthDataService,
+  OrderDataService,
   ProductsDataService
 } from './data-services';
 import {
   AuthHelperService,
   CartHelperService,
   LoadingHelperService,
-  NotificationHelperService
+  NotificationHelperService,
+  RazorpayHelperService
 } from './helper-services';
 import {
   AdminGuard,
@@ -33,14 +36,17 @@ import {
   providers: [
     AuthBrokerService,
     ProductsBrokerService,
+    OrderBrokerService,
 
     AuthDataService,
     ProductsDataService,
+    OrderDataService,
 
     AuthHelperService,
     NotificationHelperService,
     LoadingHelperService,
     CartHelperService,
+    RazorpayHelperService,
 
     AuthGuard,
     AdminGuard,

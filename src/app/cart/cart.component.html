@@ -9,9 +9,14 @@
                        [cartItem]="cartItem">
         </app-cart-item>
 
+        <h3 class="mb-5 text-end">
+          Total:- ₹{{ totalProductPrice }}
+        </h3>
+
         <div class="d-grid">
           <button class="btn btn-warning btn-lg"
-                  [disabled]="totalProductsInCart < 1">
+                  [disabled]="totalProductsInCart < MIN_CART_SIZE"
+                  (click)="placeOrder()">
             Proceed to Pay
           </button>
         </div>

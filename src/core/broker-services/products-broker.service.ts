@@ -36,7 +36,7 @@ import {
 
 @Injectable()
 export class ProductsBrokerService {
-  private _baseUrl: string = environment.baseUrl;
+  private readonly BASE_URL: string = environment.baseUrl;
   private _pagination$: Subject<PaginationModel<ProductModel>> = new Subject();
   public pagination$: Observable<PaginationModel<ProductModel>> =  this._pagination$.asObservable();
 
@@ -280,7 +280,7 @@ export class ProductsBrokerService {
   private _transformProductImages(productImages: Array<ProductImageInterface>): Array<ProductImageModel> {
     return productImages.map(data => {
       const img = new ProductImageModel(data);
-      img.url = this._baseUrl + img.url;
+      img.url = this.BASE_URL + img.url;
       return img;
     });
   }

@@ -5,6 +5,9 @@ import {
 import {
   Router
 } from '@angular/router';
+import {
+  COMPANY_NAME
+} from 'src/core';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +15,7 @@ import {
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  public readonly COMPANY_NAME: string = COMPANY_NAME
   public isNavbarExpanded: boolean = false;
   public isSearchOpen: boolean = false;
   @Input() numberOfItemsInCart: number = 0;
@@ -44,5 +48,9 @@ export class HeaderComponent {
   public navigate(path: Array<string>): void {
     this.isNavbarExpanded = false;
     this._router.navigate(path);
+  }
+
+  public isRouterLinkActive(path: string): boolean {
+    return this._router.isActive(path, {paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored'});
   }
 }

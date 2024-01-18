@@ -19,60 +19,8 @@
 
     </div>
 
-    <!-- Paginator control -->
-    <div class="d-flex justify-content-end align-items-center col-12">
-      <div class="fw-lighter">
-        {{ pageIndicator }}
-      </div>
-      <nav>
-        <ul class="pagination pagination-lg m-0">
-          <li class="page-item"
-              title="First"
-              [ngClass]="{
-                'disabled cursor-disabled': isFirstPage,
-                'cursor-pointer': !isFirstPage
-              }"
-              (click)="goToFirstPage()">
-            <a class="page-link">
-              <i class="bi bi-chevron-bar-left"></i>
-            </a>
-          </li>
-          <li class="page-item"
-              title="Previous"
-              [ngClass]="{
-                'disabled cursor-disabled': isFirstPage,
-                'cursor-pointer': !isFirstPage
-              }"
-              (click)="goToPreviousPage()">
-            <a class="page-link">
-              <i class="bi bi-chevron-left"></i>
-            </a>
-          </li>
-          <li class="page-item"
-              title="Next"
-              [ngClass]="{
-                'disabled cursor-disabled': isLastPage,
-                'cursor-pointer': !isLastPage
-              }"
-              (click)="goToNextPage()">
-            <a class="page-link">
-              <i class="bi bi-chevron-right"></i>
-            </a>
-          </li>
-          <li class="page-item"
-              title="Last"
-              [ngClass]="{
-                'disabled cursor-disabled': isLastPage,
-                'cursor-pointer': !isLastPage
-              }"
-              (click)="goToLastPage()">
-            <a class="page-link">
-              <i class="bi bi-chevron-bar-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <app-pagination-controller [paginator]="pagination"
+                               (page)="goToPage($event)"></app-pagination-controller>
   </div>
 
   <!-- Controller -->
