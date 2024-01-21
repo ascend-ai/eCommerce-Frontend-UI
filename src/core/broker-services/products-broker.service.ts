@@ -12,8 +12,6 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import {
-  Observable,
-  Subject,
   catchError,
   mergeMap,
   of,
@@ -25,7 +23,7 @@ import {
   ProductInterface
 } from '../interfaces';
 import {
-  FilterCriteriaModel,
+  ProductFilterCriteriaModel,
   PaginationModel,
   ProductImageModel,
   ProductModel
@@ -33,25 +31,20 @@ import {
 import {
   environment
 } from 'src/environments/environment';
+import {
+  ProductLoaderService
+} from '../loader-services';
 
 @Injectable()
 export class ProductsBrokerService {
   private readonly BASE_URL: string = environment.baseUrl;
-  private _pagination$: Subject<PaginationModel<ProductModel>> = new Subject();
-  public pagination$: Observable<PaginationModel<ProductModel>> =  this._pagination$.asObservable();
-
-  private _product$: Subject<ProductModel> = new Subject();
-  public product$: Observable<ProductModel> = this._product$.asObservable();
-
-  private _products$: Subject<Array<ProductModel>> = new Subject();
-  public products$: Observable<Array<ProductModel>> = this._products$.asObservable();
-
 
   constructor(private _productsData: ProductsDataService,
+              private _productLoader: ProductLoaderService,
               private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService) { }
 
-  public getProducts(filterCriteria: FilterCriteriaModel): void {
+  public getProducts(filterCriteria: ProductFilterCriteriaModel): void {
     this._loadingHelper.startLoading();
     this._productsData.getProducts(filterCriteria)
       .pipe(
@@ -60,11 +53,11 @@ export class ProductsBrokerService {
           this._loadingHelper.stopLoading();
           const pagination = new PaginationModel(res.data);
           pagination.content = this._transformProducts(pagination.content);
-          this._pagination$.next(<PaginationModel<ProductModel>>pagination);
+          this._productLoader.pagination = pagination;
         }),
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();
-          this._pagination$.next(new PaginationModel());
+          this._productLoader.pagination = new PaginationModel();
           this._notificationHelper.handleError(err.error.message)
           return of();
         })
@@ -81,11 +74,11 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           products = this._transformProducts(res.data);
-          this._products$.next(products);
+          this._productLoader.products = products;
         }),
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();
-          this._products$.next(products);
+          this._productLoader.products = products;
           this._notificationHelper.handleError(err.error.message);
           return of();
         })
@@ -106,7 +99,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
@@ -131,7 +124,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
@@ -156,7 +149,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
@@ -181,7 +174,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
@@ -206,7 +199,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
@@ -231,7 +224,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product created successfully!');
         }),
         catchError((err: HttpErrorResponse) => {
@@ -256,11 +249,11 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           product.similarProducts = this._transformProducts(res.data);
-          this._product$.next(product);
+          this._productLoader.product = product;
         }),
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();
-          this._product$.next(product);
+          this._productLoader.product = product;
           this._notificationHelper.handleError(err.error.message)
           return of();
         })

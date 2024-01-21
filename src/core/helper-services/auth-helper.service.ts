@@ -17,9 +17,10 @@ export class AuthHelperService {
 
   constructor() { }
 
-  public isLoggedIn(): boolean {
+
+  public get isLoggedIn(): boolean {
     try {
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken: string = this.session;
       if (accessToken) {
         const { userId, userRole, exp } = jwtDecode<AccessTokenPayloadInterface>(accessToken);
         if (userId && userRole && exp) {
@@ -36,11 +37,11 @@ export class AuthHelperService {
   }
 
   /**
-   * Use following method only if isLoggedIn() return true.
+   * Use following method only if isLoggedIn return true.
    */
-  public isLoggedInUserAdminOrMod(): boolean {
+  public get isLoggedInUserAdminOrMod(): boolean {
     try {
-      const accessToken = <string>localStorage.getItem('accessToken');
+      const accessToken: string = this.session;
       const { userRole } = jwtDecode<AccessTokenPayloadInterface>(accessToken);
       return [UserRole.ADMIN, UserRole.MODERATOR].includes(userRole);
     } catch (error: any) {
@@ -48,22 +49,32 @@ export class AuthHelperService {
     }
   }
 
-  public isLoggedOut(): boolean {
-      return !this.isLoggedIn();
+  /**
+   * Use following method only if isLoggedIn return true.
+   */
+  public get loggedInUserId(): string | undefined {
+    try {
+      const accessToken: string = this.session;
+      const { userId } = jwtDecode<AccessTokenPayloadInterface>(accessToken);
+      return userId;
+    } catch (error: any) {
+      return undefined;
+    }
+  }
+
+  public get isLoggedOut(): boolean {
+      return !this.isLoggedIn;
   }
 
   public logout(): void {
     localStorage.removeItem('accessToken');
   }
 
-  public setSession(accessToken: string): void {
+  public set session(accessToken: string) {
     localStorage.setItem('accessToken', accessToken);
   }
 
-  /**
-   * Use following method only if isLoggedIn() return true.
-   */
-  public getSession(): string {
+  public get session(): string {
     return <string>localStorage.getItem('accessToken');
   }
 }

@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate {
    * Following guard assumes AuthGuard is executed first.
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | Observable<boolean> | boolean {
-    if (this._authHelper.isLoggedInUserAdminOrMod()) {
+    if (this._authHelper.isLoggedInUserAdminOrMod) {
       return true;
     } else {
       this._router.navigate(['home']);

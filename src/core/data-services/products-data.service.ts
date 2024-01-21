@@ -9,7 +9,7 @@ import {
   environment
 } from 'src/environments/environment';
 import {
-  FilterCriteriaModel
+  ProductFilterCriteriaModel
 } from '../models';
 import {
   Injectable
@@ -26,7 +26,7 @@ export class ProductsDataService {
 
   constructor(private _http: HttpClient) {}
 
-  public getProducts(filterCriteria: FilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<ProductInterface>>> {
+  public getProducts(filterCriteria: ProductFilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<ProductInterface>>> {
     const params = this._getQueryParamsForProductFilter(filterCriteria);
     return this._http.get<ApiResponseInterface<PaginationInterface<ProductInterface>>>(
       this.API_URL + '/products',
@@ -87,7 +87,7 @@ export class ProductsDataService {
     );
   }
 
-  private _getQueryParamsForProductFilter(filterCriteria: FilterCriteriaModel): HttpParams {
+  private _getQueryParamsForProductFilter(filterCriteria: ProductFilterCriteriaModel): HttpParams {
     let params = new HttpParams()
       .set('size', filterCriteria.size)
       .set('page', filterCriteria.page);

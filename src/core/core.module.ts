@@ -4,12 +4,14 @@ import {
 import {
   AuthBrokerService,
   OrderBrokerService,
-  ProductsBrokerService 
+  ProductsBrokerService, 
+  UserBrokerService
 } from './broker-services';
 import {
   AuthDataService,
   OrderDataService,
-  ProductsDataService
+  ProductsDataService,
+  UserDataService
 } from './data-services';
 import {
   AuthHelperService,
@@ -29,6 +31,12 @@ import {
   RequestInterceptor,
   ResponseInterceptor
 } from './interceptors';
+import {
+  AuthLoaderService,
+  OrderLoaderService,
+  ProductLoaderService,
+  UserLoaderService
+} from './loader-services';
 
 
 
@@ -37,10 +45,17 @@ import {
     AuthBrokerService,
     ProductsBrokerService,
     OrderBrokerService,
+    UserBrokerService,
+
+    AuthLoaderService,
+    ProductLoaderService,
+    OrderLoaderService,
+    UserLoaderService,
 
     AuthDataService,
     ProductsDataService,
     OrderDataService,
+    UserDataService,
 
     AuthHelperService,
     NotificationHelperService,

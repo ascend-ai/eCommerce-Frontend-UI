@@ -11,6 +11,7 @@ import {
 } from 'rxjs';
 import {
   MIN_IMAGES_PER_PRODUCT,
+  ProductLoaderService,
   ProductModel,
   ProductsBrokerService,
   UseablePushAndPullItemModelType
@@ -31,6 +32,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   constructor(private _createProductHelper: CreateProductHelperService,
               private _router: Router,
+              private _productLoader: ProductLoaderService,
               private _productBroker: ProductsBrokerService) {}
 
   ngOnInit(): void {
@@ -67,7 +69,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         this._similarProducts = similarProducts;
       });
 
-    this._productBroker.product$
+    this._productLoader.product$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         if (product &&

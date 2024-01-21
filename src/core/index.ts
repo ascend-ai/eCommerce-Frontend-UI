@@ -1,4 +1,5 @@
 export * from './broker-services';
+export * from './loader-services';
 export * from './data-services';
 export * from './helper-services';
 export * from './models';

@@ -21,10 +21,10 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(private _authHelper: AuthHelperService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(this._authHelper.isLoggedIn()) {
+    if(this._authHelper.isLoggedIn) {
       let tokenizedReq = req.clone({
         setHeaders: {
-          Authorization: this.AUTHORIZATION_HEADER_PREFIX + this._authHelper.getSession()
+          Authorization: this.AUTHORIZATION_HEADER_PREFIX + this._authHelper.session
         }
       });
       return next.handle(tokenizedReq);

@@ -12,9 +12,10 @@ import {
 import {
   CartHelperService,
   DEFAULT_PAGE_INDEX,
-  FilterCriteriaModel,
+  ProductFilterCriteriaModel,
   PaginationModel,
   ProductCategory,
+  ProductLoaderService,
   ProductModel,
   ProductsBrokerService
 } from 'src/core';
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private _currentPage: number = DEFAULT_PAGE_INDEX;
 
   constructor(private _productsBroker: ProductsBrokerService,
+              private _productLoader: ProductLoaderService,
               private _cartHelper: CartHelperService,
               private _router: Router) {}
 
@@ -46,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   private _initSubscriptions(): void {
-    this._productsBroker.pagination$
+    this._productLoader.pagination$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(pagination => {
         this.pagination = pagination;
@@ -59,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private _getProducts(): void {
-    this._productsBroker.getProducts(new FilterCriteriaModel({
+    this._productsBroker.getProducts(new ProductFilterCriteriaModel({
       page: this._currentPage,
       size: this.DEFAULT_PAGE_SIZE,
       isPopular: true,

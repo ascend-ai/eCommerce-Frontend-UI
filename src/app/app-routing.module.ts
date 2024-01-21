@@ -35,6 +35,16 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
+    path: 'orders',
+    loadChildren: () => import('./manage-orders/manage-orders.module').then(m => m.ManageOrdersModule),
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'orders/:id',
+    loadChildren: () => import('./manage-order/manage-order.module').then(m => m.ManageOrderModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'products',
     loadChildren: () => import('./view-products/view-products.module').then(m => m.ViewProductsModule)
   },

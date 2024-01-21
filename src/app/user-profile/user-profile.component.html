@@ -1,4 +1,32 @@
-<button class="btn btn-danger"
-        (click)="logout()">
-  Logout
-</button>
+
+<section class="my-5 mx-5 d-flex justify-content-between">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="edit-info"
+         routerLinkActive="active">
+        Edit Info
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         routerLink="my-orders"
+         routerLinkActive="active">
+        My Orders
+      </a>
+    </li>
+  </ul>
+  <div class="d-flex">
+    <button class="btn btn-danger"
+            (click)="logout()">
+      Logout
+    </button>
+
+    <button class="btn btn-warning ms-1"
+            *ngIf="isLoggedInUserAdminOrMod"
+            (click)="goToOrdersManager()">
+      Manage Orders
+    </button>
+  </div>
+</section>
+<router-outlet></router-outlet>

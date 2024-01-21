@@ -15,7 +15,7 @@
 
         <div class="d-grid">
           <button class="btn btn-warning btn-lg"
-                  [disabled]="totalProductsInCart < MIN_CART_SIZE"
+                  [disabled]="isCartEmpty"
                   (click)="placeOrder()">
             Proceed to Pay
           </button>

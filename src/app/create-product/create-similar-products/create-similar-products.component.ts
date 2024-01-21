@@ -5,8 +5,9 @@ import {
 } from '@angular/core';
 import {
   DEFAULT_PAGE_INDEX,
-  FilterCriteriaModel,
+  ProductFilterCriteriaModel,
   PaginationModel,
+  ProductLoaderService,
   ProductsBrokerService,
   UseablePushAndPullItemModelType
 } from 'src/core';
@@ -32,7 +33,7 @@ export class CreateSimilarProductsComponent implements OnInit, OnDestroy {
     this._createProductHelper.saveSimilarProducts(assigned);
   }
   public _similarProducts: Array<UseablePushAndPullItemModelType> = [];
-  private _filter: FilterCriteriaModel = new FilterCriteriaModel({
+  private _filter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
     size: 4
   });
@@ -41,6 +42,7 @@ export class CreateSimilarProductsComponent implements OnInit, OnDestroy {
   
 
   constructor(private _productsBroker: ProductsBrokerService,
+              private _productLoader: ProductLoaderService,
               private _createProductHelper: CreateProductHelperService) {}
 
   ngOnInit(): void {
@@ -59,7 +61,7 @@ export class CreateSimilarProductsComponent implements OnInit, OnDestroy {
         this._similarProducts = similarProducts
       });
 
-    this._productsBroker.pagination$
+    this._productLoader.pagination$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(pagination => {
         this.pagination = pagination;
