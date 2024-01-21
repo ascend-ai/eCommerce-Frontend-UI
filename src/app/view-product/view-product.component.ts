@@ -14,6 +14,7 @@ import {
   AuthHelperService,
   CartHelperService,
   ProductImageModel,
+  ProductLoaderService,
   ProductModel,
   ProductsBrokerService
 } from 'src/core';
@@ -33,10 +34,11 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     return this._cartHelper.getProductQtyInCart(this.product._id);
   }
   public get canEditProduct(): boolean {
-    return this._authHelper.isLoggedIn() && this._authHelper.isLoggedInUserAdminOrMod();
+    return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
   }
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
+              private _productLoader: ProductLoaderService,
               private _cartHelper: CartHelperService,
               private _authHelper: AuthHelperService,
               private _router: Router) {}
@@ -56,7 +58,7 @@ export class ViewProductComponent implements OnInit, OnDestroy {
         this._productsBroker.getProduct(params['id']);
       });
 
-    this._productsBroker.product$
+    this._productLoader.product$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;

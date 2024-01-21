@@ -1,8 +1,19 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { takeWhile } from 'rxjs';
-import { ProductsBrokerService } from 'src/core';
-import { EditProductHelperService } from './edit-product-helper.service';
+import {
+  Component
+} from '@angular/core';
+import {
+  ActivatedRoute
+} from '@angular/router';
+import {
+  takeWhile
+} from 'rxjs';
+import {
+  ProductLoaderService,
+  ProductsBrokerService
+} from 'src/core';
+import {
+  EditProductHelperService
+} from './edit-product-helper.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -15,6 +26,7 @@ export class EditProductComponent {
 
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
+              private _productLoader: ProductLoaderService,
               private _editProductHelper: EditProductHelperService) {}
 
   ngOnInit(): void {
@@ -32,7 +44,7 @@ export class EditProductComponent {
         this._productsBroker.getProduct(params['id']);
       });
 
-    this._productsBroker.product$
+    this._productLoader.product$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this._editProductHelper.setProductForEdit(product);

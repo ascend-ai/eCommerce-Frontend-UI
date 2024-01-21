@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return this._cartHelper.totalProducts;
   }
   public get canCreateProduct(): boolean {
-    return this._authHelper.isLoggedIn() && this._authHelper.isLoggedInUserAdminOrMod();
+    return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
   }
   private _subscribeMain: boolean = true;
   constructor(private _notificationHelper: NotificationHelperService,

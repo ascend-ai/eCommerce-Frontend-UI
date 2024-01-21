@@ -13,8 +13,9 @@ import {
   CartHelperService,
   DEFAULT_PAGE_INDEX,
   DEFAULT_PAGE_SIZE,
-  FilterCriteriaModel,
+  ProductFilterCriteriaModel,
   PaginationModel,
+  ProductLoaderService,
   ProductModel,
   ProductsBrokerService
 } from 'src/core';
@@ -27,12 +28,13 @@ import {
 export class ViewProductsComponent implements OnInit, OnDestroy {
   private _subscribeMain: boolean = true;
   public pagination: PaginationModel<ProductModel> = new PaginationModel();
-  private _filter: FilterCriteriaModel = new FilterCriteriaModel({
+  private _filter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
     size: DEFAULT_PAGE_SIZE
   });
 
   constructor(private _productsBroker: ProductsBrokerService,
+              private _productLoader: ProductLoaderService,
               private _cartHelper: CartHelperService,
               private _route: ActivatedRoute) {}
 
@@ -45,7 +47,7 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscription(): void {
-    this._productsBroker.pagination$
+    this._productLoader.pagination$
     .pipe(takeWhile(() => this._subscribeMain))
     .subscribe(pagination => {
       this.pagination = pagination;

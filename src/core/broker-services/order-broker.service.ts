@@ -25,14 +25,16 @@ import {
 import {
   HttpErrorResponse
 } from '@angular/common/http';
+import {
+  OrderLoaderService
+} from '../loader-services';
 
 @Injectable()
 export class OrderBrokerService {
-  private _order$: Subject<OrderModel> = new Subject();
-  public order$: Observable<OrderModel> = this._order$.asObservable();
 
   constructor(private _loadingHelper: LoadingHelperService,
               private _orderData: OrderDataService,
+              private _orderLoader: OrderLoaderService,
               private _notificationHelper: NotificationHelperService) { }
 
   public createOrder(purchases: Record<string, number>): void {
@@ -44,7 +46,7 @@ export class OrderBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           order = this._transformOrders([ res.data ])[0];
-          this._order$.next(order);
+          this._orderLoader.order = order;
         }),
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();

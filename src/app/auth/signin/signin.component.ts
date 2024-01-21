@@ -17,6 +17,7 @@ import {
 } from 'rxjs';
 import {
   AuthBrokerService,
+  AuthLoaderService,
   AuthState,
   EMAIL_REGEX,
   SigninModel
@@ -35,7 +36,8 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   constructor(private _router: Router,
               private _fb: FormBuilder,
-              private _authBroker: AuthBrokerService) { }
+              private _authBroker: AuthBrokerService,
+              private _authLoader: AuthLoaderService) { }
 
   ngOnInit(): void {
     this._createSigninForm();
@@ -47,7 +49,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscriptions(): void {
-    this._authBroker.authState$
+    this._authLoader.authState$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(state => {
         if (state.name === AuthState.LOGIN && state.isSuccessful) {

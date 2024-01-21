@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs';
-import { AuthBrokerService, CartHelperService } from 'src/core';
+import { AuthBrokerService, AuthHelperService, CartHelperService } from 'src/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,9 +9,13 @@ import { AuthBrokerService, CartHelperService } from 'src/core';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
+  public get isLoggedInUserAdminOrMod(): boolean {
+    return this._authHelper.isLoggedInUserAdminOrMod
+  }
   private _subscribeMain: boolean = true;
 
   constructor(private _authBroker: AuthBrokerService,
+              private _authHelper: AuthHelperService,
               private _cartHelper: CartHelperService,
               private _router: Router) {}
 
@@ -21,9 +25,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this._subscribeMain = false;
   }
 
-  logout(): void {
-    this._cartHelper.emptyCart();
-    this._authBroker.logout();
-    this._router.navigate(['home']);
+  public logout(): void {
+    if (confirm('Are you sure you want to log out?')) {
+      this._cartHelper.emptyCart();
+      this._authBroker.logout();
+      this._router.navigate(['home']);
+    }
   }
+
+  public goToOrdersManager(): void {
+    this._router.navigate(['orders']);
+  }
+
 }

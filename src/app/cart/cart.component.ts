@@ -17,6 +17,8 @@ import {
   MIN_ORDERABLE_QTY,
   NotificationHelperService,
   OrderBrokerService,
+  OrderLoaderService,
+  ProductLoaderService,
   ProductModel,
   ProductsBrokerService,
   RazorpayHelperService
@@ -38,12 +40,16 @@ export class CartComponent implements OnInit, OnDestroy {
   };
   public cartListBluePrint: Array<CartItemInterface> = [];
   public cartList: Array<CartItemModel> = [];
-  public readonly MIN_CART_SIZE = MIN_ORDERABLE_QTY;
+  public get isCartEmpty(): boolean {
+    return this.totalProductsInCart < MIN_ORDERABLE_QTY;
+  }
   private _subscribeMain: boolean = true;
 
   constructor(private _cartHelper: CartHelperService,
               private _productsBroker: ProductsBrokerService,
+              private _productsLoader: ProductLoaderService,
               private _orderBroker: OrderBrokerService,
+              private _orderLoader: OrderLoaderService,
               private _authHelper: AuthHelperService,
               private _notificationHelper: NotificationHelperService,
               private _razorpayHelper: RazorpayHelperService,
@@ -72,7 +78,7 @@ export class CartComponent implements OnInit, OnDestroy {
         }
       });
 
-    this._productsBroker.products$
+    this._productsLoader.products$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(products => {
         this.cartList = this.cartListBluePrint.map(item => new CartItemModel({
@@ -81,7 +87,7 @@ export class CartComponent implements OnInit, OnDestroy {
         }));
       });
 
-    this._orderBroker.order$
+    this._orderLoader.order$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(order => {
         if (order._id &&
@@ -96,14 +102,14 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   public placeOrder(): void {
-    if (this._authHelper.isLoggedIn() &&
-        this.totalProductsInCart >= this.MIN_CART_SIZE) {
+    if (this._authHelper.isLoggedIn &&
+        this.totalProductsInCart >= MIN_ORDERABLE_QTY) {
       if (confirm(`Proceed to place the order for ${this.totalProductsInCart} products? Total: ₹${this.totalProductPrice}`)) {
         this._orderBroker.createOrder(
           this._purchases
         );
       }
-    } else if (this.totalProductsInCart >= this.MIN_CART_SIZE) {
+    } else if (this.totalProductsInCart >= MIN_ORDERABLE_QTY) {
       this._notificationHelper.handleError('Please log in before placing order');
     }
   }

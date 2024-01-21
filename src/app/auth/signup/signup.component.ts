@@ -18,6 +18,7 @@ import {
 import {
   AddressModel,
   AuthBrokerService,
+  AuthLoaderService,
   AuthState,
   COUNTRY_DATA,
   EMAIL_REGEX,
@@ -50,6 +51,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   private _stateData: Record<string, Array<string>> = {};
   private _subscribeMain: boolean = true;
   constructor(private _authBroker: AuthBrokerService,
+              private _authLoader: AuthLoaderService,
               private _fb: FormBuilder,
               private _router: Router) {}
 
@@ -63,7 +65,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   private _initSubscriptions(): void {
-    this._authBroker.authState$
+    this._authLoader.authState$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(state => {
         if (state.name === AuthState.REGISTER && state.isSuccessful) {

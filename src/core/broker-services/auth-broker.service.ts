@@ -9,8 +9,6 @@ import {
   UserModel
 } from '../models';
 import {
-  Observable,
-  Subject,
   catchError,
   of,
   take,
@@ -25,19 +23,16 @@ import {
   NotificationHelperService
 } from '../helper-services';
 import {
-  AuthStateInterface
-} from '../interfaces';
-import {
   AuthState
 } from '../enums';
+import {
+  AuthLoaderService
+} from '../loader-services';
 
 @Injectable()
 export class AuthBrokerService {
-  private _authState$: Subject<AuthStateInterface> = new Subject();
-  public authState$: Observable<AuthStateInterface> = this._authState$.asObservable();
-
-
   constructor(private _authData: AuthDataService,
+              private _authLoader: AuthLoaderService,
               private _authHelper: AuthHelperService,
               private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService) { }
@@ -49,20 +44,20 @@ export class AuthBrokerService {
         take(1),
         tap(res => {
           this._loadingHelper.stopLoading();
-          this._authHelper.setSession(res.data.accessToken);
+          this._authHelper.session = res.data.accessToken;
           this._notificationHelper.handleSuccess(`Login successfull!`);
-          this._authState$.next({
+          this._authLoader.authState = {
             name: AuthState.LOGIN,
             isSuccessful: true
-          });
+          };
         }),
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message)
-          this._authState$.next({
+          this._authLoader.authState = {
             name: AuthState.LOGIN,
             isSuccessful: false
-          });
+          };
           return of();
         }),
       )
@@ -78,19 +73,19 @@ export class AuthBrokerService {
           if (res) {
             this._loadingHelper.stopLoading();
             this._notificationHelper.handleSuccess(`Login with registered credentials`);
-            this._authState$.next({
+            this._authLoader.authState = {
               name: AuthState.REGISTER,
               isSuccessful: true
-            });
+            };
           }
         }),
         catchError((err: HttpErrorResponse) => {
           this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message)
-          this._authState$.next({
+          this._authLoader.authState = {
             name: AuthState.REGISTER,
             isSuccessful: false
-          });
+          };
           return of();
         }),
       )
