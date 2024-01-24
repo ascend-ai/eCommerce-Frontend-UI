@@ -28,7 +28,7 @@ export class UserModel implements UserInterface {
     this.email = data?.email || '';
     this.password = data?.password || '';
     this.phoneNumber = data?.phoneNumber || '';
-    this.address = data?.address || new AddressModel();
+    this.address =  data?.address ? new AddressModel(data.address) : new AddressModel();
     this.role = data?.role || UserRole.CUSTOMER;
   }
 };

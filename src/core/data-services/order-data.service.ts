@@ -15,7 +15,10 @@ import {
 import {
   Observable
 } from 'rxjs';
-import { OrderFilterCriteriaModel } from '../models';
+import {
+  OrderFilterCriteriaModel
+} from '../models';
+import { OrderStatus } from '../enums';
 
 @Injectable()
 export class OrderDataService {
@@ -30,9 +33,30 @@ export class OrderDataService {
     );
   }
 
+  public updateOrderStatus(orderId: string, newOrderStatus: { status: OrderStatus }): Observable<ApiResponseInterface<OrderInterface>> {
+    return this._http.put<ApiResponseInterface<OrderInterface>>(
+      this.API_URL + `/orders/${orderId}/status`,
+      newOrderStatus
+    );
+  }
+
+  public getOrder(orderId: string): Observable<ApiResponseInterface<OrderInterface>> {
+    return this._http.get<ApiResponseInterface<OrderInterface>>(
+      this.API_URL + `/orders/${orderId}`,
+    );
+  }
+
+  public getOrders(filterCriteria: OrderFilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<OrderInterface>>> {
+    const params = this._getQueryParamsForOrderFilter(filterCriteria);
+    return this._http.get<ApiResponseInterface<PaginationInterface<OrderInterface>>>(
+      this.API_URL + `/orders`,
+      { params }
+    );
+  }
+
   public getUserOrders(userId: string, filterCriteria: OrderFilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<OrderInterface>>> {
     const params = this._getQueryParamsForOrderFilter(filterCriteria);
-    return this._http.post<ApiResponseInterface<PaginationInterface<OrderInterface>>>(
+    return this._http.get<ApiResponseInterface<PaginationInterface<OrderInterface>>>(
       this.API_URL + `/users/${userId}/orders`,
       { params }
     );

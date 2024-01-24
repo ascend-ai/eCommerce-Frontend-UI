@@ -1,6 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { PaginationModel, ProductModel } from '../models';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  Observable,
+  Subject
+} from 'rxjs';
+import {
+  PaginationModel,
+  ProductModel
+} from '../models';
 
 @Injectable()
 export class ProductLoaderService {

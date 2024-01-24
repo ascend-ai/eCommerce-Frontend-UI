@@ -18,7 +18,10 @@ import {
   CartHelperService,
   LoadingHelperService,
   NotificationHelperService,
-  RazorpayHelperService
+  OrderHelperService,
+  ProductHelperService,
+  RazorpayHelperService,
+  UserHelperService
 } from './helper-services';
 import {
   AdminGuard,
@@ -57,6 +60,9 @@ import {
     OrderDataService,
     UserDataService,
 
+    ProductHelperService,
+    OrderHelperService,
+    UserHelperService,
     AuthHelperService,
     NotificationHelperService,
     LoadingHelperService,
