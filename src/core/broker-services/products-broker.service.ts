@@ -6,7 +6,8 @@ import {
 } from '../data-services';
 import {
   LoadingHelperService,
-  NotificationHelperService
+  NotificationHelperService,
+  ProductHelperService
 } from '../helper-services';
 import {
   HttpErrorResponse
@@ -19,28 +20,20 @@ import {
   tap
 } from 'rxjs';
 import {
-  ProductImageInterface,
-  ProductInterface
-} from '../interfaces';
-import {
   ProductFilterCriteriaModel,
   PaginationModel,
-  ProductImageModel,
   ProductModel
 } from '../models';
-import {
-  environment
-} from 'src/environments/environment';
 import {
   ProductLoaderService
 } from '../loader-services';
 
 @Injectable()
 export class ProductsBrokerService {
-  private readonly BASE_URL: string = environment.baseUrl;
 
   constructor(private _productsData: ProductsDataService,
               private _productLoader: ProductLoaderService,
+              private _productHelper: ProductHelperService,
               private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService) { }
 
@@ -52,7 +45,7 @@ export class ProductsBrokerService {
         tap(res => {
           this._loadingHelper.stopLoading();
           const pagination = new PaginationModel(res.data);
-          pagination.content = this._transformProducts(pagination.content);
+          pagination.content = this._productHelper.transformProducts(pagination.content);
           this._productLoader.pagination = pagination;
         }),
         catchError((err: HttpErrorResponse) => {
@@ -73,7 +66,7 @@ export class ProductsBrokerService {
         take(1),
         tap(res => {
           this._loadingHelper.stopLoading();
-          products = this._transformProducts(res.data);
+          products = this._productHelper.transformProducts(res.data);
           this._productLoader.products = products;
         }),
         catchError((err: HttpErrorResponse) => {
@@ -93,12 +86,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
@@ -118,12 +111,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
@@ -143,12 +136,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
@@ -168,12 +161,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
@@ -193,12 +186,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
@@ -218,12 +211,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product created successfully!');
         }),
@@ -243,12 +236,12 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         mergeMap(res => {
-          product = this._transformProducts([res.data])[0];
+          product = this._productHelper.transformProducts([res.data])[0];
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
           this._loadingHelper.stopLoading();
-          product.similarProducts = this._transformProducts(res.data);
+          product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
         }),
         catchError((err: HttpErrorResponse) => {
@@ -259,22 +252,5 @@ export class ProductsBrokerService {
         })
       )
       .subscribe();
-  }
-
-  private _transformProducts(products: Array<ProductInterface>): Array<ProductModel> {
-    return products.map(data => {
-      const product = new ProductModel(data);
-      product.images = this._transformProductImages(product.images);
-      product.displayImage = product.images[0];
-      return product;
-    })
-  }
-
-  private _transformProductImages(productImages: Array<ProductImageInterface>): Array<ProductImageModel> {
-    return productImages.map(data => {
-      const img = new ProductImageModel(data);
-      img.url = this.BASE_URL + img.url;
-      return img;
-    });
   }
 }

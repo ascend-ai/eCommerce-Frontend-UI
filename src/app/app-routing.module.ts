@@ -13,9 +13,6 @@ import {
   AuthGuard
 } from 'src/core';
 import {
-  PaymentSuccessComponent
-} from './static/payment-success/payment-success.component';
-import {
   PaymentProcessingComponent
 } from './static/payment-processing/payment-processing.component';
 
@@ -74,10 +71,6 @@ const routes: Routes = [
   {
     path: 'not-found',
     component: NotFoundComponent
-  },
-  {
-    path: 'payment-success',
-    component: PaymentSuccessComponent
   },
   {
     path: 'payment-processing',

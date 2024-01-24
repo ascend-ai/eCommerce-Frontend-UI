@@ -48,10 +48,10 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
 
   private _initSubscription(): void {
     this._productLoader.pagination$
-    .pipe(takeWhile(() => this._subscribeMain))
-    .subscribe(pagination => {
-      this.pagination = pagination;
-    });
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(pagination => {
+        this.pagination = pagination;
+      });
 
     this._route.queryParams
       .pipe(takeWhile(() => this._subscribeMain))

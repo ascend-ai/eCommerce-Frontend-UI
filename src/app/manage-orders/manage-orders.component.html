@@ -1,1 +1,51 @@
-<p>manage-orders works!</p>
+<div class="container">
+  <div class="row my-5">
+    <div class="col">
+      <!-- Nav -->
+      <ul class="nav nav-pills">
+        <li class="nav-item"
+            *ngFor="let view of views; let i = index;">
+          <a class="nav-link cursor-pointer"
+             [class.active]="isViewActive(i)"
+             (click)="switchView(i)">
+            {{ view | capitalize:' ' }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col">
+      <!-- Order table -->
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Payment Id</th>
+            <th scope="col">Total Purchase Amount (₹)</th>
+            <th scope="col">When Ordered</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of pagination.content; let i = index;">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ order.user.email }}</td>
+            <td>{{ order.razorpayPaymentId }}</td>
+            <td>{{ order.totalPurchaseAmount }}</td>
+            <td>{{ order.whenCreated | date:'short' }}</td>
+            <td>
+              <button class="btn btn-link"
+                      (click)="viewOrder(order._id)">
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination-controller [paginator]="pagination"
+                                 (page)="switchPage($event)"></app-pagination-controller>
+    </div>
+  </div>
+</div>

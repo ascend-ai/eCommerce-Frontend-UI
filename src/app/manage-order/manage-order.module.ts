@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ManageOrderRoutingModule } from './manage-order-routing.module';
 import { ManageOrderComponent } from './manage-order.component';
 import { SharedModule } from 'src/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { SharedModule } from 'src/shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    ManageOrderRoutingModule
+    ManageOrderRoutingModule,
+
+    ReactiveFormsModule
   ]
 })
 export class ManageOrderModule { }
