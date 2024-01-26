@@ -8,5 +8,6 @@ export * from './product-image.model';
 export * from './base-filter-criteria.model';
 export * from './product-filter-criteria.model';
 export * from './order-filter-criteria.model';
+export * from './user-filter-criteria.model';
 export * from './cart-item.model';
 export * from './order.model';

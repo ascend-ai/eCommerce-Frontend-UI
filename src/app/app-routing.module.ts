@@ -9,8 +9,9 @@ import {
   NotFoundComponent
 } from './static/not-found/not-found.component';
 import {
-  AdminGuard,
-  AuthGuard
+  ModGuard,
+  AuthGuard,
+  AdminGuard
 } from 'src/core';
 import {
   PaymentProcessingComponent
@@ -34,7 +35,7 @@ const routes: Routes = [
   {
     path: 'orders',
     loadChildren: () => import('./manage-orders/manage-orders.module').then(m => m.ManageOrdersModule),
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, ModGuard]
   },
   {
     path: 'orders/:id',
@@ -48,7 +49,7 @@ const routes: Routes = [
   {
     path: 'products/create',
     loadChildren: () => import('./create-product/create-product.module').then(m => m.CreateProductModule),
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, ModGuard]
   },
   {
     path: 'products/:id',
@@ -57,12 +58,17 @@ const routes: Routes = [
   {
     path: 'products/:id/edit',
     loadChildren: () => import('./edit-product/edit-product.module').then(m => m.EditProductModule),
-    canActivate: [AuthGuard, AdminGuard]
+    canActivate: [AuthGuard, ModGuard]
   },
   {
     path: 'my-profile',
     loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'manage-mods',
+    loadChildren: () => import('./manage-mods/manage-mods.module').then(m => m.ManageModsModule),
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'cart',

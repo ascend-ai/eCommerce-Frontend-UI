@@ -9,6 +9,7 @@ import {
 } from '../models';
 import {
   catchError,
+  finalize,
   mergeMap,
   of,
   take,
@@ -55,14 +56,15 @@ export class OrderBrokerService {
       .pipe(
         take(1),
         tap(res => {
-          this._loadingHelper.stopLoading();
           order = this._orderHelper.transformOrders([ res.data ])[0];
           this._orderLoader.order = order;
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -70,20 +72,43 @@ export class OrderBrokerService {
 
   public getOrders(filterCriteria: OrderFilterCriteriaModel): void {
     this._loadingHelper.startLoading();
+    let pagination: PaginationModel<OrderModel> = new PaginationModel();
     this._orderData.getOrders(filterCriteria)
       .pipe(
         take(1),
         tap(res => {
-          this._loadingHelper.stopLoading();
-          const pagination = new PaginationModel(res.data);
+          pagination = new PaginationModel(res.data);
           pagination.content = this._orderHelper.transformOrders(pagination.content);
-          this._orderLoader.pagination = pagination;
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
-          this._orderLoader.pagination = new PaginationModel();
           this._notificationHelper.handleError(err.error.message)
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
+          this._orderLoader.pagination = pagination;
+        })
+      )
+      .subscribe();
+  }
+
+  public getOrdersOfUser(userId: string, filterCriteria: OrderFilterCriteriaModel): void {
+    this._loadingHelper.startLoading();
+    let pagination: PaginationModel<OrderModel> = new PaginationModel();
+    this._orderData.getOrdersOfUser(userId, filterCriteria)
+      .pipe(
+        take(1),
+        tap(res => {
+          pagination = new PaginationModel(res.data);
+          pagination.content = this._orderHelper.transformOrders(pagination.content);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          this._notificationHelper.handleError(err.error.message)
+          return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
+          this._orderLoader.pagination = pagination;
         })
       )
       .subscribe();
@@ -103,17 +128,16 @@ export class OrderBrokerService {
           )
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           products = this._productHelper.transformProducts(res.data);
-          this._orderLoader.order = order;
-          this._productLoader.products = products;
         }),
         catchError((err: HttpErrorResponse) => {
+          this._notificationHelper.handleError(err.error.message)
+          return of();
+        }),
+        finalize(() => {
           this._loadingHelper.stopLoading();
           this._orderLoader.order = order;
           this._productLoader.products = products;
-          this._notificationHelper.handleError(err.error.message)
-          return of();
         })
       )
       .subscribe();
@@ -133,17 +157,16 @@ export class OrderBrokerService {
           )
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           products = this._productHelper.transformProducts(res.data);
-          this._orderLoader.order = order;
-          this._productLoader.products = products;
         }),
         catchError((err: HttpErrorResponse) => {
+          this._notificationHelper.handleError(err.error.message)
+          return of();
+        }),
+        finalize(() => {
           this._loadingHelper.stopLoading();
           this._orderLoader.order = order;
           this._productLoader.products = products;
-          this._notificationHelper.handleError(err.error.message)
-          return of();
         })
       )
       .subscribe();

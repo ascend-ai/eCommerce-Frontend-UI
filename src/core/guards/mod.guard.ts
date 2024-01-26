@@ -15,7 +15,7 @@ import {
 } from '../helper-services';
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class ModGuard implements CanActivate {
   constructor(private _authHelper: AuthHelperService,
               private _router: Router) {}
 
@@ -23,10 +23,10 @@ export class AdminGuard implements CanActivate {
    * Following guard assumes AuthGuard is executed first.
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | Observable<boolean> | boolean {
-    if (this._authHelper.isLoggedInUserAdmin) {
+    if (this._authHelper.isLoggedInUserAdminOrMod) {
       return true;
     } else {
-      this._router.navigate(['my-profile']);
+      this._router.navigate(['home']);
       return false;
     }
   }

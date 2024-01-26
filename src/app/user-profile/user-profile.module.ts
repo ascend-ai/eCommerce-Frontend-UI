@@ -4,6 +4,8 @@ import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
+import { SharedModule } from 'src/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +17,10 @@ import { UserOrdersComponent } from './user-orders/user-orders.component';
   ],
   imports: [
     CommonModule,
-    UserProfileRoutingModule
+    SharedModule,
+    UserProfileRoutingModule,
+
+    ReactiveFormsModule
   ]
 })
 export class UserProfileModule { }
