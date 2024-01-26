@@ -1,0 +1,27 @@
+<div class="container my-5">
+  <app-push-and-pull [paginator]="pagination"
+                     [(assigned)]="moderators"
+                     [itemUnderEdit]="admin"
+                     (search)="onSearch($event)"
+                     (page)="goToPage($event)">
+  </app-push-and-pull>
+
+  <!-- Save & Reset buttons -->
+  <div class="row my-4">
+    <div class="col d-flex">
+      <button class="btn btn-primary"
+              type="button"
+              [disabled]="!areSimilarProductsChanged"
+              (click)="onUpdate()">
+        Update
+      </button>
+
+      <button class="btn btn-danger ms-1"
+              type="button"
+              [disabled]="!areSimilarProductsChanged"
+              (click)="resetSimilarProductsItems()">
+        Reset
+      </button>
+    </div>
+  </div>
+</div>

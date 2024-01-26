@@ -12,6 +12,7 @@ export * from './pagination.interface';
 export * from './base-filter-criteria.interface';
 export * from './product-filter-criteria.interface';
 export * from './order-filter-criteria.interface';
+export * from './user-filter-criteria.interface';
 export * from './cart-item.interface';
 export * from './push-and-pull-item.interface';
 export * from './order.interface';

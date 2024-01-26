@@ -1,16 +1,29 @@
-<ng-container *ngIf="itemType === PushAndPullItemType.PRODUCT"></ng-container>
-<div class="border my-3 d-flex justify-content-start pnp-item">
-  <div class="img-fluid h-100 pnp-product-item-image"
-       [style.backgroundImage]="item.data.displayImage.url | backgroundImage">
+<ng-container *ngIf="itemType === PushAndPullItemType.PRODUCT; else userPnpItem">
+  <div class="border my-3 d-flex justify-content-start pnp-item">
+    <div class="img-fluid h-100 pnp-product-item-image"
+         [style.backgroundImage]="item.data.displayImage.url | backgroundImage">
+    </div>
+          
+    <div class="h-100 w-100 p-3 d-flex justify-content-between align-items-center">
+      <div>
+        <h5 >{{ item.data.name }}</h5>
+        <p class="text-truncate">{{ item.data.description }}</p>
+      </div>
+      <input type="checkbox"
+             [disabled]="isDisabled"
+             [(ngModel)]="item.isSelected">
+    </div>
   </div>
-        
-  <div class="h-100 w-100 p-3 d-flex justify-content-between align-items-center">
+</ng-container>
+
+<ng-template #userPnpItem>
+  <div class="border my-3 p-3 d-flex justify-content-between align-items-center pnp-item">          
     <div>
-      <h5 >{{ item.data.name }}</h5>
-      <p class="text-truncate">{{ item.data.description }}</p>
+      <h5 >{{ item.data.email }}</h5>
+      <p>{{ item.data.phoneNumber }}</p>
     </div>
     <input type="checkbox"
            [disabled]="isDisabled"
            [(ngModel)]="item.isSelected">
   </div>
-</div>
+</ng-template>

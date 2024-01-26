@@ -27,6 +27,12 @@
             (click)="goToOrdersManager()">
       Manage Orders
     </button>
+
+    <button class="btn btn-secondary ms-1"
+            *ngIf="isLoggedInUserAdmin"
+            (click)="goToModManager()">
+      Manage Mods
+    </button>
   </div>
 </section>
 <router-outlet></router-outlet>

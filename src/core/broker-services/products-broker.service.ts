@@ -14,6 +14,7 @@ import {
 } from '@angular/common/http';
 import {
   catchError,
+  finalize,
   mergeMap,
   of,
   take,
@@ -39,20 +40,21 @@ export class ProductsBrokerService {
 
   public getProducts(filterCriteria: ProductFilterCriteriaModel): void {
     this._loadingHelper.startLoading();
+    let pagination: PaginationModel<ProductModel> = new PaginationModel();
     this._productsData.getProducts(filterCriteria)
       .pipe(
         take(1),
         tap(res => {
-          this._loadingHelper.stopLoading();
-          const pagination = new PaginationModel(res.data);
+          pagination = new PaginationModel(res.data);
           pagination.content = this._productHelper.transformProducts(pagination.content);
-          this._productLoader.pagination = pagination;
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
-          this._productLoader.pagination = new PaginationModel();
           this._notificationHelper.handleError(err.error.message)
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
+          this._productLoader.pagination = pagination;
         })
       )
       .subscribe();
@@ -65,15 +67,15 @@ export class ProductsBrokerService {
       .pipe(
         take(1),
         tap(res => {
-          this._loadingHelper.stopLoading();
           products = this._productHelper.transformProducts(res.data);
-          this._productLoader.products = products;
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
-          this._productLoader.products = products;
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
+          this._productLoader.products = products;
         })
       )
       .subscribe();
@@ -90,15 +92,16 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -115,15 +118,16 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -140,15 +144,16 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -165,15 +170,16 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -190,15 +196,16 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product updated!');
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -215,15 +222,16 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
           this._productLoader.product = product;
           this._notificationHelper.handleSuccess('Product created successfully!');
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
           this._notificationHelper.handleError(err.error.message);
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
         })
       )
       .subscribe();
@@ -240,15 +248,15 @@ export class ProductsBrokerService {
           return this._productsData.getProductsWithIds(product.similarProducts);
         }),
         tap(res => {
-          this._loadingHelper.stopLoading();
           product.similarProducts = this._productHelper.transformProducts(res.data);
-          this._productLoader.product = product;
         }),
         catchError((err: HttpErrorResponse) => {
-          this._loadingHelper.stopLoading();
-          this._productLoader.product = product;
           this._notificationHelper.handleError(err.error.message)
           return of();
+        }),
+        finalize(() => {
+          this._loadingHelper.stopLoading();
+          this._productLoader.product = product;
         })
       )
       .subscribe();

@@ -25,7 +25,8 @@ import {
 } from './helper-services';
 import {
   AdminGuard,
-  AuthGuard
+  AuthGuard,
+  ModGuard,
 } from './guards';
 import {
   HTTP_INTERCEPTORS
@@ -71,6 +72,7 @@ import {
 
     AuthGuard,
     AdminGuard,
+    ModGuard,
 
     {
       provide: HTTP_INTERCEPTORS,

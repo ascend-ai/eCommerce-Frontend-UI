@@ -1,1 +1,203 @@
-<p>user-details works!</p>
+<div class="container">
+  <form class="needs-validation"
+        [formGroup]="userDetailsFormGroup"
+        (ngSubmit)="update()">
+    <div class="row my-2">
+      <!-- Email -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="email" class="form-label">Email</label>
+        <input type="email"
+                class="form-control"
+                id="email"
+                [ngClass]="getInputValidationClasses('email')"
+                [formControl]="emailFormControl">
+        <ng-container *ngIf="isInputValid('email')">
+          <small class="text-danger"
+                  *ngIf="emailFormControl.errors?.['required']">
+            Email is required
+          </small>
+          <small class="text-danger"
+                  *ngIf="emailFormControl.errors?.['pattern']">
+            Invalid email
+          </small>
+        </ng-container>
+      </div>
+  
+      <!-- Phone number-->
+      <div class="col-12 col-md-3 form-group">
+        <label for="phone" class="form-label">Phone number</label>
+        <input type="text"
+                class="form-control"
+                id="phone"
+                [ngClass]="getInputValidationClasses('phoneNumber')"
+                [formControl]="phoneNumberFormControl">
+        <ng-container *ngIf="isInputValid('phoneNumber')">
+          <small class="text-danger"
+                  *ngIf="phoneNumberFormControl.errors?.['required']">
+            Phone number required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Address line 1 -->
+      <div class="col-12 col-md-6 form-group">
+        <label for="address-line-1" class="form-label">Address Line 1</label>
+        <input type="text"
+                class="form-control"
+                id="address-line-1"
+                [ngClass]="getInputValidationClasses('streetAddressLine1')"
+                [formControl]="streetAddressLine1FormControl">
+        <ng-container *ngIf="isInputValid('streetAddressLine1')">
+          <small class="text-danger"
+                  *ngIf="streetAddressLine1FormControl.errors?.['required']">
+            Street address required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Address line 2 -->
+      <div class="col-12 col-md-6 form-group">
+        <label for="address-line-2" class="form-label">Address Line 2 <span class="text-body-secondary">(Optional)</span></label>
+        <input type="text"
+                class="form-control"
+                id="address-line-2"
+                [ngClass]="getInputValidationClasses('streetAddressLine2')"
+                [formControl]="streetAddressLine2FormControl">
+        <ng-container *ngIf="isInputValid('streetAddressLine2')">
+          <small class="text-danger"
+                  *ngIf="streetAddressLine2FormControl.errors?.['required']">
+            Street address line 2 required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Address line 3 -->
+      <div class="col-12 col-md-6 form-group">
+        <label for="address-line-3" class="form-label">Address Line 3 <span class="text-body-secondary">(Optional)</span></label>
+        <input type="text"
+                class="form-control"
+                id="address-line-3"
+                [ngClass]="getInputValidationClasses('streetAddressLine3')"
+                [formControl]="streetAddressLine3FormControl">
+        <ng-container *ngIf="isInputValid('streetAddressLine3')">
+          <small class="text-danger"
+                  *ngIf="streetAddressLine3FormControl.errors?.['required']">
+            Street address line 3required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Country -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="country" class="form-label">Country</label>
+        <select class="form-select"
+                id="country"
+                [ngClass]="getInputValidationClasses('country')"
+                [formControl]="countryFormControl">
+          <option value=""
+                  disabled>
+            Select country
+          </option>
+          <option *ngFor="let country of countries"
+                  [value]="country">
+            {{ country }}
+          </option>
+        </select>
+        <ng-container *ngIf="isInputValid('country')">
+          <small class="text-danger"
+                  *ngIf="countryFormControl.errors?.['required']">
+            Country required
+          </small>
+        </ng-container>
+      </div>
+  
+      <!-- State -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="state" class="form-label">State</label>
+        <select class="form-select"
+                id="state"
+                [ngClass]="getInputValidationClasses('state')"
+                [formControl]="stateFormControl">
+          <option value=""
+                  disabled>
+            Select state
+          </option>
+          <option *ngFor="let state of states"
+                  [value]="state">
+            {{ state }}
+          </option>
+        </select>
+        <ng-container *ngIf="isInputValid('state')">
+          <small class="text-danger"
+                  *ngIf="stateFormControl.errors?.['required']">
+            State required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- City -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="city" class="form-label">City</label>
+        <select class="form-select"
+                id="city"
+                [ngClass]="getInputValidationClasses('city')"
+                [formControl]="cityFormControl">
+          <option value=""
+                  disabled>
+            Select city
+          </option>
+          <option *ngFor="let city of cities"
+                  [value]="city">
+            {{ city }}
+          </option>
+        </select>
+        <ng-container *ngIf="isInputValid('city')">
+          <small class="text-danger"
+                  *ngIf="cityFormControl.errors?.['required']">
+            City required
+          </small>
+        </ng-container>
+      </div>
+  
+      <!-- Zip code -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="zip" class="form-label">Zip</label>
+        <input type="text"
+                class="form-control"
+                id="zip"
+                [ngClass]="getInputValidationClasses('postalCode')"
+                [formControl]="postalCodeFormControl">
+        <ng-container *ngIf="isInputValid('postalCode')">
+          <small class="text-danger"
+                  *ngIf="postalCodeFormControl.errors?.['required']">
+            Zip code required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="d-flex my-2">
+      <button class="btn btn-primary"
+              type="submit"
+              [disabled]="userDetailsFormGroup.invalid">
+        Update
+      </button>
+
+      <button class="btn btn-danger ms-1"
+              type="button"
+              (click)="reset()">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

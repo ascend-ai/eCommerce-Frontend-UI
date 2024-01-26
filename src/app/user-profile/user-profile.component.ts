@@ -12,6 +12,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   public get isLoggedInUserAdminOrMod(): boolean {
     return this._authHelper.isLoggedInUserAdminOrMod
   }
+
+  public get isLoggedInUserAdmin(): boolean {
+    return this._authHelper.isLoggedInUserAdmin
+  }
   private _subscribeMain: boolean = true;
 
   constructor(private _authBroker: AuthBrokerService,
@@ -35,6 +39,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   public goToOrdersManager(): void {
     this._router.navigate(['orders']);
+  }
+
+  public goToModManager(): void {
+    this._router.navigate(['manage-mods']);
   }
 
 }

@@ -19,15 +19,20 @@ export const PHONE_NUMBER_REGEX = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]
 
 export const COUNTRY_DATA: Record<string, Record<string, Array<string>>> = Object.freeze({
   'America': {
-    'New York': ['New York City', 'Buffalo', 'Rochester'],
-    'California': ['Los Angeles', 'San Francisco', 'San Diego'],
-    'Texas': ['Houston', 'Dallas', 'Austin'],
-    'Florida': ['Miami', 'Orlando', 'Tampa'],
+    'New York': ['New York City', 'Buffalo', 'Rochester', ''],
+    'California': ['Los Angeles', 'San Francisco', 'San Diego', ''],
+    'Texas': ['Houston', 'Dallas', 'Austin', ''],
+    'Florida': ['Miami', 'Orlando', 'Tampa', ''],
+    '': ['']
   },
   'India': {
-    'Maharashtra': ['Mumbai', 'Pune', 'Nagpur'],
-    'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai'],
-    'Karnataka': ['Bangalore', 'Mysore', 'Hubli'],
-    'Rajasthan': ['Jaipur', 'Udaipur', 'Jodhpur'],
+    'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', ''],
+    'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', ''],
+    'Karnataka': ['Bangalore', 'Mysore', 'Hubli', ''],
+    'Rajasthan': ['Jaipur', 'Udaipur', 'Jodhpur', ''],
+    '': ['']
+  },
+  '': {
+    '': ['']
   }
 });

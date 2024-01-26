@@ -52,14 +52,24 @@ export class AuthHelperService {
   /**
    * Use following method only if isLoggedIn return true.
    */
-  public get loggedInUserId(): string | undefined {
+  public get isLoggedInUserAdmin(): boolean {
     try {
       const accessToken: string = this.session;
-      const { userId } = jwtDecode<AccessTokenPayloadInterface>(accessToken);
-      return userId;
+      const { userRole } = jwtDecode<AccessTokenPayloadInterface>(accessToken);
+      return userRole === UserRole.ADMIN;
     } catch (error: any) {
-      return undefined;
+      return false;
     }
+  }
+
+  /**
+   * Use following method only if isLoggedIn return true.
+   */
+  public get loggedInUserId(): any {
+    let userId: string | null = null;
+    const accessToken: string = this.session;
+    userId = jwtDecode<AccessTokenPayloadInterface>(accessToken).userId;
+    return userId;
   }
 
   public get isLoggedOut(): boolean {

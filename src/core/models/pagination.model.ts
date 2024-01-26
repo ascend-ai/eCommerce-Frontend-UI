@@ -1,5 +1,10 @@
-import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from '../constants';
-import { PaginationInterface } from '../interfaces';
+import {
+  DEFAULT_PAGE_INDEX,
+  DEFAULT_PAGE_SIZE
+} from '../constants';
+import {
+  PaginationInterface
+} from '../interfaces';
 
 export class PaginationModel<T> implements PaginationInterface<T> {
   content: Array<T>;

@@ -12,6 +12,7 @@ import {
 } from 'rxjs';
 import {
   DEFAULT_PAGE_INDEX,
+  DEFAULT_PAGE_SIZE,
   OrderBrokerService,
   OrderFilterCriteriaModel,
   OrderLoaderService,
@@ -35,10 +36,9 @@ export class ManageOrdersComponent implements OnInit, OnDestroy {
   public pagination: PaginationModel<OrderModel> = new PaginationModel();
   private _currentView: OrderStatus = this.views[0];
   private _subscribeMain: boolean = true;
-  private readonly DEFAULT_PAGE_SIZE: number = 10;
   private _filter: OrderFilterCriteriaModel = new OrderFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
-    size: this.DEFAULT_PAGE_SIZE
+    size: DEFAULT_PAGE_SIZE
   });
 
 
