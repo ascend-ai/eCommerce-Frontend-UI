@@ -8,7 +8,7 @@
 <body>
   <app-header [numberOfItemsInCart]="totalItemsInCart"
               [canCreateProduct]="canCreateProduct"></app-header>
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0 main-content">
     <app-loading-spinner [isShowing]="isAppLoading"></app-loading-spinner>
     <router-outlet></router-outlet>
     <app-notifications [notificationList]="notificationList"
