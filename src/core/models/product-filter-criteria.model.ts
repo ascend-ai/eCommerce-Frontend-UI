@@ -14,19 +14,19 @@ import {
 
 export class ProductFilterCriteriaModel extends BaseFilterCriteriaModel {
   category: ProductCategory | undefined;
-  isPopular: boolean | undefined;
+  isPinned: boolean | undefined;
   search: string | undefined;
 
   constructor(filterCriteria: Partial<ProductFilterCriteriaInterface> = {
     page: DEFAULT_PAGE_INDEX,
     size: DEFAULT_PAGE_SIZE,
     category: undefined,
-    isPopular: undefined,
+    isPinned: undefined,
     search: ''
   }) {
     super(filterCriteria);
     this.category = filterCriteria.category || undefined;
-    this.isPopular = filterCriteria.isPopular || undefined;
+    this.isPinned = filterCriteria.isPinned || undefined;
     this.search = filterCriteria.search || undefined;
   }
 }

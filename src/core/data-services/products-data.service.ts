@@ -96,8 +96,8 @@ export class ProductsDataService {
       params = params.set('category', filterCriteria.category);
     }
 
-    if (filterCriteria.isPopular !== undefined) {
-      params = params.set('isPopular', filterCriteria.isPopular);
+    if (filterCriteria.isPinned !== undefined) {
+      params = params.set('isPinned', filterCriteria.isPinned);
     }
 
     if (filterCriteria.search) {

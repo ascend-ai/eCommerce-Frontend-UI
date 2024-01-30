@@ -8,7 +8,7 @@ export class ProductModel implements ProductInterface {
   name: string;
   description: string;
   price: number;
-  isPopular: boolean;
+  isPinned: boolean;
   quantityInStock: number;
   images: Array<ProductImageModel>;
   similarProducts: Array<any>;
@@ -21,7 +21,7 @@ export class ProductModel implements ProductInterface {
     name: '',
     description: '',
     price: 0,
-    isPopular: false,
+    isPinned: false,
     quantityInStock: 0,
     images: [],
     similarProducts: [],
@@ -32,7 +32,7 @@ export class ProductModel implements ProductInterface {
     this.name = data?.name || '';
     this.description = data?.description || '';
     this.price = data?.price || 0;
-    this.isPopular = data?.isPopular || false;
+    this.isPinned = data?.isPinned || false;
     this.quantityInStock = data?.quantityInStock || 0;
     this.images = data?.images || [];
     this.similarProducts = data?.similarProducts || [];

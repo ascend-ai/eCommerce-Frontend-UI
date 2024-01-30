@@ -32,7 +32,7 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
   public qtyInStockFC!: FormControl;
   public categoryFC!: FormControl;
   public priceFC!: FormControl;
-  public isPopularFC!: FormControl;
+  public isPinnedFC!: FormControl;
   private _subscribeMain: boolean = true;
   private get _isFormNewlyInitialized(): boolean {
     return this._subscribeMain && this.basicDetailsFG.untouched && this.basicDetailsFG.pristine;
@@ -72,14 +72,14 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
       quantityInStock: ['', [Validators.required]],
       category: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      isPopular: [false],
+      isPinned: [false],
     });
     this.nameFC = this.basicDetailsFG.controls['name'] as FormControl;
     this.descriptionFC = this.basicDetailsFG.controls['description'] as FormControl;
     this.qtyInStockFC = this.basicDetailsFG.controls['quantityInStock'] as FormControl;
     this.categoryFC = this.basicDetailsFG.controls['category'] as FormControl;
     this.priceFC = this.basicDetailsFG.controls['price'] as FormControl;
-    this.isPopularFC = this.basicDetailsFG.controls['isPopular'] as FormControl;
+    this.isPinnedFC = this.basicDetailsFG.controls['isPinned'] as FormControl;
   }
 
   public isInputValid(inputName: string): boolean {
@@ -100,8 +100,8 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
       case 'price':
         formControl = this.priceFC;
         break;
-      case 'isPopular':
-        formControl = this.isPopularFC;
+      case 'isPinned':
+        formControl = this.isPinnedFC;
         break;
       default:
         formControl = new FormControl();
@@ -128,8 +128,8 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
       case 'price':
         formControl = this.priceFC;
         break;
-      case 'isPopular':
-        formControl = this.isPopularFC;
+      case 'isPinned':
+        formControl = this.isPinnedFC;
         break;
       default:
         formControl = new FormControl();

@@ -18,9 +18,9 @@
     </div>
   </section>
 
-  <!-- Popular products -->
+  <!-- Pinned products -->
   <section class="my-5">
-    <h2 class="text-center">Popular products</h2>
+    <h2 class="text-center">Our Top Picks</h2>
     <app-product-list [paginator]="pagination"
                       (page)="switchPage($event)"
                       (addToCart)="addProductToCart($event)">

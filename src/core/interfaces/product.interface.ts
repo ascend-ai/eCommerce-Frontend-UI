@@ -11,7 +11,7 @@ export interface ProductInterface {
   name: string;
   description: string;
   price: number;
-  isPopular: boolean;
+  isPinned: boolean;
   quantityInStock: number;
   images: Array<ProductImageInterface>;
   similarProducts: Array<string>;
