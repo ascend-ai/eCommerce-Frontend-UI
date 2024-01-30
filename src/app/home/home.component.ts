@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._productsBroker.getProducts(new ProductFilterCriteriaModel({
       page: this._currentPage,
       size: this.DEFAULT_PAGE_SIZE,
-      isPopular: true,
+      isPinned: true,
     }));
   }
 

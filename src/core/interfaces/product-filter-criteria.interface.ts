@@ -6,6 +6,6 @@ export interface ProductFilterCriteriaInterface {
   page: number,
   size: number,
   category: ProductCategory,
-  isPopular: boolean,
+  isPinned: boolean,
   search: string
 }
