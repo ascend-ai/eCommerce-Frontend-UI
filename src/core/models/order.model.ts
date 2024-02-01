@@ -18,6 +18,7 @@ export class OrderModel implements OrderInterface {
   status: OrderStatus;
   totalPurchaseAmount: number;
   whenCreated: number;
+  whenLastUpdated: number;
 
   constructor(data: OrderInterface | OrderModel = {
     _id: '',
@@ -27,8 +28,9 @@ export class OrderModel implements OrderInterface {
     razorpaySignature: '',
     purchases: {},
     status: OrderStatus.PENDING,
+    totalPurchaseAmount: 0,
     whenCreated: Date.now(),
-    totalPurchaseAmount: 0
+    whenLastUpdated: Date.now(),
   }) {
     this._id = data?._id || '';
     this.user = data?.user ? new UserModel(data?.user) : new UserModel();
@@ -37,7 +39,8 @@ export class OrderModel implements OrderInterface {
     this.razorpaySignature = data?.razorpaySignature || '';
     this.purchases = data?.purchases || {};
     this.status = data?.status || OrderStatus.PENDING;
-    this.whenCreated = data?.whenCreated || Date.now();
     this.totalPurchaseAmount = data?.totalPurchaseAmount || 0;
+    this.whenCreated = data?.whenCreated || Date.now();
+    this.whenLastUpdated = data?.whenLastUpdated || Date.now();
   }
 };

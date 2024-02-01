@@ -51,6 +51,11 @@ export class HeaderComponent {
   }
 
   public isRouterLinkActive(path: string): boolean {
-    return this._router.isActive(path, {paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored'});
+    return this._router.isActive(path, {
+      paths: 'subset',
+      queryParams: 'subset',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
   }
 }

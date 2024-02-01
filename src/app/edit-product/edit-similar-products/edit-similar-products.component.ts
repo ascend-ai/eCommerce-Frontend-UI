@@ -52,13 +52,23 @@ export class EditSimilarProductsComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;
-        this.similarProducts = product.similarProducts;
+        this.resetSimilarProductsItems();
       });
 
     this._productLoader.pagination$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(pagination => {
         this.pagination = pagination;
+      });
+
+    this._editProductHelper.tab$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(tab => {
+        if (tab &&
+            tab !== 'similar-products' &&
+            this.areSimilarProductsChanged) {
+          this._editProductHelper.isTabChangeAllowed = confirm('All the changes will be discarded, are you sure you want to continue?');
+        }
       });
   }
 
@@ -87,6 +97,7 @@ export class EditSimilarProductsComponent implements OnInit, OnDestroy {
 
   public resetSimilarProductsItems(): void {
     this.similarProducts = this.product.similarProducts;
+    this._editProductHelper.isTabChangeAllowed = true;
   }
 
   public get areSimilarProductsChanged(): boolean {

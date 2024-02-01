@@ -14,7 +14,7 @@ enum PushAndPullItemType {
 export class PnpItemComponent {
   @Input() set init(item: PushAndPullItemInterface<UseablePushAndPullItemModelType>) {
     this.item = item;
-    if (item instanceof ProductModel) {
+    if (item.data instanceof ProductModel) {
       this.itemType = PushAndPullItemType.PRODUCT;
     } else {
       this.itemType = PushAndPullItemType.USER

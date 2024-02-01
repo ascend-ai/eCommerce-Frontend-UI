@@ -15,4 +15,5 @@ export interface OrderInterface {
   status: OrderStatus;
   totalPurchaseAmount: number;
   whenCreated: number;
+  whenLastUpdated: number;
 }

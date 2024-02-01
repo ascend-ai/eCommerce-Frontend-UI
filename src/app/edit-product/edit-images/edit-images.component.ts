@@ -48,7 +48,17 @@ export class EditImagesComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;
-        this.images = product.images.map(img => new ProductImageModel(img));
+        this.resetImageOrder();
+      });
+
+    this._editProductHelper.tab$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(tab => {
+        if (tab &&
+            tab !== 'images' &&
+            this.areImagesShuffled) {
+          this._editProductHelper.isTabChangeAllowed = confirm('All the changes will be discarded, are you sure you want to continue?');
+        }
       });
   }
 
@@ -80,13 +90,6 @@ export class EditImagesComponent implements OnInit, OnDestroy {
     );
   }
 
-  public saveProductArrangement(): void {
-    this._productsBroker.rearrangeProductImages(
-      this.product._id,
-      this.images.map(img => img._id)
-    );
-  }
-
   public get areImagesShuffled(): boolean {
     for (let i = 0; i < this.product.images.length; i++) {
       if (this.product.images[i]._id !== this.images[i]._id) {
@@ -98,6 +101,7 @@ export class EditImagesComponent implements OnInit, OnDestroy {
 
   public resetImageOrder(): void {
     this.images = this.product.images.map(img => new ProductImageModel(img));
+    this._editProductHelper.isTabChangeAllowed = true;
   }
 
   public updateImageOrder(): void {
