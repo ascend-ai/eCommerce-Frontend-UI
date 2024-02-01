@@ -13,6 +13,9 @@ export class ProductModel implements ProductInterface {
   images: Array<ProductImageModel>;
   similarProducts: Array<any>;
   category: ProductCategory;
+  totalPurchases: number;
+  whenCreated: number;
+  whenLastUpdated: number;
 
   // UI properties
   displayImage: ProductImageModel;
@@ -27,6 +30,9 @@ export class ProductModel implements ProductInterface {
     similarProducts: [],
     category: ProductCategory.OTHERS,
     displayImage: new ProductImageModel(),
+    totalPurchases: 0,
+    whenCreated: Date.now(),
+    whenLastUpdated: Date.now()
   }) {
     this._id = data?._id || '';
     this.name = data?.name || '';
@@ -38,5 +44,8 @@ export class ProductModel implements ProductInterface {
     this.similarProducts = data?.similarProducts || [];
     this.category = data?.category || ProductCategory.OTHERS;
     this.displayImage = data?.displayImage || new ProductImageModel();
+    this.totalPurchases = data?.totalPurchases || 0;
+    this.whenCreated = data?.whenCreated || Date.now();
+    this.whenLastUpdated = data?.whenLastUpdated || Date.now();
   }
 };

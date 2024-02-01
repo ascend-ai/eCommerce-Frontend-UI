@@ -2,7 +2,8 @@ import {
   Component
 } from '@angular/core';
 import {
-  ActivatedRoute
+  ActivatedRoute,
+  Router,
 } from '@angular/router';
 import {
   takeWhile
@@ -21,10 +22,12 @@ import {
   styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent {
+  private _productId: string = '';
+  private _isTabChangeAllowed: boolean = false;
   private _subscribeMain: boolean = true;
-  public isCarouselOpen: boolean = false;
 
   constructor(private _route: ActivatedRoute,
+              private _router: Router,
               private _productsBroker: ProductsBrokerService,
               private _productLoader: ProductLoaderService,
               private _editProductHelper: EditProductHelperService) {}
@@ -41,13 +44,41 @@ export class EditProductComponent {
     this._route.params
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(params => {
+        this._productId = params['id'];
         this._productsBroker.getProduct(params['id']);
       });
 
     this._productLoader.product$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
-        this._editProductHelper.setProductForEdit(product);
+        this._editProductHelper.productForEdit =product;
       });
+
+    this._editProductHelper.isTabChangeAllowed$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(val => {
+        this._isTabChangeAllowed = val;
+      });
+  }
+
+  public navigate(relativePath: string): void {
+    this._editProductHelper.tab = relativePath;
+    if (this._isTabChangeAllowed) {
+      this._router.navigate([ relativePath ], {
+        relativeTo: this._route
+      });
+    }
+  }
+
+  public isRouterLinkActive(relativePath: string): boolean {
+    return this._router.isActive(
+      `products/${this._productId}/edit/${relativePath}`,
+      {
+        paths: 'subset',
+        queryParams: 'ignored',
+        fragment: 'ignored',
+        matrixParams: 'ignored'
+      }
+    );
   }
 }

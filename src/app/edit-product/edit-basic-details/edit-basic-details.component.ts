@@ -56,7 +56,17 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;
-        this.basicDetailsFG.reset(product);
+        this.resetForm();
+      });
+
+    this._editProductHelper.tab$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(tab => {
+        if (tab &&
+            tab !== 'basic-details' &&
+            this.basicDetailsFG.dirty) {
+          this._editProductHelper.isTabChangeAllowed = confirm('All the changes will be discarded, are you sure you want to continue?');
+        }
       });
   }
 
@@ -142,5 +152,6 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
 
   public resetForm(): void {
     this.basicDetailsFG.reset(this.product);
+    this._editProductHelper.isTabChangeAllowed = true;
   }
 }

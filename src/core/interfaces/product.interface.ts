@@ -16,6 +16,9 @@ export interface ProductInterface {
   images: Array<ProductImageInterface>;
   similarProducts: Array<string>;
   category: ProductCategory;
+  totalPurchases: number;
+  whenCreated: number;
+  whenLastUpdated: number;
 
   // UI properties
   displayImage: ProductImageInterface;

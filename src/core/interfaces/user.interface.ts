@@ -11,5 +11,7 @@ export interface UserInterface {
   password: string,
   address: AddressInterface,
   phoneNumber: string,
-  role: UserRole
+  role: UserRole,
+  whenCreated: number;
+  whenLastUpdated: number;
 }
