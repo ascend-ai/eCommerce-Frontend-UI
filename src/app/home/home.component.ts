@@ -17,7 +17,9 @@ import {
   ProductCategory,
   ProductLoaderService,
   ProductModel,
-  ProductsBrokerService
+  ProductsBrokerService,
+  ProductPaginationType,
+  PRODUCT_SORTABLE_COLUMN,
 } from 'src/core';
 
 @Component({
@@ -27,10 +29,28 @@ import {
 })
 export class HomeComponent implements OnInit, OnDestroy {
   public categories: Array<ProductCategory> = Object.values(ProductCategory).filter(value => typeof value === 'string');
-  public pagination: PaginationModel<ProductModel> = new PaginationModel();
+  public pinnedPagination: PaginationModel<ProductModel> = new PaginationModel();
+  public latestPagination: PaginationModel<ProductModel> = new PaginationModel();
+  public popularPagination: PaginationModel<ProductModel> = new PaginationModel();
+  private readonly DEFAULT_PAGE_SIZE = 3;
+  private _pinnedPaginationFilter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
+    page: DEFAULT_PAGE_INDEX,
+    size: this.DEFAULT_PAGE_SIZE,
+    isPinned: true
+  });
+  private _latestPaginationFilter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
+    page: DEFAULT_PAGE_INDEX,
+    size: this.DEFAULT_PAGE_SIZE,
+  });
+  private _popularPaginationFilter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
+    page: DEFAULT_PAGE_INDEX,
+    size: this.DEFAULT_PAGE_SIZE,
+    sortColumn: PRODUCT_SORTABLE_COLUMN.totalPurchases,
+  });
+  public get ProductPaginationType(): typeof ProductPaginationType {
+    return ProductPaginationType;
+  }
   private _subscribeMain: boolean = true;
-  private DEFAULT_PAGE_SIZE = 3;
-  private _currentPage: number = DEFAULT_PAGE_INDEX;
 
   constructor(private _productsBroker: ProductsBrokerService,
               private _productLoader: ProductLoaderService,
@@ -39,7 +59,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._initSubscriptions();
-    this._getProducts();
+    this._productsBroker.getInitialDataRequiredForHomePage(
+      this._pinnedPaginationFilter,
+      this._latestPaginationFilter,
+      this._popularPaginationFilter
+    )
   }
 
   ngOnDestroy(): void {
@@ -48,24 +72,63 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   private _initSubscriptions(): void {
-    this._productLoader.pagination$
+    this._productLoader.pinnedPagination$
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(pagination => {
-        this.pagination = pagination;
+        this.pinnedPagination = pagination;
+      });
+
+    this._productLoader.latestPagination$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(pagination => {
+        this.latestPagination = pagination;
+      });
+
+    this._productLoader.popularPagination$
+      .pipe(takeWhile(() => this._subscribeMain))
+      .subscribe(pagination => {
+        this.popularPagination = pagination;
       });
   }
 
-  public switchPage(pageIndex: number): void {
-    this._currentPage = pageIndex;
-    this._getProducts()
+  public switchPage(pageIndex: number, paginationType: ProductPaginationType): void {
+    switch (paginationType) {
+      case ProductPaginationType.PINNED:
+        this._pinnedPaginationFilter.page = pageIndex;
+        this._getProducts(paginationType);
+        break;
+      case ProductPaginationType.LATEST:
+        this._latestPaginationFilter.page = pageIndex;
+        this._getProducts(paginationType);
+        break;
+      case ProductPaginationType.POPULAR:
+        this._popularPaginationFilter.page = pageIndex;
+        this._getProducts(paginationType);
+        break;
+    }
   }
 
-  private _getProducts(): void {
-    this._productsBroker.getProducts(new ProductFilterCriteriaModel({
-      page: this._currentPage,
-      size: this.DEFAULT_PAGE_SIZE,
-      isPinned: true,
-    }));
+  private _getProducts(paginationType: ProductPaginationType): void {
+    switch (paginationType) {
+      case ProductPaginationType.PINNED:
+        this._productsBroker.getProducts(
+          this._pinnedPaginationFilter,
+          paginationType
+        );
+        break;
+      case ProductPaginationType.LATEST:
+        this._productsBroker.getProducts(
+          this._latestPaginationFilter,
+          paginationType
+        );
+        break;
+      case ProductPaginationType.POPULAR:
+        this._productsBroker.getProducts(
+          this._popularPaginationFilter,
+          paginationType
+        );
+        break;
+    }
   }
 
   public addProductToCart(product: ProductModel): void {

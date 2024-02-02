@@ -60,7 +60,8 @@ export class UserDataService {
   private _getQueryParamsForUserFilter(filterCriteria: UserFilterCriteriaModel): HttpParams {
     let params = new HttpParams()
       .set('size', filterCriteria.size)
-      .set('page', filterCriteria.page);
+      .set('page', filterCriteria.page)
+      .set('sort', `${filterCriteria.sortColumn},${filterCriteria.sortDirection}`);
 
     if (filterCriteria.role !== undefined) {
       params = params.set('role', filterCriteria.role);

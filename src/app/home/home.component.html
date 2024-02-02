@@ -21,13 +21,29 @@
   <!-- Pinned products -->
   <section class="my-5">
     <h2 class="text-center">Our Top Picks</h2>
-    <app-product-list [paginator]="pagination"
-                      (page)="switchPage($event)"
+    <app-product-list [paginator]="pinnedPagination"
+                      (page)="switchPage($event, ProductPaginationType.PINNED)"
                       (addToCart)="addProductToCart($event)">
     </app-product-list>
   </section>
 
   <!-- New release -->
+  <section class="my-5">
+    <h2 class="text-center">New Release</h2>
+    <app-product-list [paginator]="latestPagination"
+                      [pageLimit]="2"
+                      (page)="switchPage($event, ProductPaginationType.LATEST)"
+                      (addToCart)="addProductToCart($event)">
+    </app-product-list>
+  </section>
 
   <!-- Best seller -->
+  <section class="my-5">
+    <h2 class="text-center">Best Seller</h2>
+    <app-product-list [paginator]="popularPagination"
+                      [pageLimit]="2"
+                      (page)="switchPage($event, ProductPaginationType.POPULAR)"
+                      (addToCart)="addProductToCart($event)">
+    </app-product-list>
+  </section>
 </div>
