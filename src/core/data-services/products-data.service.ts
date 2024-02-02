@@ -90,7 +90,8 @@ export class ProductsDataService {
   private _getQueryParamsForProductFilter(filterCriteria: ProductFilterCriteriaModel): HttpParams {
     let params = new HttpParams()
       .set('size', filterCriteria.size)
-      .set('page', filterCriteria.page);
+      .set('page', filterCriteria.page)
+      .set('sort', `${filterCriteria.sortColumn},${filterCriteria.sortDirection}`);
 
     if (filterCriteria.category !== undefined) {
       params = params.set('category', filterCriteria.category);

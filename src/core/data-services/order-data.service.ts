@@ -73,7 +73,8 @@ export class OrderDataService {
   private _getQueryParamsForOrderFilter(filterCriteria: OrderFilterCriteriaModel): HttpParams {
     let params = new HttpParams()
       .set('size', filterCriteria.size)
-      .set('page', filterCriteria.page);
+      .set('page', filterCriteria.page)
+      .set('sort', `${filterCriteria.sortColumn},${filterCriteria.sortDirection}`);
 
     if (filterCriteria.status !== undefined) {
       params = params.set('status', filterCriteria.status);

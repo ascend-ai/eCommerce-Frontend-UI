@@ -15,6 +15,7 @@ import {
 import {
   catchError,
   finalize,
+  forkJoin,
   mergeMap,
   of,
   take,
@@ -23,11 +24,13 @@ import {
 import {
   ProductFilterCriteriaModel,
   PaginationModel,
-  ProductModel
+  ProductModel,
+  UserFilterCriteriaModel
 } from '../models';
 import {
   ProductLoaderService
 } from '../loader-services';
+import { ProductPaginationType } from '../enums';
 
 @Injectable()
 export class ProductsBrokerService {
@@ -38,7 +41,8 @@ export class ProductsBrokerService {
               private _notificationHelper: NotificationHelperService,
               private _loadingHelper: LoadingHelperService) { }
 
-  public getProducts(filterCriteria: ProductFilterCriteriaModel): void {
+  public getProducts(filterCriteria: ProductFilterCriteriaModel,
+                     paginationType: ProductPaginationType = ProductPaginationType.GENERAL): void {
     this._loadingHelper.startLoading();
     let pagination: PaginationModel<ProductModel> = new PaginationModel();
     this._productsData.getProducts(filterCriteria)
@@ -54,7 +58,22 @@ export class ProductsBrokerService {
         }),
         finalize(() => {
           this._loadingHelper.stopLoading();
-          this._productLoader.pagination = pagination;
+          switch (paginationType) {
+            case ProductPaginationType.GENERAL:
+              this._productLoader.pagination = pagination;
+              break;
+            case ProductPaginationType.PINNED:
+              this._productLoader.pinnedPagination = pagination;
+              break;
+            case ProductPaginationType.LATEST:
+              this._productLoader.latestPagination = pagination;
+              break;
+            case ProductPaginationType.POPULAR:
+              this._productLoader.popularPagination = pagination;
+              break;
+            default:
+              this._productLoader.pagination = pagination;
+          }
         })
       )
       .subscribe();
@@ -260,5 +279,44 @@ export class ProductsBrokerService {
         })
       )
       .subscribe();
+  }
+
+  public getInitialDataRequiredForHomePage(pinnedProductsFC: ProductFilterCriteriaModel,
+                                           latestProductsFC: ProductFilterCriteriaModel,
+                                           popularProductsFC: ProductFilterCriteriaModel): void {
+    this._loadingHelper.startLoading();
+    let pinnedPagination: PaginationModel<ProductModel> = new PaginationModel();
+    let latestPagination: PaginationModel<ProductModel> = new PaginationModel();
+    let popularPagination: PaginationModel<ProductModel> = new PaginationModel();
+    forkJoin({
+      pinned: this._productsData.getProducts(pinnedProductsFC),
+      latest: this._productsData.getProducts(latestProductsFC),
+      popular: this._productsData.getProducts(popularProductsFC)
+    })
+      .pipe(
+      take(1),
+      tap(res => {
+        pinnedPagination = new PaginationModel(res.pinned.data);
+        pinnedPagination.content = this._productHelper.transformProducts(pinnedPagination.content);
+
+        latestPagination = new PaginationModel(res.latest.data);
+        latestPagination.content = this._productHelper.transformProducts(latestPagination.content);
+
+        popularPagination = new PaginationModel(res.popular.data);
+        popularPagination.content = this._productHelper.transformProducts(popularPagination.content);
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this._notificationHelper.handleError(err.error.message);
+        
+        return of();
+      }),
+      finalize(() => {
+        this._loadingHelper.stopLoading();
+        this._productLoader.pinnedPagination = pinnedPagination;
+        this._productLoader.latestPagination = latestPagination;
+        this._productLoader.popularPagination = popularPagination;
+      })
+    )
+    .subscribe();
   }
 }

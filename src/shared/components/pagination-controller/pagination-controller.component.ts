@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PaginationModel } from 'src/core';
 
 @Component({
@@ -6,25 +6,38 @@ import { PaginationModel } from 'src/core';
   templateUrl: './pagination-controller.component.html',
   styleUrls: ['./pagination-controller.component.scss']
 })
-export class PaginationControllerComponent {
+export class PaginationControllerComponent implements OnInit {
   @Input() paginator: PaginationModel<any> = new PaginationModel();
+  @Input() pageLimit: number | undefined = undefined;
   @Output() page: EventEmitter<number> = new EventEmitter();
+  private get _totalPages(): number {
+    if (this.pageLimit &&
+        (this.pageLimit > 0) &&
+        (this.pageLimit < this.paginator.totalPages)) {
+      return this.pageLimit;
+    } else {
+      return this.paginator.totalPages;
+    }
+  }
 
   public get isFirstPage(): boolean {
     return this.paginator.page === 0;
   }
 
   public get isLastPage(): boolean {
-    return (this.paginator.totalPages > 0) ? (this.paginator.page === (this.paginator.totalPages - 1)) : true;
+    return (this._totalPages > 0) ? (this.paginator.page === (this._totalPages - 1)) : true;
   }
 
   public get pageIndicator(): string {
     let currentPage = this.paginator.page;
-    (this.paginator.totalPages > 0) ? (currentPage++) : null
-    return `${currentPage} / ${this.paginator.totalPages}`;
+    (this._totalPages > 0) ? (currentPage++) : null
+    return `${currentPage} / ${this._totalPages}`;
   }
 
   constructor() {}
+
+  ngOnInit(): void {
+  }
 
   public goToFirstPage(): void {
     if (!this.isFirstPage) {
@@ -46,7 +59,7 @@ export class PaginationControllerComponent {
 
   public goToLastPage(): void {
     if (!this.isLastPage) {
-      this._goToPage(this.paginator.totalPages - 1);
+      this._goToPage(this._totalPages - 1);
     }
   }
 
