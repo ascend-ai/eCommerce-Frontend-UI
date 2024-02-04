@@ -1,7 +1,4 @@
 import {
-  BASE_SORTABLE_COLUMN
-} from '../constants';
-import {
   SortDirection
 } from '../enums';
 
