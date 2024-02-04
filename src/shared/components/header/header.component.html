@@ -1,64 +1,67 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand">{{ COMPANY_NAME }}</a>
-    <button class="navbar-toggler"
-            type="button"
-            [class.collapsed]="!isNavbarExpanded"
-            (click)="toggleNavbarExpansion()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse"
-         [class.show]="isNavbarExpanded">
-      <!-- Primary nav items-->
-      <ul class="navbar-nav me-auto my-2 my-lg-0 nav-primary">
-        <li class="nav-item">
-          <a class="nav-link cursor-pointer"
-             (click)="navigate(['/home'])"
-             [class.active]="isRouterLinkActive('/home')">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link cursor-pointer"
-             (click)="navigate(['/customization'])"
-             [class.active]="isRouterLinkActive('/customization')">Customization</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link cursor-pointer"
-             (click)="navigate(['/pop-up'])"
-             [class.active]="isRouterLinkActive('/pop-up')">Pop-up</a>
-        </li>
-      </ul>
+<div class="bg-primary">
+  <div class="text-center text-light py-2 company-name">{{ COMPANY_NAME }}</div>
 
-      <!-- Secondary nav items -->
-      <ul class="navbar-nav ms-auto my-2 my-lg-0 nav-secondary">
-        <li class="nav-item p-2"
-            *ngIf="canCreateProduct">
-          <i class="fa-solid fa-folder-plus nav-link position-relative cursor-pointer"
-             (click)="navigate(['products', 'create'])"
-             [class.active]="isRouterLinkActive('/products/create')"></i>
-        </li>
-        <li class="nav-item p-2">
-          <i class="fa-solid fa-magnifying-glass nav-link cursor-pointer"
-             (click)="openSearch()"></i>
-        </li>
-        <li class="nav-item p-2">
-          <i class="fas fa-shopping-cart nav-link position-relative cursor-pointer"
-             (click)="navigate(['/cart'])"
-             [class.active]="isRouterLinkActive('/cart')">
-            <span class="position-absolute top-0 start-40 translate-middle badge rounded-pill bg-danger">
-              {{ numberOfItemsInCart }}
-            </span>
-          </i>
-        </li>
-        <li class="nav-item p-2">
-          <i class="fa-solid fa-user nav-link cursor-pointer"
-             (click)="navigate(['/auth'])"
-             [class.active]="isRouterLinkActive('/auth') || isRouterLinkActive('/my-profile')"></i>
-        </li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container-fluid justify-content-end">
+      <button class="navbar-toggler"
+              type="button"
+              [class.collapsed]="!isNavbarExpanded"
+              (click)="toggleNavbarExpansion()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"
+           [class.show]="isNavbarExpanded">
+        <!-- Primary nav items-->
+        <ul class="navbar-nav me-auto my-2 my-lg-0 nav-primary">
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer"
+               (click)="navigate(['/home'])"
+               [class.active]="isRouterLinkActive('/home')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer"
+               (click)="navigate(['/customization'])"
+               [class.active]="isRouterLinkActive('/customization')">Customization</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer"
+               (click)="navigate(['/pop-up'])"
+               [class.active]="isRouterLinkActive('/pop-up')">Pop-up</a>
+          </li>
+        </ul>
+  
+        <!-- Secondary nav items -->
+        <ul class="navbar-nav ms-auto my-2 my-lg-0 nav-secondary">
+          <li class="nav-item p-2"
+              *ngIf="canCreateProduct">
+            <i class="fa-solid fa-folder-plus nav-link position-relative cursor-pointer"
+               (click)="navigate(['products', 'create'])"
+               [class.active]="isRouterLinkActive('/products/create')"></i>
+          </li>
+          <li class="nav-item p-2">
+            <i class="fa-solid fa-magnifying-glass nav-link cursor-pointer"
+               (click)="openSearch()"></i>
+          </li>
+          <li class="nav-item p-2">
+            <i class="fas fa-shopping-cart nav-link position-relative cursor-pointer"
+               (click)="navigate(['/cart'])"
+               [class.active]="isRouterLinkActive('/cart')">
+              <span class="position-absolute top-0 start-40 translate-middle badge rounded-pill bg-danger">
+                {{ numberOfItemsInCart }}
+              </span>
+            </i>
+          </li>
+          <li class="nav-item p-2">
+            <i class="fa-solid fa-user nav-link cursor-pointer"
+               (click)="navigate(['/auth'])"
+               [class.active]="isRouterLinkActive('/auth') || isRouterLinkActive('/my-profile')"></i>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
 
 <!-- Search -->
 <div class="container-fluid bg-light bg-opacity-75 position-fixed top-0 start-0 d-flex justify-content-center align-items-center search-container"
