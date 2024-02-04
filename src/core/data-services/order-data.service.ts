@@ -10,15 +10,19 @@ import {
   PaginationInterface
 } from '../interfaces';
 import {
-  HttpClient, HttpParams
+  HttpClient,
+  HttpParams
 } from '@angular/common/http';
 import {
   Observable
 } from 'rxjs';
 import {
-  OrderFilterCriteriaModel
+  OrderFilterCriteriaModel,
+  OrderModel
 } from '../models';
-import { OrderStatus } from '../enums';
+import {
+  OrderStatus
+} from '../enums';
 
 @Injectable()
 export class OrderDataService {
@@ -26,7 +30,7 @@ export class OrderDataService {
 
   constructor(private _http: HttpClient) { }
 
-  public createOrder(purchases: Record<string, number>): Observable<ApiResponseInterface<OrderInterface>> {
+  public createOrder(purchases: OrderModel): Observable<ApiResponseInterface<OrderInterface>> {
     return this._http.post<ApiResponseInterface<OrderInterface>>(
       this.API_URL + '/orders',
       purchases

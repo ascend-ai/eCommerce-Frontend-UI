@@ -49,7 +49,13 @@
           <strong>When Ordered:&nbsp;</strong>{{ order.whenCreated | date:'short' }}
         </div>
         <div class="my-1">
-          <strong>Total Purchase Amount:&nbsp;</strong>₹{{ order.totalPurchaseAmount }}
+          <strong>Subtotal:&nbsp;</strong>₹{{ order.totalPurchaseAmount }}
+        </div>
+        <div class="my-1">
+          <strong>Shipping:&nbsp;</strong>₹{{ order.shippingCharge }}
+        </div>
+        <div class="my-1">
+          <strong>Total Amount:&nbsp;</strong>₹{{ totalAmount }}
         </div>
       </div>
     </div>

@@ -14,6 +14,8 @@ export interface OrderInterface {
   purchases: Record<string, number>;
   status: OrderStatus;
   totalPurchaseAmount: number;
+  shippingCharge: number;
+  isSelfPickup: boolean;
   whenCreated: number;
   whenLastUpdated: number;
 }

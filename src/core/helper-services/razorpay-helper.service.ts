@@ -31,7 +31,7 @@ export class RazorpayHelperService {
           address: 'Razorpay Corporate Office'
       },
       theme: {
-          color: '#3399cc'
+          color: '#FEB5BC'
       }
     };
 

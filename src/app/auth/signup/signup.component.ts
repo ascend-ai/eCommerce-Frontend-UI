@@ -47,8 +47,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   public postalCodeFormControl!: FormControl;
   public countries: Array<string> = [];
   public states: Array<string> = [];
-  public cities: Array<string> = [];
-  private _stateData: Record<string, Array<string>> = {};
   private _subscribeMain: boolean = true;
   constructor(private _authBroker: AuthBrokerService,
               private _authLoader: AuthLoaderService,
@@ -102,8 +100,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           this.stateFormControl.patchValue('');
           this.stateFormControl.markAsUntouched();
           this.stateFormControl.markAsPristine();
-          this._stateData = COUNTRY_DATA[val];
-          this.states = Object.keys(COUNTRY_DATA[val]);
+          this.states = [ ...COUNTRY_DATA[val] ];
         }
       });
 
@@ -115,7 +112,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           this.cityFormControl.patchValue('');
           this.cityFormControl.markAsUntouched();
           this.cityFormControl.markAsPristine();
-          this.cities = this._stateData[val];
         }
       });
 

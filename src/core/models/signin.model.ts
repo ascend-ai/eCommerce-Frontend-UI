@@ -3,7 +3,7 @@ import { SigninInterface } from '../interfaces';
 export class SigninModel implements SigninInterface {
   email: string;
   password: string;
-  constructor(data: SigninInterface | SigninModel = {
+  constructor(data: Partial<SigninInterface> | Partial<SigninModel> = {
     email: '',
     password: ''
   }) {

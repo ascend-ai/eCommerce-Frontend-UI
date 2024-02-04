@@ -19,7 +19,7 @@ export class ProductModel implements ProductInterface {
 
   // UI properties
   displayImage: ProductImageModel;
-  constructor(data: ProductInterface | ProductModel = {
+  constructor(data: Partial<ProductInterface> | Partial<ProductModel> = {
     _id: '',
     name: '',
     description: '',
