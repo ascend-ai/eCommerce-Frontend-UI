@@ -23,7 +23,7 @@
             <th scope="col">#</th>
             <th scope="col">Email</th>
             <th scope="col">Payment Id</th>
-            <th scope="col">Total Purchase Amount (₹)</th>
+            <th scope="col">Total Amount (₹)</th>
             <th scope="col">When Ordered</th>
             <th scope="col"></th>
           </tr>
@@ -33,7 +33,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ order.user.email }}</td>
             <td>{{ order.razorpayPaymentId }}</td>
-            <td>{{ order.totalPurchaseAmount }}</td>
+            <td>{{ getTotalAmount(order) }}</td>
             <td>{{ order.whenCreated | date:'short' }}</td>
             <td>
               <button class="btn btn-link"

@@ -4,7 +4,7 @@ export class ApiResponseModel<T> implements ApiResponseInterface<T> {
   success: boolean;
   message: null | string;
   data: T;
-  constructor(data: ApiResponseInterface<T> | ApiResponseModel<T> = {
+  constructor(data: Partial<ApiResponseInterface<T>> | Partial<ApiResponseModel<T>> = {
     success: false,
     message: null,
     data: null as any

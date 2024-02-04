@@ -15,13 +15,16 @@ import {
   CartItemInterface,
   CartItemModel,
   MIN_ORDERABLE_QTY,
+  NO_SHIPPING_CHARGE_THRESHOLD,
   NotificationHelperService,
   OrderBrokerService,
   OrderLoaderService,
+  OrderModel,
   ProductLoaderService,
   ProductModel,
   ProductsBrokerService,
-  RazorpayHelperService
+  RazorpayHelperService,
+  SHIPPING_CHARGE
 } from 'src/core';
 
 @Component({
@@ -38,6 +41,14 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartList.forEach(item => total += (item.product.price * item.qtyInCart));
     return total;
   };
+  public isSelfPickup: boolean = false;
+  public get shippingCharge(): number {
+    return (!this.isSelfPickup && (this.totalProductPrice < NO_SHIPPING_CHARGE_THRESHOLD)) ? SHIPPING_CHARGE : 0;
+
+  }
+  public get totalAmount(): number  {
+    return this.totalProductPrice + this.shippingCharge;
+  }
   public cartListBluePrint: Array<CartItemInterface> = [];
   public cartList: Array<CartItemModel> = [];
   public get isCartEmpty(): boolean {
@@ -94,7 +105,7 @@ export class CartComponent implements OnInit, OnDestroy {
             order._id.length > 0) {
           this._router.navigate(['payment-processing']);
           this._razorpayHelper.checkout(
-            this.totalProductPrice,
+            order.totalPurchaseAmount + order.shippingCharge,
             order.razorpayOrderId
           );
         }
@@ -104,10 +115,11 @@ export class CartComponent implements OnInit, OnDestroy {
   public placeOrder(): void {
     if (this._authHelper.isLoggedIn &&
         this.totalProductsInCart >= MIN_ORDERABLE_QTY) {
-      if (confirm(`Proceed to place the order for ${this.totalProductsInCart} products? Total: ₹${this.totalProductPrice}`)) {
-        this._orderBroker.createOrder(
-          this._purchases
-        );
+      if (confirm(`Proceed to place the order for ${this.totalProductsInCart} products? Total: ₹${this.totalAmount}`)) {
+        this._orderBroker.createOrder(new OrderModel({
+          purchases: this._purchases,
+          isSelfPickup: this.isSelfPickup
+        }));
       }
     } else if (this.totalProductsInCart >= MIN_ORDERABLE_QTY) {
       this._notificationHelper.handleError('Please log in before placing order');

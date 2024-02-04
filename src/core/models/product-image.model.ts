@@ -5,7 +5,7 @@ export class ProductImageModel implements ProductImageInterface {
   url: string;
   whenCreated: number;
   whenLastUpdated: number;
-  constructor(data: ProductImageInterface | ProductImageModel = {
+  constructor(data: Partial<ProductImageInterface> | Partial<ProductImageModel> = {
     _id: '',
     url: '',
     whenCreated: Date.now(),

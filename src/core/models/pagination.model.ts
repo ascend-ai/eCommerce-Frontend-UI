@@ -25,7 +25,7 @@ export class PaginationModel<T> implements PaginationInterface<T> {
               (keyof typeof ORDER_SORTABLE_COLUMN) |
               (keyof typeof USER_SORTABLE_COLUMN)
   sortDirection: SortDirection;
-  constructor(data: PaginationInterface<T> | PaginationModel<T> = {
+  constructor(data: Partial<PaginationInterface<T>> | Partial<PaginationModel<T>> = {
     content: [],
     totalElements: 0,
     totalPages: 0,

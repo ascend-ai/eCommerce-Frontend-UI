@@ -16,11 +16,13 @@ export class OrderModel implements OrderInterface {
   razorpaySignature: string;
   purchases: Record<string, number>;
   status: OrderStatus;
+  isSelfPickup: boolean;
   totalPurchaseAmount: number;
+  shippingCharge: number;
   whenCreated: number;
   whenLastUpdated: number;
 
-  constructor(data: OrderInterface | OrderModel = {
+  constructor(data: Partial<OrderInterface> | Partial<OrderModel> = {
     _id: '',
     user: new UserModel(),
     razorpayOrderId: '',
@@ -28,7 +30,9 @@ export class OrderModel implements OrderInterface {
     razorpaySignature: '',
     purchases: {},
     status: OrderStatus.PENDING,
+    isSelfPickup: false,
     totalPurchaseAmount: 0,
+    shippingCharge: 0,
     whenCreated: Date.now(),
     whenLastUpdated: Date.now(),
   }) {
@@ -39,7 +43,10 @@ export class OrderModel implements OrderInterface {
     this.razorpaySignature = data?.razorpaySignature || '';
     this.purchases = data?.purchases || {};
     this.status = data?.status || OrderStatus.PENDING;
+    this.isSelfPickup = data?.isSelfPickup || false;
     this.totalPurchaseAmount = data?.totalPurchaseAmount || 0;
+    this.shippingCharge = data?.shippingCharge || 0;
+
     this.whenCreated = data?.whenCreated || Date.now();
     this.whenLastUpdated = data?.whenLastUpdated || Date.now();
   }

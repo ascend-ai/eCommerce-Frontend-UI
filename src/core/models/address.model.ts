@@ -10,7 +10,7 @@ export class AddressModel implements AddressInterface {
   state: string;
   country: string;
   postalCode: string;
-  constructor(data: AddressInterface | AddressModel = {
+  constructor(data: Partial<AddressInterface> | Partial<AddressModel> = {
     streetAddressLine1: '',
     streetAddressLine2: '',
     streetAddressLine3: '',

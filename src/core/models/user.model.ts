@@ -18,7 +18,7 @@ export class UserModel implements UserInterface {
   role: UserRole;
   whenCreated: number;
   whenLastUpdated: number;
-  constructor(data: UserInterface | UserModel = {
+  constructor(data: Partial<UserInterface> | Partial<UserModel> = {
     _id: '',
     email: '',
     password: '',

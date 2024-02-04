@@ -181,19 +181,11 @@
                 <!-- City -->
                 <div class="col-md-6 form-group">
                   <label for="city" class="form-label">City</label>
-                  <select class="form-select"
-                          id="city"
-                          [ngClass]="getInputValidationClasses('city')"
-                          [formControl]="cityFormControl">
-                    <option value=""
-                            disabled>
-                      Select city
-                    </option>
-                    <option *ngFor="let city of cities"
-                            [value]="city">
-                      {{ city }}
-                    </option>
-                  </select>
+                  <input type="text"
+                         class="form-control"
+                         id="city"
+                         [ngClass]="getInputValidationClasses('city')"
+                         [formControl]="cityFormControl">
                   <ng-container *ngIf="isInputValid('city')">
                     <small class="text-danger"
                            *ngIf="cityFormControl.errors?.['required']">

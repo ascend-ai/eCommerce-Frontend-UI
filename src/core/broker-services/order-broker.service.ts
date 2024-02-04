@@ -49,7 +49,7 @@ export class OrderBrokerService {
               private _productHelper: ProductHelperService,
               private _notificationHelper: NotificationHelperService) { }
 
-  public createOrder(purchases: Record<string, number>): void {
+  public createOrder(purchases: OrderModel): void {
     this._loadingHelper.startLoading();
     let order: OrderModel = new OrderModel();
     this._orderData.createOrder(purchases)
