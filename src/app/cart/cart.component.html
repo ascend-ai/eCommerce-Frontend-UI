@@ -5,11 +5,12 @@
 
         <h3 class="fw-normal mb-4">Shopping Cart</h3>
 
-        <app-cart-item *ngFor="let cartItem of cartList; let i = index;"
-                       [cartItem]="cartItem">
-        </app-cart-item>
+        <ng-container *ngIf="cartList.length > 0; else emptyCart">
 
-        <ng-container>
+          <app-cart-item *ngFor="let cartItem of cartList; let i = index;"
+                         [cartItem]="cartItem">
+          </app-cart-item>
+
           <div class="row">
             <div class="col-12">
               <input type="checkbox"
@@ -37,6 +38,12 @@
           </div>
 
         </ng-container>
+
+        <ng-template #emptyCart>
+          <h5 class="col-12 text-center">
+            Cart empty
+          </h5>
+        </ng-template>
 
         <div class="d-grid my-5">
           <button class="btn btn-warning btn-lg"
