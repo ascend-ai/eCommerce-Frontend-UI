@@ -24,15 +24,15 @@
             <div class="col-3 ms-auto">
               <h5 class="d-flex justify-content-between">
                 <span>Subtotal:-</span>
-                <span>₹{{ totalProductPrice }}</span>
+                <span>{{ totalProductPrice | inr }}</span>
               </h5>
               <h5 class="d-flex justify-content-between">
                 <span>Shipping:-</span>
-                <span>₹{{ shippingCharge }}</span>
+                <span>{{ shippingCharge | inr }}</span>
               </h5>
               <h4 class="d-flex justify-content-between">
                 <span>Total:-</span>
-                <span>₹{{ totalAmount }}</span>
+                <span>{{ totalAmount | inr }}</span>
               </h4>
             </div>
           </div>

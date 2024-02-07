@@ -26,11 +26,15 @@ import {
   RazorpayHelperService,
   SHIPPING_CHARGE
 } from 'src/core';
+import {
+  InrPipe
+} from 'src/shared/pipes';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  providers: [ InrPipe ]
 })
 export class CartComponent implements OnInit, OnDestroy {
   public get totalProductsInCart(): number {
@@ -38,7 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
   };
   public get totalProductPrice(): number {
     let total = 0;
-    this.cartList.forEach(item => total += (item.product.price * item.qtyInCart));
+    this.cartList.forEach(item => total += (item.product.sellingPrice * item.qtyInCart));
     return total;
   };
   public isSelfPickup: boolean = false;
@@ -64,7 +68,8 @@ export class CartComponent implements OnInit, OnDestroy {
               private _authHelper: AuthHelperService,
               private _notificationHelper: NotificationHelperService,
               private _razorpayHelper: RazorpayHelperService,
-              private _router: Router) {}
+              private _router: Router,
+              private _inrPipe: InrPipe) {}
 
   ngOnInit(): void {
     this._initSubscriptions();
@@ -105,7 +110,7 @@ export class CartComponent implements OnInit, OnDestroy {
             order._id.length > 0) {
           this._router.navigate(['payment-processing']);
           this._razorpayHelper.checkout(
-            order.totalPurchaseAmount + order.shippingCharge,
+            order.totalAmount,
             order.razorpayOrderId
           );
         }
@@ -115,7 +120,7 @@ export class CartComponent implements OnInit, OnDestroy {
   public placeOrder(): void {
     if (this._authHelper.isLoggedIn &&
         this.totalProductsInCart >= MIN_ORDERABLE_QTY) {
-      if (confirm(`Proceed to place the order for ${this.totalProductsInCart} products? Total: ₹${this.totalAmount}`)) {
+      if (confirm(`Proceed to place the order for ${this.totalProductsInCart} products? Total: ${ this._inrPipe.transform(this.totalAmount) }`)) {
         this._orderBroker.createOrder(new OrderModel({
           purchases: this._purchases,
           isSelfPickup: this.isSelfPickup

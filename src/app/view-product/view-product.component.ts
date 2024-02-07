@@ -36,6 +36,14 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   public get canEditProduct(): boolean {
     return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
   }
+  public get isDiscountAvailable(): boolean {
+    return this.product.maxRetailPrice > this.product.sellingPrice;
+  }
+  public get discountPercentage(): string {
+    const ratio: number = (this.product.maxRetailPrice - this.product.sellingPrice) / this.product.maxRetailPrice;
+    const percentage: number = Math.floor(ratio * 100);
+    return `-${percentage}%`;
+  }
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
               private _productLoader: ProductLoaderService,

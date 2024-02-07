@@ -1,8 +1,11 @@
 <div class="bg-primary">
-  <div class="text-center text-light py-2 company-name">{{ COMPANY_NAME }}</div>
+  <div class="text-light py-2 d-flex justify-content-center pb-0 company-name">
+    <span class="pt-4 part-1">{{ COMPANY_NAME.part1.toUpperCase() }}&nbsp;</span>
+    <span class="part-2">{{ COMPANY_NAME.part2 }}</span>
+  </div>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary pt-0">
     <div class="container-fluid justify-content-end">
       <button class="navbar-toggler"
               type="button"

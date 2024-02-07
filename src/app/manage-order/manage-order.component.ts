@@ -45,9 +45,6 @@ export class ManageOrderComponent implements OnInit, OnDestroy {
   public get isStatusChanged(): boolean {
     return this.statusFC.value !== this.order.status;
   }
-  public get totalAmount(): number {
-    return this.order.totalPurchaseAmount + this.order.shippingCharge;
-  }
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,

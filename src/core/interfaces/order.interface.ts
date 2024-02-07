@@ -11,10 +11,12 @@ export interface OrderInterface {
   razorpayOrderId: string;
   razorpayPaymentId: string;
   razorpaySignature: string;
+  trackingResource: string;
   purchases: Record<string, number>;
   status: OrderStatus;
-  totalPurchaseAmount: number;
+  purchaseAmount: number;
   shippingCharge: number;
+  totalAmount: number;
   isSelfPickup: boolean;
   whenCreated: number;
   whenLastUpdated: number;

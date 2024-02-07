@@ -19,7 +19,7 @@
         </app-product-qty-controller>
       </div>
       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-        <h5 class="mb-0">₹{{ cartItem.product.price * cartItem.qtyInCart }}</h5>
+        <h5 class="mb-0">{{ (cartItem.product.sellingPrice * cartItem.qtyInCart) | inr }}</h5>
       </div>
       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
         <span class="text-danger cursor-pointer"

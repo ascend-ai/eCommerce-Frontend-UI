@@ -34,7 +34,8 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
   public descriptionFC!: FormControl;
   public qtyInStockFC!: FormControl;
   public categoryFC!: FormControl;
-  public priceFC!: FormControl;
+  public sellingPriceFC!: FormControl;
+  public maxRetailPriceFC!: FormControl;
   public isPinnedFC!: FormControl;
   private _subscribeMain: boolean = true;
 
@@ -76,14 +77,16 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
       description: ['', [Validators.required]],
       quantityInStock: ['', [Validators.required]],
       category: ['', [Validators.required]],
-      price: ['', [Validators.required]],
+      sellingPrice: ['', [Validators.required]],
+      maxRetailPrice: ['', [Validators.required]],
       isPinned: [false],
     });
     this.nameFC = this.basicDetailsFG.controls['name'] as FormControl;
     this.descriptionFC = this.basicDetailsFG.controls['description'] as FormControl;
     this.qtyInStockFC = this.basicDetailsFG.controls['quantityInStock'] as FormControl;
     this.categoryFC = this.basicDetailsFG.controls['category'] as FormControl;
-    this.priceFC = this.basicDetailsFG.controls['price'] as FormControl;
+    this.sellingPriceFC = this.basicDetailsFG.controls['sellingPrice'] as FormControl;
+    this.maxRetailPriceFC = this.basicDetailsFG.controls['maxRetailPrice'] as FormControl;
     this.isPinnedFC = this.basicDetailsFG.controls['isPinned'] as FormControl;
   }
 
@@ -102,8 +105,11 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
       case 'category':
         formControl = this.categoryFC;
         break;
-      case 'price':
-        formControl = this.priceFC;
+      case 'sellingPrice':
+        formControl = this.sellingPriceFC;
+        break;
+      case 'maxRetailPrice':
+        formControl = this.maxRetailPriceFC;
         break;
       case 'isPinned':
         formControl = this.isPinnedFC;
@@ -130,8 +136,11 @@ export class EditBasicDetailsComponent implements OnInit, OnDestroy {
       case 'category':
         formControl = this.categoryFC;
         break;
-      case 'price':
-        formControl = this.priceFC;
+      case 'sellingPrice':
+        formControl = this.sellingPriceFC;
+        break;
+      case 'maxRetailPrice':
+        formControl = this.maxRetailPriceFC;
         break;
       case 'isPinned':
         formControl = this.isPinnedFC;

@@ -49,13 +49,16 @@
           <strong>When Ordered:&nbsp;</strong>{{ order.whenCreated | date:'short' }}
         </div>
         <div class="my-1">
-          <strong>Subtotal:&nbsp;</strong>₹{{ order.totalPurchaseAmount }}
+          <strong>Self Pickup:&nbsp;</strong><span [class.text-success]="order.isSelfPickup">{{ order.isSelfPickup | yesOrNo }}</span>
         </div>
         <div class="my-1">
-          <strong>Shipping:&nbsp;</strong>₹{{ order.shippingCharge }}
+          <strong>Subtotal:&nbsp;</strong>{{ order.purchaseAmount | inr }}
         </div>
         <div class="my-1">
-          <strong>Total Amount:&nbsp;</strong>₹{{ totalAmount }}
+          <strong>Shipping:&nbsp;</strong>{{ order.shippingCharge | inr }}
+        </div>
+        <div class="my-1">
+          <strong>Total Amount:&nbsp;</strong>{{ order.totalAmount | inr }}
         </div>
       </div>
     </div>

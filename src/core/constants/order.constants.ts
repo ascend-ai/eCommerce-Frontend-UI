@@ -20,5 +20,5 @@ export const INR_SUBUNIT = 100;
 
 export const ORDER_SORTABLE_COLUMN = {
   ...BASE_SORTABLE_COLUMN,
-  totalPurchaseAmount: 'totalPurchaseAmount',
+  totalAmount: 'totalAmount',
 } as const;

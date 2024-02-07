@@ -21,6 +21,14 @@ export class ProductItemComponent {
   private _imgTimeoutId: any;
   @Input() product: ProductModel = new ProductModel();
   @Output() addToCart: EventEmitter<ProductModel> = new EventEmitter();
+  public get isDiscountAvailable(): boolean {
+    return this.product.maxRetailPrice > this.product.sellingPrice;
+  }
+  public get discountPercentage(): string {
+    const ratio: number = (this.product.maxRetailPrice - this.product.sellingPrice) / this.product.maxRetailPrice;
+    const percentage: number = Math.floor(ratio * 100);
+    return `-${percentage}%`;
+  }
 
   constructor(private _router: Router) {}
 
