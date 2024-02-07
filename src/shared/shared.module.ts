@@ -41,11 +41,21 @@ import {
 import {
   ProductImageCarouselComponent
 } from './components/product-image-carousel/product-image-carousel.component';
-import { BackgroundImagePipe } from './pipes/background-image.pipe';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { PushAndPullComponent } from './components/push-and-pull/push-and-pull.component';
-import { PnpItemComponent } from './components/push-and-pull/pnp-item/pnp-item.component';
-import { PaginationControllerComponent } from './components/pagination-controller/pagination-controller.component';
+import {
+  PushAndPullComponent
+} from './components/push-and-pull/push-and-pull.component';
+import {
+  PnpItemComponent
+} from './components/push-and-pull/pnp-item/pnp-item.component';
+import {
+  PaginationControllerComponent
+} from './components/pagination-controller/pagination-controller.component';
+import {
+  BackgroundImagePipe,
+  CapitalizePipe,
+  YesOrNoPipe,
+  InrPipe
+} from './pipes';
 
 
 
@@ -67,6 +77,8 @@ import { PaginationControllerComponent } from './components/pagination-controlle
 
     BackgroundImagePipe,
     CapitalizePipe,
+    YesOrNoPipe,
+    InrPipe,
   ],
   imports: [
     CommonModule,
@@ -90,6 +102,8 @@ import { PaginationControllerComponent } from './components/pagination-controlle
 
     BackgroundImagePipe,
     CapitalizePipe,
+    YesOrNoPipe,
+    InrPipe
   ]
 })
 export class SharedModule { }

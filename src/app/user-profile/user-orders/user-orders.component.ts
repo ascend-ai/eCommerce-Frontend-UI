@@ -71,8 +71,4 @@ export class UserOrdersComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getTotalAmount(order: OrderModel): number {
-    return order.totalPurchaseAmount + order.shippingCharge;
-  }
-
 }

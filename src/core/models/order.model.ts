@@ -14,11 +14,13 @@ export class OrderModel implements OrderInterface {
   razorpayOrderId: string;
   razorpayPaymentId: string;
   razorpaySignature: string;
+  trackingResource: string;
   purchases: Record<string, number>;
   status: OrderStatus;
   isSelfPickup: boolean;
-  totalPurchaseAmount: number;
+  purchaseAmount: number;
   shippingCharge: number;
+  totalAmount: number;
   whenCreated: number;
   whenLastUpdated: number;
 
@@ -28,11 +30,13 @@ export class OrderModel implements OrderInterface {
     razorpayOrderId: '',
     razorpayPaymentId: '',
     razorpaySignature: '',
+    trackingResource: '',
     purchases: {},
     status: OrderStatus.PENDING,
     isSelfPickup: false,
-    totalPurchaseAmount: 0,
+    purchaseAmount: 0,
     shippingCharge: 0,
+    totalAmount: 0,
     whenCreated: Date.now(),
     whenLastUpdated: Date.now(),
   }) {
@@ -41,12 +45,13 @@ export class OrderModel implements OrderInterface {
     this.razorpayOrderId = data?.razorpayOrderId || '';
     this.razorpayPaymentId = data?.razorpayPaymentId || '';
     this.razorpaySignature = data?.razorpaySignature || '';
+    this.trackingResource = data?.trackingResource || '';
     this.purchases = data?.purchases || {};
     this.status = data?.status || OrderStatus.PENDING;
     this.isSelfPickup = data?.isSelfPickup || false;
-    this.totalPurchaseAmount = data?.totalPurchaseAmount || 0;
+    this.purchaseAmount = data?.purchaseAmount || 0;
     this.shippingCharge = data?.shippingCharge || 0;
-
+    this.totalAmount = data?.totalAmount || 0;
     this.whenCreated = data?.whenCreated || Date.now();
     this.whenLastUpdated = data?.whenLastUpdated || Date.now();
   }

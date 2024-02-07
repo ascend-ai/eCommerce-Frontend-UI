@@ -31,10 +31,18 @@
         <h1 class="display-5 fw-bolder">
             {{ product.name }}
         </h1>
-        <div class="fs-5 mb-5">
-            <span>
-                ₹{{ product.price }}
-            </span>
+        <div class="mb-5">
+          <span *ngIf="isDiscountAvailable"
+                class="text-muted text-decoration-line-through">
+            {{ product.maxRetailPrice | inr }}
+          </span>
+          <span class="ms-2 fs-4">
+            {{ product.sellingPrice | inr }}
+          </span>
+          <small *ngIf="isDiscountAvailable"
+                class="text-danger">
+            {{ discountPercentage }}
+          </small>
         </div>
         <p class="lead">
             {{ product.description }}

@@ -7,7 +7,8 @@ export class ProductModel implements ProductInterface {
   _id: string;
   name: string;
   description: string;
-  price: number;
+  sellingPrice: number;
+  maxRetailPrice: number;
   isPinned: boolean;
   quantityInStock: number;
   images: Array<ProductImageModel>;
@@ -23,7 +24,8 @@ export class ProductModel implements ProductInterface {
     _id: '',
     name: '',
     description: '',
-    price: 0,
+    sellingPrice: 0,
+    maxRetailPrice: 0,
     isPinned: false,
     quantityInStock: 0,
     images: [],
@@ -37,7 +39,8 @@ export class ProductModel implements ProductInterface {
     this._id = data?._id || '';
     this.name = data?.name || '';
     this.description = data?.description || '';
-    this.price = data?.price || 0;
+    this.sellingPrice = data?.sellingPrice || 0;
+    this.maxRetailPrice = data?.maxRetailPrice || 0;
     this.isPinned = data?.isPinned || false;
     this.quantityInStock = data?.quantityInStock || 0;
     this.images = data?.images || [];

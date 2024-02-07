@@ -58,6 +58,40 @@
 
 
     <div class="row my-2">
+      <!-- Max retail Price -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="mrp" class="form-label">Max Price</label>
+        <input type="number"
+               class="form-control"
+               id="mrp"
+               [ngClass]="getInputValidationClasses('maxRetailPrice')"
+               [formControl]="maxRetailPriceFC">
+        <ng-container *ngIf="isInputValid('maxRetailPrice')">
+          <small class="text-danger"
+                  *ngIf="maxRetailPriceFC.errors?.['required']">
+            Max Price is required
+          </small>
+        </ng-container>
+      </div>
+
+      <!-- Selling Price -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="selling-price" class="form-label">Selling Price</label>
+        <input type="number"
+               class="form-control"
+               id="selling-price"
+               [ngClass]="getInputValidationClasses('sellingPrice')"
+               [formControl]="sellingPriceFC">
+        <ng-container *ngIf="isInputValid('sellingPrice')">
+          <small class="text-danger"
+                  *ngIf="sellingPriceFC.errors?.['required']">
+            Selling Price is required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
       <!-- Category -->
       <div class="col-12 col-xl-3 mb-2 mb-xl-0 form-group">
         <label for="category" class="form-label">Category</label>
@@ -78,22 +112,6 @@
           <small class="text-danger"
                   *ngIf="categoryFC.errors?.['required']">
             Category required
-          </small>
-        </ng-container>
-      </div>
-
-      <!-- Price -->
-      <div class="col-12 col-xl-3 form-group">
-        <label for="price" class="form-label">Price</label>
-        <input type="number"
-               class="form-control"
-               id="price"
-               [ngClass]="getInputValidationClasses('price')"
-               [formControl]="priceFC">
-        <ng-container *ngIf="isInputValid('price')">
-          <small class="text-danger"
-                  *ngIf="priceFC.errors?.['required']">
-            Price is required
           </small>
         </ng-container>
       </div>

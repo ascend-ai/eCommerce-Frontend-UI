@@ -10,7 +10,8 @@ export interface ProductInterface {
   _id: string;
   name: string;
   description: string;
-  price: number;
+  sellingPrice: number;
+  maxRetailPrice: number;
   isPinned: boolean;
   quantityInStock: number;
   images: Array<ProductImageInterface>;

@@ -90,8 +90,4 @@ export class ManageOrdersComponent implements OnInit, OnDestroy {
   private _getOrders(): void {
     this._orderBroker.getOrders(this._filter);
   }
-
-  public getTotalAmount(order: OrderModel): number {
-    return order.totalPurchaseAmount + order.shippingCharge;
-  }
 }

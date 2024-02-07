@@ -15,7 +15,7 @@ import {
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  public readonly COMPANY_NAME: string = COMPANY_NAME
+  public readonly COMPANY_NAME: typeof COMPANY_NAME = COMPANY_NAME
   public isNavbarExpanded: boolean = false;
   public isSearchOpen: boolean = false;
   @Input() numberOfItemsInCart: number = 0;

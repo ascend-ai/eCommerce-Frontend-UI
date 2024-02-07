@@ -2,7 +2,10 @@ import {
   SortDirection
 } from '../enums';
 
-export const COMPANY_NAME = 'Style It by Rose';
+export const COMPANY_NAME = {
+  part1: 'Style It by',
+  part2: 'Rose'
+} as const;
 
 export const DEFAULT_PAGE_INDEX: number = 0;
 

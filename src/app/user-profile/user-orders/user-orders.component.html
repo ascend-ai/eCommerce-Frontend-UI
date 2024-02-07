@@ -8,6 +8,7 @@
             <th scope="col">Payment Id</th>
             <th scope="col">Order Status</th>
             <th scope="col">Total Amount (₹)</th>
+            <th scope="col">Self Pickup</th>
             <th scope="col">When Ordered</th>
             <th scope="col"></th>
           </tr>
@@ -17,7 +18,10 @@
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ order.razorpayPaymentId }}</td>
             <td>{{ order.status | capitalize:'_' }}</td>
-            <td>{{ getTotalAmount(order) }}</td>
+            <td>{{ order.totalAmount }}</td>
+            <td [class.text-success]="order.isSelfPickup">
+              {{ order.isSelfPickup | yesOrNo }}
+            </td>
             <td>{{ order.whenCreated | date:'short' }}</td>
             <td>
               <button class="btn btn-link"
