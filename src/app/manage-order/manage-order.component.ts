@@ -40,7 +40,7 @@ export class ManageOrderComponent implements OnInit, OnDestroy {
     OrderStatus.DELIVERED
   ];
   public get isStatusEditable(): boolean {
-    return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
+    return this._authHelper.isLoggedInUserAdminOrMod;
   }
   public get isStatusChanged(): boolean {
     return this.statusFC.value !== this.order.status;
