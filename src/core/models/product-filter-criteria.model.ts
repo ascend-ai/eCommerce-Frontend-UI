@@ -13,7 +13,7 @@ import {
 } from '../interfaces';
 import {
   BaseFilterCriteriaModel
-} from './base-filter-criteria.model';
+} from './';
 
 export class ProductFilterCriteriaModel extends BaseFilterCriteriaModel implements ProductFilterCriteriaInterface {
   sortColumn: keyof typeof PRODUCT_SORTABLE_COLUMN

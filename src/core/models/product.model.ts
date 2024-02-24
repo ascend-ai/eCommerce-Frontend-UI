@@ -1,6 +1,12 @@
-import { ProductCategory } from '../enums';
-import { ProductInterface } from '../interfaces';
-import { ProductImageModel } from './product-image.model';
+import {
+  ProductCategory
+} from '../enums';
+import {
+  ProductInterface
+} from '../interfaces';
+import {
+  ProductImageModel
+} from './';
 
 export class ProductModel implements ProductInterface {
   // API properties

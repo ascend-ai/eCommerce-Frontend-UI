@@ -1,4 +1,6 @@
-import { ProductImageInterface } from '../interfaces';
+import {
+  ProductImageInterface
+} from '../interfaces';
 
 export class ProductImageModel implements ProductImageInterface {
   _id: string;

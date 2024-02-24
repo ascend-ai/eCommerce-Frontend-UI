@@ -5,8 +5,9 @@ import {
   OrderInterface
 } from '../interfaces';
 import {
+  TrackingResourceModel,
   UserModel
-} from './user.model';
+} from './';
 
 export class OrderModel implements OrderInterface {
   _id: string;
@@ -14,7 +15,7 @@ export class OrderModel implements OrderInterface {
   razorpayOrderId: string;
   razorpayPaymentId: string;
   razorpaySignature: string;
-  trackingResource: string;
+  trackingResource: TrackingResourceModel;
   purchases: Record<string, number>;
   status: OrderStatus;
   isSelfPickup: boolean;
@@ -30,7 +31,7 @@ export class OrderModel implements OrderInterface {
     razorpayOrderId: '',
     razorpayPaymentId: '',
     razorpaySignature: '',
-    trackingResource: '',
+    trackingResource: new TrackingResourceModel(),
     purchases: {},
     status: OrderStatus.PENDING,
     isSelfPickup: false,
@@ -45,7 +46,7 @@ export class OrderModel implements OrderInterface {
     this.razorpayOrderId = data?.razorpayOrderId || '';
     this.razorpayPaymentId = data?.razorpayPaymentId || '';
     this.razorpaySignature = data?.razorpaySignature || '';
-    this.trackingResource = data?.trackingResource || '';
+    this.trackingResource = data?.trackingResource ? new TrackingResourceModel(data?.trackingResource) : new TrackingResourceModel();
     this.purchases = data?.purchases || {};
     this.status = data?.status || OrderStatus.PENDING;
     this.isSelfPickup = data?.isSelfPickup || false;

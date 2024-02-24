@@ -6,7 +6,7 @@ import {
 } from '../enums';
 import {
   BaseFilterCriteriaInterface
-} from './base-filter-criteria.interface';
+} from './';
 
 export interface ProductFilterCriteriaInterface extends BaseFilterCriteriaInterface {
   sortColumn: keyof typeof PRODUCT_SORTABLE_COLUMN,

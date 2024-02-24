@@ -3,7 +3,7 @@ import {
 } from '../enums';
 import {
   ProductImageInterface
-} from './product-image.interface';
+} from './';
 
 export interface ProductInterface {
   // API properties

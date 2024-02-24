@@ -1,6 +1,6 @@
 import {
   ProductModel
-} from './product.model';
+} from './';
 
 export class CartItemModel {
   product: ProductModel;
