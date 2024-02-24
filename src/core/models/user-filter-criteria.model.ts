@@ -13,7 +13,7 @@ import {
 } from '../interfaces';
 import {
   BaseFilterCriteriaModel
-} from './base-filter-criteria.model';
+} from './';
 
 export class UserFilterCriteriaModel extends BaseFilterCriteriaModel implements UserFilterCriteriaInterface {
   role: UserRole | undefined;

@@ -10,4 +10,5 @@ export * from './product-filter-criteria.model';
 export * from './order-filter-criteria.model';
 export * from './user-filter-criteria.model';
 export * from './cart-item.model';
+export * from './tracking-resource.model';
 export * from './order.model';

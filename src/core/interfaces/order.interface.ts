@@ -2,8 +2,9 @@ import {
   OrderStatus
 } from '../enums';
 import {
+  TrackingResourceInterface,
   UserInterface
-} from './user.interface';
+} from './';
 
 export interface OrderInterface {
   _id: string;
@@ -11,7 +12,7 @@ export interface OrderInterface {
   razorpayOrderId: string;
   razorpayPaymentId: string;
   razorpaySignature: string;
-  trackingResource: string;
+  trackingResource: TrackingResourceInterface;
   purchases: Record<string, number>;
   status: OrderStatus;
   purchaseAmount: number;

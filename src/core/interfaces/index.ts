@@ -15,4 +15,5 @@ export * from './order-filter-criteria.interface';
 export * from './user-filter-criteria.interface';
 export * from './cart-item.interface';
 export * from './push-and-pull-item.interface';
+export * from './tracking-resource.interface';
 export * from './order.interface';

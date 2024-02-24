@@ -1,10 +1,11 @@
 import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_PAGE_SIZE,
-  DEFAULT_SORT_COLUMN,
   DEFAULT_SORT_DIRECTION
 } from '../constants';
-import { SortDirection } from '../enums';
+import {
+  SortDirection
+} from '../enums';
 import {
   BaseFilterCriteriaInterface
 } from '../interfaces';

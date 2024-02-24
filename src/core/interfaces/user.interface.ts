@@ -1,6 +1,6 @@
 import {
   AddressInterface
-} from './address.interface';
+} from './';
 import {
   UserRole
 } from '../enums';

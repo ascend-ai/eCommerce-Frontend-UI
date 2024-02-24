@@ -7,7 +7,7 @@ import {
 } from '../interfaces';
 import {
   AddressModel
-} from './address.model';
+} from './';
 
 export class UserModel implements UserInterface {
   _id: string;

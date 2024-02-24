@@ -1,4 +1,6 @@
-import { ApiResponseInterface } from '../interfaces';
+import {
+  ApiResponseInterface
+} from '../interfaces';
 
 export class ApiResponseModel<T> implements ApiResponseInterface<T> {
   success: boolean;

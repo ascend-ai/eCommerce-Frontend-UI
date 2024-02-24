@@ -1,4 +1,6 @@
-import { SigninInterface } from '../interfaces';
+import {
+  SigninInterface
+} from '../interfaces';
 
 export class SigninModel implements SigninInterface {
   email: string;

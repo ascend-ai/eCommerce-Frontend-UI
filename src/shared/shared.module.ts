@@ -54,7 +54,8 @@ import {
   BackgroundImagePipe,
   CapitalizePipe,
   YesOrNoPipe,
-  InrPipe
+  InrPipe,
+  TruncatePipe
 } from './pipes';
 
 
@@ -79,6 +80,7 @@ import {
     CapitalizePipe,
     YesOrNoPipe,
     InrPipe,
+    TruncatePipe,
   ],
   imports: [
     CommonModule,
@@ -103,7 +105,8 @@ import {
     BackgroundImagePipe,
     CapitalizePipe,
     YesOrNoPipe,
-    InrPipe
+    InrPipe,
+    TruncatePipe
   ]
 })
 export class SharedModule { }
