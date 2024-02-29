@@ -37,10 +37,10 @@ export class OrderDataService {
     );
   }
 
-  public updateOrderStatus(orderId: string, newOrderStatus: { status: OrderStatus }): Observable<ApiResponseInterface<OrderInterface>> {
+  public updateOrderBasicDetails(orderId: string, basicDetails: OrderModel): Observable<ApiResponseInterface<OrderInterface>> {
     return this._http.put<ApiResponseInterface<OrderInterface>>(
-      this.API_URL + `/orders/${orderId}/status`,
-      newOrderStatus
+      this.API_URL + `/orders/${orderId}/basic-details`,
+      basicDetails
     );
   }
 

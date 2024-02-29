@@ -1,0 +1,135 @@
+<div class="container my-5">
+  <form class="needs-validation"
+        [formGroup]="orderDetailsFormGroup"
+        (ngSubmit)="update()">
+    <div class="row my-2">
+      <!-- Email -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="email" class="form-label">Email</label>
+        <input type="email"
+               class="form-control"
+               id="email"
+               disabled
+               [value]="user.email">
+      </div>
+  
+      <!-- Phone number-->
+      <div class="col-12 col-md-3 form-group">
+        <label for="phone" class="form-label">Phone number</label>
+        <input type="text"
+                class="form-control"
+                id="phone"
+                disabled
+                [value]="user.email">
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Address -->
+      <div class="col-12 col-md-6 form-group">
+        <label for="address" class="form-label">Address</label>
+        <input type="text"
+                class="form-control"
+                id="address"
+                disabled
+                [value]="formatedUserAddress">
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Payment Id -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="payment-id" class="form-label">Payment Id</label>
+        <input type="text"
+               class="form-control"
+               id="payment-id"
+               disabled
+               [value]="order.razorpayPaymentId">
+      </div>
+  
+      <!-- Total amount -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="total-amount" class="form-label">Total Amount</label>
+        <input type="text"
+                class="form-control"
+                id="total-amount"
+                disabled
+                [value]="order.totalAmount | inr">
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Status -->
+      <div class="col-12 col-md-6 form-group">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select"
+                id="status"
+                [ngClass]="getInputValidationClasses('status')"
+                [formControl]="statusFormControl">
+          <option value=""
+                  disabled>
+            Select status
+          </option>
+          <option *ngFor="let status of AVAILABLE_STATUS"
+                  [value]="status">
+            {{ status | capitalize:' ' }}
+          </option>
+        </select>
+        <ng-container *ngIf="isInputValid('status')">
+          <small class="text-danger"
+                  *ngIf="statusFormControl.errors?.['required']">
+            Status required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Tracking Id -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="tracking-id" class="form-label">Tracking Id</label>
+        <input type="text"
+               class="form-control"
+               id="tracking-id"
+               [ngClass]="getInputValidationClasses('trackingId')"
+               [formControl]="trackingIdFormControl">
+        <ng-container *ngIf="isInputValid('trackingId')">
+          <small class="text-danger"
+                  *ngIf="trackingIdFormControl.errors?.['required']">
+            Tracking Id required
+          </small>
+        </ng-container>
+      </div>
+  
+      <!-- Tracking Url -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="tracking-url" class="form-label">Tracking Link</label>
+        <input type="text"
+                class="form-control"
+                id="tracking-link"
+                [ngClass]="getInputValidationClasses('trackingUrl')"
+                [formControl]="trackingUrlFormControl">
+        <ng-container *ngIf="isInputValid('trackingUrl')">
+          <small class="text-danger"
+                  *ngIf="trackingUrlFormControl.errors?.['required']">
+            Tracking link required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="d-flex my-2">
+      <button class="btn btn-primary"
+              type="submit"
+              [disabled]="orderDetailsFormGroup.invalid">
+        Update
+      </button>
+
+      <button class="btn btn-danger ms-1"
+              type="button"
+              (click)="reset()">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

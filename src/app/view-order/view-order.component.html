@@ -1,6 +1,11 @@
 <div class="container">
   <section class="my-5">
-    <h2>Billing Details</h2>
+    <h2 class="d-flex justify-content-between">
+      <span>Order Details</span>
+      <button class="btn btn-info"
+              *ngIf="isOrderEditable"
+              (click)="updateOrder()">Update</button>
+    </h2>
     <div class="row">
       <div class="col">
         <div class="my-1">
@@ -10,40 +15,16 @@
           <strong>Phone:&nbsp;</strong>{{ user.phoneNumber }}
         </div>
         <div class="my-1">
-          <strong>Address:&nbsp;</strong>{{ formatAndGetUserAddress() }}
+          <strong>Address:&nbsp;</strong>{{ formatedUserAddress }}
         </div>
         <div class="my-1">
           <strong>Payment Id:&nbsp;</strong>{{ order.razorpayPaymentId }}
         </div>
-        <div class="my-1 d-flex justify-content-start align-items-center">
+        <div class="my-1">
           <strong>Order Status:&nbsp;</strong>
-          <span *ngIf="!isStatusBeingChanged"
-                class="text-success">
+          <span class="text-success">
             {{ order.status | capitalize:' ' }}
           </span>
-          <select class="form-select form-select-sm w-25"
-                  *ngIf="isStatusEditable && isStatusBeingChanged"
-                  [formControl]="statusFC">
-            <option *ngFor="let status of availableStatuses; let i = index;"
-                    [value]="status">
-              {{ status | capitalize:'_' }}
-            </option>
-          </select>
-          <i class="fa-solid fa-pen-to-square text-primary ms-1 cursor-pointer"
-             *ngIf="isStatusEditable && !isStatusBeingChanged"
-             (click)="editStatus()"></i>
-          <ng-container
-            *ngIf="isStatusEditable && isStatusBeingChanged">
-            <button class="btn btn-sm btn-primary ms-1"
-                    [disabled]="!isStatusChanged"
-                    (click)="updateStatus()">
-              Save
-            </button>
-            <button class="btn btn-sm btn-danger ms-1"
-                    (click)="resetStatus()">
-              Cancel
-            </button>
-          </ng-container>
         </div>
         <div class="my-1">
           <strong>When Ordered:&nbsp;</strong>{{ order.whenCreated | date:'short' }}
@@ -59,6 +40,25 @@
         </div>
         <div class="my-1">
           <strong>Total Amount:&nbsp;</strong>{{ order.totalAmount | inr }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-5"
+           *ngIf="isTrackingResourceAvailable">
+    <h2 class="d-flex justify-content-between">
+      Tracking Details
+    </h2>
+    <div class="row">
+      <div class="col">
+        <div class="my-1">
+          <strong>Tracking ID:&nbsp;</strong>{{ order.trackingResource.trackingId }}
+        </div>
+        <div class="my-1">
+          <strong>Tracking Link:&nbsp;</strong>
+          <a [href]="order.trackingResource.trackingUrl"
+             target="_blank">View</a>
         </div>
       </div>
     </div>
