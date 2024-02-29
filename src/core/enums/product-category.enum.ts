@@ -5,5 +5,7 @@ export enum ProductCategory {
   ANKLET = 'ANKLET',
   BODY_JEWELLERY = 'BODY_JEWELLERY',
   PHONE_STRAP = 'PHONE_STRAP',
+  RING = 'RING',
+  CHARM = 'CHARM',
   OTHERS = 'OTHERS',
 }

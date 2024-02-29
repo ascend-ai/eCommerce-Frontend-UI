@@ -143,11 +143,11 @@ export class OrderBrokerService {
       .subscribe();
   }
 
-  public updateOrderStatus(orderId: string, newOrderStatus: { status: OrderStatus }): void {
+  public updateOrderBasicDetails(orderId: string, basicDetails: OrderModel): void {
     this._loadingHelper.startLoading();
     let order: OrderModel = new OrderModel();
     let products: Array<ProductModel> = [];
-    this._orderData.updateOrderStatus(orderId, newOrderStatus)
+    this._orderData.updateOrderBasicDetails(orderId, basicDetails)
       .pipe(
         take(1),
         mergeMap(res => {
