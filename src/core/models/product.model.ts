@@ -5,6 +5,7 @@ import {
   ProductInterface
 } from '../interfaces';
 import {
+  CustomizationTextRangeModel,
   ProductImageModel
 } from './';
 
@@ -21,6 +22,7 @@ export class ProductModel implements ProductInterface {
   similarProducts: Array<any>;
   category: ProductCategory;
   totalPurchases: number;
+  customizationTextRange: CustomizationTextRangeModel;
   whenCreated: number;
   whenLastUpdated: number;
 
@@ -39,6 +41,7 @@ export class ProductModel implements ProductInterface {
     category: ProductCategory.OTHERS,
     displayImage: new ProductImageModel(),
     totalPurchases: 0,
+    customizationTextRange: new CustomizationTextRangeModel(),
     whenCreated: Date.now(),
     whenLastUpdated: Date.now()
   }) {
@@ -54,6 +57,7 @@ export class ProductModel implements ProductInterface {
     this.category = data?.category || ProductCategory.OTHERS;
     this.displayImage = data?.displayImage || new ProductImageModel();
     this.totalPurchases = data?.totalPurchases || 0;
+    this.customizationTextRange = data?.customizationTextRange || new CustomizationTextRangeModel();
     this.whenCreated = data?.whenCreated || Date.now();
     this.whenLastUpdated = data?.whenLastUpdated || Date.now();
   }

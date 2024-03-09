@@ -2,6 +2,7 @@ import {
   ProductCategory
 } from '../enums';
 import {
+  CustomizationTextRangeInterface,
   ProductImageInterface
 } from './';
 
@@ -18,6 +19,7 @@ export interface ProductInterface {
   similarProducts: Array<string>;
   category: ProductCategory;
   totalPurchases: number;
+  customizationTextRange: CustomizationTextRangeInterface;
   whenCreated: number;
   whenLastUpdated: number;
 
