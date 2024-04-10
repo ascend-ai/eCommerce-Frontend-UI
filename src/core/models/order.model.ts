@@ -2,9 +2,10 @@ import {
   OrderStatus
 } from '../enums';
 import {
-  OrderInterface
+  OrderInterface,
 } from '../interfaces';
 import {
+  PurchaseModel,
   TrackingResourceModel,
   UserModel
 } from './';
@@ -16,7 +17,7 @@ export class OrderModel implements OrderInterface {
   razorpayPaymentId: string;
   razorpaySignature: string;
   trackingResource: TrackingResourceModel;
-  purchases: Record<string, number>;
+  purchases: Array<PurchaseModel>;
   status: OrderStatus;
   isSelfPickup: boolean;
   purchaseAmount: number;
@@ -32,7 +33,7 @@ export class OrderModel implements OrderInterface {
     razorpayPaymentId: '',
     razorpaySignature: '',
     trackingResource: new TrackingResourceModel(),
-    purchases: {},
+    purchases: [],
     status: OrderStatus.PENDING,
     isSelfPickup: false,
     purchaseAmount: 0,
@@ -47,7 +48,7 @@ export class OrderModel implements OrderInterface {
     this.razorpayPaymentId = data?.razorpayPaymentId || '';
     this.razorpaySignature = data?.razorpaySignature || '';
     this.trackingResource = data?.trackingResource ? new TrackingResourceModel(data?.trackingResource) : new TrackingResourceModel();
-    this.purchases = data?.purchases || {};
+    this.purchases = data?.purchases || [];
     this.status = data?.status || OrderStatus.PENDING;
     this.isSelfPickup = data?.isSelfPickup || false;
     this.purchaseAmount = data?.purchaseAmount || 0;

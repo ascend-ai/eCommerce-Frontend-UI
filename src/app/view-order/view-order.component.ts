@@ -86,9 +86,14 @@ export class ViewOrderComponent {
   }
 
   public formatAndGetQtyOfProductOrdered(product: ProductModel): string {
-    const qty =  this.order.purchases[ product._id ];
+    const qty =  <number>this.order.purchases.find(purchase => purchase.productId === product._id)?.productOrderQty;
     const suffix = (qty > 1) ? 'items': 'item';
     return `${qty} ${suffix}`;
+  }
+
+  public getProductCustomizationText(product: ProductModel): string {
+    const customizationText = <string>(this.order.purchases.find(purchase => purchase.productId === product._id)?.productCustomizationText);
+    return customizationText ? customizationText : '--';
   }
 
   public viewOrderedProduct(productId: string): void {

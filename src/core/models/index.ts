@@ -13,3 +13,4 @@ export * from './cart-item.model';
 export * from './tracking-resource.model';
 export * from './order.model';
 export * from './customization-text-range.model';
+export * from './purchase.model';

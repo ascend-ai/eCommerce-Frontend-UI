@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-5">
   <form class="needs-validation"
         [formGroup]="basicDetailsFG"
         (ngSubmit)="submit()">
@@ -93,7 +93,7 @@
 
     <div class="row my-2">
       <!-- Category -->
-      <div class="col-12 col-xl-3 mb-2 mb-xl-0 form-group">
+      <div class="col-12 col-xl-6 mb-2 mb-xl-0 form-group">
         <label for="category" class="form-label">Category</label>
         <select class="form-select"
                 id="category"
@@ -112,6 +112,40 @@
           <small class="text-danger"
                   *ngIf="categoryFC.errors?.['required']">
             Category required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Min Cusomization Text Length -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="min-ctl" class="form-label">Min CTL</label>
+        <input type="number"
+               class="form-control"
+               id="min-ctl"
+               [ngClass]="getInputValidationClasses('minCustomizationTextLength')"
+               [formControl]="minCustomizationTextLengthFC">
+        <ng-container *ngIf="isInputValid('minCustomizationTextLength')">
+          <small class="text-danger"
+                  *ngIf="minCustomizationTextLengthFC.errors?.['required']">
+            Min length is required
+          </small>
+        </ng-container>
+      </div>
+
+      <!-- Max Cusomization Text Length -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="max-ctl" class="form-label">Max CTL</label>
+        <input type="number"
+               class="form-control"
+               id="max-ctl"
+               [ngClass]="getInputValidationClasses('maxCustomizationTextLength')"
+               [formControl]="maxCustomizationTextLengthFC">
+        <ng-container *ngIf="isInputValid('maxCustomizationTextLength')">
+          <small class="text-danger"
+                  *ngIf="minCustomizationTextLengthFC.errors?.['required']">
+            Max Length is required
           </small>
         </ng-container>
       </div>

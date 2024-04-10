@@ -3,7 +3,7 @@
     <div class="col-md-6 col-lg-4"
          *ngFor="let product of paginator.content; let i = index;">
         <app-product-item [product]="product"
-                          (addToCart)="addProductToCard(product)"></app-product-item>   
+                          (addToCart)="addProductToCart(product)"></app-product-item>   
     </div>
   </ng-container>
 

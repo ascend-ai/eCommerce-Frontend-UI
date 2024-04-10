@@ -47,10 +47,42 @@
         <p class="lead">
             {{ product.description }}
         </p>
-        <div class="d-flex">
-          <ng-container *ngIf="product.quantityInStock > 0; else outOfStock">
+        
+        
+        <div class="input-group mt-4"
+             *ngIf="isProductCustomizable">
+          <input type="text"
+                 placeholder="Custom Text"
+                 class="form-control"
+                 id="custom-text"
+                 [ngClass]="customTextValidationClasses"
+                 [formControl]="customizationTextFC">
+          <button class="btn btn-info"
+                  [disabled]="!canUpdateCustomizationText"
+                  (click)="updateCustomizationText()">
+            Update
+          </button>
+        </div>
+        <ng-container *ngIf="isCustomTextEdited">
+          <small class="text-danger"
+                  *ngIf="customizationTextFC.errors?.['required']">Custom text is required</small>
+          <small class="text-danger"
+                  *ngIf="customizationTextFC.errors?.['pattern']">A-Z & 0-9 are only allowed</small>
+          <small class="text-danger"
+                  *ngIf="customizationTextFC.errors?.['minlength']">
+            Minimum length is {{ product.customizationTextRange.min }}
+          </small>
+          <small class="text-danger"
+                  *ngIf="customizationTextFC.errors?.['maxlength']">
+            Maximum length is {{ product.customizationTextRange.max }}
+          </small>
+        </ng-container>
+      
+        <div class="d-flex my-4">
+          <ng-container *ngIf="!isProductOutOfStock; else outOfStock">
             <ng-container *ngIf="productQtyInCart < 1; else qtyController">
               <button class="btn btn-outline-primary"
+                      [disabled]="!isProductAddable"
                       (click)="addProduct(1)">
                   Add to Cart
               </button>

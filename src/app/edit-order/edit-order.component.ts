@@ -12,7 +12,6 @@ import {
   takeWhile
 } from 'rxjs';
 import {
-  AuthHelperService,
   OrderBrokerService,
   OrderLoaderService,
   OrderModel,
@@ -58,7 +57,6 @@ export class EditOrderComponent {
 
   constructor(private _route: ActivatedRoute,
               private _fb: FormBuilder,
-              private _authHelper: AuthHelperService,
               private _orderBroker: OrderBrokerService,
               private _orderLoader: OrderLoaderService,
               private _productLoader: ProductLoaderService) {}

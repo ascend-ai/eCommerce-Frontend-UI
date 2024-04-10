@@ -48,7 +48,10 @@ export class CartHelperService {
     }
   }
 
-  public addProduct(productId: string, qtyInStock: number, qtyToAdd: number): void {
+  public addProduct(productId: string,
+                    qtyInStock: number,
+                    qtyToAdd: number,
+                    customizationText: string): void {
     const item = this._getCartItem(productId);
 
     if (item) {
@@ -62,9 +65,10 @@ export class CartHelperService {
       }
     } else {
       if (qtyToAdd <= qtyInStock) {
-        this._cartList.push(<CartItemInterface>{
+        this._cartList.push({
           productId,
-          qtyInCart: qtyToAdd
+          qtyInCart: qtyToAdd,
+          customizationText
         });
         this._saveCart();
         this._cartList$.next(this._cartList);
@@ -114,6 +118,26 @@ export class CartHelperService {
       return item.qtyInCart;
     } else {
       return 0;
+    }
+  }
+
+  public getCustomizationTextOfProductInCart(productId: string): string {
+    const item = this._getCartItem(productId);
+    if (item) {
+      return item.customizationText;
+    } else {
+      return '';
+    }
+  }
+
+  public updateCustomizationTextOfProductInCart(productId: string, newCustomizationText: string): void {
+    const item = this._getCartItem(productId);
+
+    if (item) {
+      item.customizationText = newCustomizationText;
+      this._saveCart();
+      this._cartList$.next(this._cartList);
+      this._notificationHelper.handleSuccess('Customization text updated!');
     }
   }
 }

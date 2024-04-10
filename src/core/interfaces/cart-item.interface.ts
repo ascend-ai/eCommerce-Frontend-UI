@@ -1,4 +1,5 @@
 export interface CartItemInterface {
   productId: string,
-  qtyInCart: number
+  qtyInCart: number,
+  customizationText: string
 }
