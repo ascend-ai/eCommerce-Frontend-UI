@@ -2,6 +2,7 @@ import {
   OrderStatus
 } from '../enums';
 import {
+  PurchaseInterface,
   TrackingResourceInterface,
   UserInterface
 } from './';
@@ -13,7 +14,7 @@ export interface OrderInterface {
   razorpayPaymentId: string;
   razorpaySignature: string;
   trackingResource: TrackingResourceInterface;
-  purchases: Record<string, number>;
+  purchases: Array<PurchaseInterface>;
   status: OrderStatus;
   purchaseAmount: number;
   shippingCharge: number;

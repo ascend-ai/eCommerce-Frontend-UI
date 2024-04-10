@@ -31,7 +31,12 @@ export class CartItemComponent {
   }
 
   public addProduct(qtyToAdd: number): void {
-    this._cartHelper.addProduct(this.cartItem.product._id, this.cartItem.product.quantityInStock, qtyToAdd);
+    this._cartHelper.addProduct(
+      this.cartItem.product._id,
+      this.cartItem.product.quantityInStock,
+      qtyToAdd,
+      this.cartItem.customizationText
+    );
   }
 
   public subtractProduct(qtyToSubtract: number): void {

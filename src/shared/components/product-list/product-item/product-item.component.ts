@@ -29,6 +29,10 @@ export class ProductItemComponent {
     const percentage: number = Math.floor(ratio * 100);
     return `-${percentage}%`;
   }
+  public get isProductCustomizable(): boolean {
+    return !(this.product.customizationTextRange.min === 0 &&
+           this.product.customizationTextRange.max === 0)
+  }
 
   constructor(private _router: Router) {}
 
@@ -49,8 +53,13 @@ export class ProductItemComponent {
     this._router.navigate(['products', this.product._id]);
   }
 
-  public addProductToCard(event: Event): void {
+  public addProductToCart(event: Event): void {
     event.stopPropagation();
     this.addToCart.emit(this.product);
+  }
+
+  public customizeProduct(event: Event): void {
+    event.stopPropagation();
+    this.viewProduct();
   }
 }

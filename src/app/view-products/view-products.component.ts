@@ -74,6 +74,14 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
   }
 
   public addProductToCart(product: ProductModel): void {
-    this._cartHelper.addProduct(product._id, product.quantityInStock, 1);
+    if (product.customizationTextRange.min === 0 &&
+        product.customizationTextRange.max === 0) {
+      this._cartHelper.addProduct(
+        product._id,
+        product.quantityInStock,
+        1,
+        ''
+      );
+    }
   }
 }

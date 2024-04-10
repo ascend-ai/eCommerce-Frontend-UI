@@ -2,8 +2,14 @@
      (mouseenter)="changeDisplayImage(product)"
      (mouseleave)="resetDisplayImage(product)"
      (click)="viewProduct()">
-  <div class="badge bg-info text-white position-absolute product-card-badge">
-    {{ product.category | capitalize:'_' }}
+  <div class="position-absolute product-card-badges">
+    <div class="badge bg-danger text-white me-1"
+         *ngIf="isProductCustomizable">
+      Customizable
+    </div>
+    <div class="badge bg-info text-white">
+      {{ product.category | capitalize:'_' }}
+    </div>
   </div>
   <div class="img-fluid product-card-img"
        [style.backgroundImage]="product.displayImage.url | backgroundImage"></div>
@@ -27,10 +33,18 @@
       </small>
     </p>
     <ng-container *ngIf="product.quantityInStock > 0; else outOfStock">
-      <button class="btn btn-outline-primary"
-              (click)="addProductToCard($event)">
-        Add to Cart
-      </button>
+      <ng-container *ngIf="!isProductCustomizable; else customize">
+        <button class="btn btn-outline-primary"
+                (click)="addProductToCart($event)">
+          Add to Cart
+        </button>
+      </ng-container>
+      <ng-template #customize>
+        <button class="btn btn-outline-danger"
+                (click)="customizeProduct($event)">
+          Customize
+        </button>
+      </ng-template>
     </ng-container>
     <ng-template #outOfStock>
       <div (click)="$event.stopPropagation()">

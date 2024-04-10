@@ -18,7 +18,7 @@ export class ProductListComponent {
     this.page.emit(pageIndex);
   }
 
-  public addProductToCard(product: ProductModel): void {
+  public addProductToCart(product: ProductModel): void {
     this.addToCart.emit(product)
   }
 

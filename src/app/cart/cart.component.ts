@@ -23,6 +23,7 @@ import {
   ProductLoaderService,
   ProductModel,
   ProductsBrokerService,
+  PurchaseModel,
   RazorpayHelperService,
   SHIPPING_CHARGE
 } from 'src/core';
@@ -99,7 +100,8 @@ export class CartComponent implements OnInit, OnDestroy {
       .subscribe(products => {
         this.cartList = this.cartListBluePrint.map(item => new CartItemModel({
           product: <ProductModel>products.find(product => product._id === item.productId),
-          qtyInCart: item.qtyInCart
+          qtyInCart: item.qtyInCart,
+          customizationText: item.customizationText
         }));
       });
 
@@ -131,11 +133,11 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  private get _purchases(): Record<string, number> {
-    const purhases: Record<string, number> = {};
-    this.cartList.forEach(item => {
-      purhases[item.product._id] = item.qtyInCart
-    });
-    return purhases;
+  private get _purchases(): Array<PurchaseModel> {
+    return this.cartList.map(item => new PurchaseModel({
+      productId: item.product._id,
+      productOrderQty: item.qtyInCart,
+      productCustomizationText: item.customizationText
+    }));
   }
 }

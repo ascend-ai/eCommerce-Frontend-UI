@@ -5,7 +5,8 @@ import {
   OrderFilterCriteriaModel,
   OrderModel,
   PaginationModel,
-  ProductModel
+  ProductModel,
+  PurchaseModel
 } from '../models';
 import {
   catchError,
@@ -26,16 +27,12 @@ import {
   ProductsDataService
 } from '../data-services';
 import {
-  OrderInterface
-} from '../interfaces';
-import {
   HttpErrorResponse
 } from '@angular/common/http';
 import {
   OrderLoaderService,
   ProductLoaderService
 } from '../loader-services';
-import { OrderStatus } from '../enums';
 
 @Injectable()
 export class OrderBrokerService {
@@ -172,7 +169,7 @@ export class OrderBrokerService {
       .subscribe();
   }
 
-  private _extractProductIdsFromPurchases(purchases: Record<string, number>): Array<string> {
-    return Object.keys(purchases);
+  private _extractProductIdsFromPurchases(purchases: Array<PurchaseModel>): Array<string> {
+    return purchases.map(purchase => purchase.productId);
   }
 }

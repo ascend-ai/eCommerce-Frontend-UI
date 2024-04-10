@@ -2,26 +2,34 @@
      (click)="viewProduct()">
   <div class="card-body p-4">
     <div class="row d-flex justify-content-between align-items-center">
-      <div class="col-md-2 col-lg-2 col-xl-2">
+      <div class="col-lg-12 col-xl-5 d-flex align-items-center mb-3 mb-xl-0">
         <div
           [style.backgroundImage]="cartItem.product.displayImage.url | backgroundImage"
           class="img-fluid rounded-3 cart-image">
         </div>
+        <div class="mx-3">
+          <p class="lead fw-normal mb-2">{{ cartItem.product.name }}</p>
+          <p>{{ cartItem.product.description | truncate }}</p>
+        </div>
       </div>
-      <div class="col-md-3 col-lg-3 col-xl-3">
-        <p class="lead fw-normal mb-2">{{ cartItem.product.name }}</p>
-        <p>{{ cartItem.product.description | truncate }}</p>
-      </div>
-      <div class="col-md-3 col-lg-3 col-xl-2">
+      <div class="col-lg-12 col-xl-2 mb-3 mb-xl-0">
         <app-product-qty-controller [qty]="cartItem.qtyInCart"
                                     (add)="addProduct($event)"
                                     (subtract)="subtractProduct($event)">
         </app-product-qty-controller>
       </div>
-      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-        <h5 class="mb-0">{{ (cartItem.product.sellingPrice * cartItem.qtyInCart) | inr }}</h5>
+      <div class="col-lg-12 col-xl-3 d-flex align-items-center mb-3 mb-xl-0">
+        <small>
+          <em>
+            Customization Text:
+          </em>
+        </small>
+        <strong class="ms-1">{{ cartItem.customizationText ? cartItem.customizationText : '--' }}</strong>
       </div>
-      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+      <div class="col-lg-12 col-xl-1 mb-3 mb-xl-0">
+        <h5 class="mb-0 text-xl-center">{{ (cartItem.product.sellingPrice * cartItem.qtyInCart) | inr }}</h5>
+      </div>
+      <div class="col-lg-12 col-xl-1 text-xl-end mb-3 mb-xl-0">
         <span class="text-danger cursor-pointer"
               (click)="removeProduct($event)">
           <i class="fas fa-trash fa-lg"></i>

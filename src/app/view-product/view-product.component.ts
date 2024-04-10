@@ -3,6 +3,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import {
   ActivatedRoute,
   Router
@@ -13,6 +14,7 @@ import {
 import {
   AuthHelperService,
   CartHelperService,
+  PRODUCT_CUSTOMIZATION_TEXT_FORMAT,
   ProductImageModel,
   ProductLoaderService,
   ProductModel,
@@ -28,10 +30,14 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   public product: ProductModel = new ProductModel();
   public carouselDisplayImage: ProductImageModel = new ProductImageModel();
   public carouselImages: Array<ProductImageModel> = [];
+  public customizationTextFC!: FormControl;
   private _subscribeMain: boolean = true;
   public isCarouselOpen: boolean = false;
   public get productQtyInCart(): number {
     return this._cartHelper.getProductQtyInCart(this.product._id);
+  }
+  public get customizationTextOfProductInCart(): string {
+    return this._cartHelper.getCustomizationTextOfProductInCart(this.product._id);
   }
   public get canEditProduct(): boolean {
     return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
@@ -43,6 +49,33 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     const ratio: number = (this.product.maxRetailPrice - this.product.sellingPrice) / this.product.maxRetailPrice;
     const percentage: number = Math.floor(ratio * 100);
     return `-${percentage}%`;
+  }
+  public get customTextValidationClasses(): Record<string, boolean> {
+    return {
+      'is-invalid': (this.customizationTextFC.touched || this.customizationTextFC.dirty) && !!this.customizationTextFC.errors,
+      'is-valid': (this.customizationTextFC.touched || this.customizationTextFC.dirty) && !this.customizationTextFC.errors
+     };
+  }
+  public get isProductCustomizable(): boolean {
+    return !(this.product.customizationTextRange.min === 0 &&
+           this.product.customizationTextRange.max === 0)
+  }
+  public get isCustomTextEdited(): boolean {
+    return this.customizationTextFC?.touched || this.customizationTextFC?.dirty;
+  }
+  public get isProductOutOfStock(): boolean {
+    return this.product.quantityInStock <= 0;
+  }
+  public get isProductAddable(): boolean {
+    return ((this.isProductCustomizable &&
+           this.customizationTextFC.valid) ||
+           !this.isProductCustomizable)
+           
+  }
+  public get canUpdateCustomizationText(): boolean {
+    return (this.productQtyInCart > 0) &&
+           this.customizationTextFC.valid &&
+           (this.customizationTextFC?.value !== this.customizationTextOfProductInCart);
   }
   constructor(private _route: ActivatedRoute,
               private _productsBroker: ProductsBrokerService,
@@ -59,6 +92,21 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     this._subscribeMain = false;
   }
 
+  private _createCustomTextForm(): void {
+    this.customizationTextFC = new FormControl(
+      {
+        value: this.customizationTextOfProductInCart,
+        disabled: this.isProductOutOfStock
+      },
+      [
+        Validators.required,
+        Validators.minLength(this.product.customizationTextRange.min),
+        Validators.maxLength(this.product.customizationTextRange.max),
+        Validators.pattern(PRODUCT_CUSTOMIZATION_TEXT_FORMAT)
+      ]
+    );
+  }
+
   private _initSubscriptions(): void {
     this._route.params
       .pipe(takeWhile(() => this._subscribeMain))
@@ -70,6 +118,7 @@ export class ViewProductComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(product => {
         this.product = product;
+        this._createCustomTextForm();
       });
   }
 
@@ -82,7 +131,12 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   }
 
   public addProduct(qtyToAdd: number): void {
-    this._cartHelper.addProduct(this.product._id, this.product.quantityInStock, qtyToAdd);
+    this._cartHelper.addProduct(
+      this.product._id,
+      this.product.quantityInStock,
+      qtyToAdd,
+      this.customizationTextFC.value
+    );
   }
 
   public subtractProduct(qtyToSubtract: number): void {
@@ -90,7 +144,15 @@ export class ViewProductComponent implements OnInit, OnDestroy {
   }
 
   public addSimilarProductToCart(product: ProductModel): void {
-    this._cartHelper.addProduct(product._id, product.quantityInStock, 1);
+    if (product.customizationTextRange.min === 0 &&
+        product.customizationTextRange.max === 0) {
+      this._cartHelper.addProduct(
+        product._id,
+        product.quantityInStock,
+        1,
+        ''
+      );
+    }
   }
 
   public editProduct(): void {
@@ -103,6 +165,13 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     this.carouselDisplayImage = new ProductImageModel(this.product.displayImage);
     this.carouselImages = this.product.images.map(img => new ProductImageModel(img));
     this.isCarouselOpen = true;
+  }
+
+  public updateCustomizationText(): void {
+    this._cartHelper.updateCustomizationTextOfProductInCart(
+      this.product._id,
+      this.customizationTextFC.value
+    )
   }
 
 }
