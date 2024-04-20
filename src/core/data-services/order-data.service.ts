@@ -20,9 +20,6 @@ import {
   OrderFilterCriteriaModel,
   OrderModel
 } from '../models';
-import {
-  OrderStatus
-} from '../enums';
 
 @Injectable()
 export class OrderDataService {
@@ -59,14 +56,6 @@ export class OrderDataService {
   }
 
   public getOrdersOfUser(userId: string, filterCriteria: OrderFilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<OrderInterface>>> {
-    const params = this._getQueryParamsForOrderFilter(filterCriteria);
-    return this._http.get<ApiResponseInterface<PaginationInterface<OrderInterface>>>(
-      this.API_URL + `/users/${userId}/orders`,
-      { params }
-    );
-  }
-
-  public getUserOrders(userId: string, filterCriteria: OrderFilterCriteriaModel): Observable<ApiResponseInterface<PaginationInterface<OrderInterface>>> {
     const params = this._getQueryParamsForOrderFilter(filterCriteria);
     return this._http.get<ApiResponseInterface<PaginationInterface<OrderInterface>>>(
       this.API_URL + `/users/${userId}/orders`,

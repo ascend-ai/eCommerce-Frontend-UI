@@ -1,7 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { takeWhile } from 'rxjs';
-import { AuthBrokerService, AuthHelperService, CartHelperService } from 'src/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import {
+  AuthBrokerService,
+  AuthHelperService,
+  CartHelperService
+} from 'src/core';
 
 @Component({
   selector: 'app-user-profile',

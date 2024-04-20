@@ -19,3 +19,6 @@ export * from './tracking-resource.interface';
 export * from './order.interface';
 export * from './customization-text-range.interface';
 export * from './purchase.interface';
+export * from './stall-schedule.interface';
+export * from './base-entity.interface';
+export * from './stall-schedule-filter-criteria.interface';

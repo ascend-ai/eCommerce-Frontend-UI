@@ -48,6 +48,20 @@ const routes: Routes = [
     canActivate: [AuthGuard, ModGuard]
   },
   {
+    path: 'stall-schedules',
+    loadChildren: () => import('./manage-stall-schedules/manage-stall-schedules.module').then(m => m.ManageStallSchedulesModule)
+  },
+  {
+    path: 'stall-schedules/create',
+    loadChildren: () => import('./create-stall-schedule/create-stall-schedule.module').then(m => m.CreateStallScheduleModule),
+    canActivate: [AuthGuard, ModGuard]
+  },
+  {
+    path: 'stall-schedules/:id/edit',
+    loadChildren: () => import('./edit-stall-schedule/edit-stall-schedule.module').then(m => m.EditStallScheduleModule),
+    canActivate: [AuthGuard, ModGuard]
+  },
+  {
     path: 'products',
     loadChildren: () => import('./view-products/view-products.module').then(m => m.ViewProductsModule)
   },

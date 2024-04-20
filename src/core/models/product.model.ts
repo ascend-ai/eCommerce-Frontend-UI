@@ -55,9 +55,9 @@ export class ProductModel implements ProductInterface {
     this.images = data?.images || [];
     this.similarProducts = data?.similarProducts || [];
     this.category = data?.category || ProductCategory.OTHERS;
-    this.displayImage = data?.displayImage || new ProductImageModel();
+    this.displayImage = data?.displayImage ? new ProductImageModel(data.displayImage): new ProductImageModel();
     this.totalPurchases = data?.totalPurchases || 0;
-    this.customizationTextRange = data?.customizationTextRange || new CustomizationTextRangeModel();
+    this.customizationTextRange = data?.customizationTextRange ? new CustomizationTextRangeModel(data.customizationTextRange) : new CustomizationTextRangeModel();
     this.whenCreated = data?.whenCreated || Date.now();
     this.whenLastUpdated = data?.whenLastUpdated || Date.now();
   }

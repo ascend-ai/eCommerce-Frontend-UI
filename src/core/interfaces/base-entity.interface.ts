@@ -1,6 +1,5 @@
-export interface ProductImageInterface {
+export interface BaseEntityInterface {
   _id: string;
-  url: string;
   whenCreated: number;
   whenLastUpdated: number;
-};
+}

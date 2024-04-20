@@ -61,7 +61,7 @@ export class EditOrderComponent {
               private _orderLoader: OrderLoaderService,
               private _productLoader: ProductLoaderService) {}
   ngOnInit(): void {
-    this._createOrderDetailsFormForm();
+    this._createOrderDetailsForm();
     this._initSubscriptions();
   }
 
@@ -119,7 +119,7 @@ export class EditOrderComponent {
       });
   }
 
-  private _createOrderDetailsFormForm(): void {
+  private _createOrderDetailsForm(): void {
     this.trackingResourceFormGroup = this._fb.group({
       trackingId: [''],
       trackingUrl: ['']
