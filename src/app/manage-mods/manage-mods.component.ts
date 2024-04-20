@@ -26,9 +26,10 @@ export class ManageModsComponent implements OnInit, OnDestroy {
   public pagination: PaginationModel<UseablePushAndPullItemModelType> = new PaginationModel();
   public moderators: Array<UseablePushAndPullItemModelType> = [];
   public admin: UseablePushAndPullItemModelType = new UserModel();
+  private readonly DEFAULT_PAGE_SIZE = 4;
   private _filter: UserFilterCriteriaModel = new UserFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
-    size: 4
+    size: this.DEFAULT_PAGE_SIZE
   });
 
   /**

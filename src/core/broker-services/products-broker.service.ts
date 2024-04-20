@@ -25,12 +25,13 @@ import {
   ProductFilterCriteriaModel,
   PaginationModel,
   ProductModel,
-  UserFilterCriteriaModel
 } from '../models';
 import {
   ProductLoaderService
 } from '../loader-services';
-import { ProductPaginationType } from '../enums';
+import {
+  ProductPaginationType
+} from '../enums';
 
 @Injectable()
 export class ProductsBrokerService {

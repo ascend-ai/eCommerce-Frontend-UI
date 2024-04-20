@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row my-5"
+       *ngIf="isLoggedInUserAdminOrMod">
+    <div class="col d-flex flex-row-reverse">
+      <button class="btn btn-warning"
+              (click)="addNewSchedule()">
+        Add
+      </button>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col">
+      <!-- Order table -->
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Venue</th>
+            <th scope="col">Opening Time</th>
+            <th scope="col">Closing Time</th>
+            <th scope="col" *ngIf="isLoggedInUserAdminOrMod"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of pagination.content; let i = index;">
+            <td>{{ schedule.date | date:'mediumDate' }}</td>
+            <td>{{ schedule.venue }}</td>
+            <td>{{ schedule.openingTime | date:'shortTime' }}</td>
+            <td>{{ schedule.closingTime | date:'shortTime' }}</td>
+            <td *ngIf="isLoggedInUserAdminOrMod">
+              <button class="btn btn-link"
+                      (click)="editSchedule(schedule._id)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination-controller [paginator]="pagination"
+                                 (page)="switchPage($event)"></app-pagination-controller>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="container my-5">
+  <div class="row my-2">
+    <div class="col d-flex flex-row-reverse">
+      <button class="btn btn-warning"
+              (click)="deleteStallSchedule()">
+        Delete
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation"
+        [formGroup]="stallScheduleDetailsFG"
+        (ngSubmit)="update()">
+    <div class="row my-2">
+      <!-- Date -->
+      <div class="col-12 col-md-6 form-group">
+        <label for="date" class="form-label">Date</label>
+        <input type="date"
+               class="form-control"
+               id="date"
+               [min]="minDateStr"
+               [ngClass]="getInputValidationClasses('date')"
+               [formControl]="dateFC">
+        <ng-container *ngIf="isInputValid('date')">
+          <small class="text-danger"
+                 *ngIf="dateFC.errors?.['required']">
+            Date is required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Venue-->
+      <div class="col-12 col-md-6 form-group">
+        <label for="venue" class="form-label">Venue</label>
+        <input type="text"
+                class="form-control"
+                id="venue"
+                [ngClass]="getInputValidationClasses('venue')"
+                [formControl]="venueFC">
+        <ng-container *ngIf="isInputValid('venue')">
+          <small class="text-danger"
+                 *ngIf="venueFC.errors?.['required']">
+            Venue is required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <!-- Opening time -->
+      <div class="col-12 col-md-3 form-group">
+        <label for="opening-time" class="form-label">Opening Time</label>
+        <input type="time"
+               class="form-control"
+               id="opening-time"
+               [ngClass]="getInputValidationClasses('openingTime')"
+               [formControl]="openingTimeFC">
+        <ng-container *ngIf="isInputValid('openingTime')">
+          <small class="text-danger"
+                 *ngIf="openingTimeFC.errors?.['required']">
+            Opening time is required
+          </small>
+        </ng-container>
+      </div>
+  
+      <!-- Closing time-->
+      <div class="col-12 col-md-3 form-group">
+        <label for="closing-time" class="form-label">Closing Time</label>
+        <input type="time"
+                class="form-control"
+                id="closing-time"
+                [ngClass]="getInputValidationClasses('closingTime')"
+                [formControl]="closingTimeFC">
+        <ng-container *ngIf="isInputValid('closingTime')">
+          <small class="text-danger"
+                 *ngIf="closingTimeFC.errors?.['required']">
+            Closing time is required
+          </small>
+          <small class="text-danger"
+                 *ngIf="closingTimeFC.errors?.['min']">
+            Closing time cannot be less or equal to Opening time
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="d-flex my-3">
+      <button class="btn btn-primary"
+              type="submit"
+              [disabled]="stallScheduleDetailsFG.invalid">
+        Update
+      </button>
+
+      <button class="btn btn-danger ms-1"
+              type="button"
+              (click)="reset()">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

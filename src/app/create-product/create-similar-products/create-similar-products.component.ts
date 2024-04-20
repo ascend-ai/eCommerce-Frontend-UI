@@ -32,10 +32,11 @@ export class CreateSimilarProductsComponent implements OnInit, OnDestroy {
     this._similarProducts = assigned;
     this._createProductHelper.saveSimilarProducts(assigned);
   }
+  private readonly DEFAULT_PAGE_SIZE = 4;
   public _similarProducts: Array<UseablePushAndPullItemModelType> = [];
   private _filter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
-    size: 4
+    size: this.DEFAULT_PAGE_SIZE
   });
   private _subscribeMain: boolean = true;
 

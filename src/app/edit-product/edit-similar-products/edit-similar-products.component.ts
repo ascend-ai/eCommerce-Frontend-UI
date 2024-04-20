@@ -28,9 +28,10 @@ export class EditSimilarProductsComponent implements OnInit, OnDestroy {
   public pagination: PaginationModel<UseablePushAndPullItemModelType> = new PaginationModel();
   public product: ProductModel = new ProductModel();
   public similarProducts: Array<UseablePushAndPullItemModelType> = [];
+  private readonly DEFAULT_PAGE_SIZE = 4;
   private _filter: ProductFilterCriteriaModel = new ProductFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
-    size: 4
+    size: this.DEFAULT_PAGE_SIZE
   });
   private _subscribeMain: boolean = true;
 

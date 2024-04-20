@@ -6,3 +6,4 @@ export * from './razorpay-helper.service';
 export * from './product-helper.service';
 export * from './order-helper.service';
 export * from './user-helper.service';
+export * from './stall-schedule-helper.service';

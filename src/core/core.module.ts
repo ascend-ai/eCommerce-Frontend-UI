@@ -5,12 +5,14 @@ import {
   AuthBrokerService,
   OrderBrokerService,
   ProductsBrokerService, 
+  StallScheduleBrokerService, 
   UserBrokerService
 } from './broker-services';
 import {
   AuthDataService,
   OrderDataService,
   ProductsDataService,
+  StallScheduleDataService,
   UserDataService
 } from './data-services';
 import {
@@ -21,6 +23,7 @@ import {
   OrderHelperService,
   ProductHelperService,
   RazorpayHelperService,
+  StallScheduleHelperService,
   UserHelperService
 } from './helper-services';
 import {
@@ -39,6 +42,7 @@ import {
   AuthLoaderService,
   OrderLoaderService,
   ProductLoaderService,
+  StallScheduleLoaderService,
   UserLoaderService
 } from './loader-services';
 
@@ -50,16 +54,19 @@ import {
     ProductsBrokerService,
     OrderBrokerService,
     UserBrokerService,
+    StallScheduleBrokerService,
 
     AuthLoaderService,
     ProductLoaderService,
     OrderLoaderService,
     UserLoaderService,
+    StallScheduleLoaderService,
 
     AuthDataService,
     ProductsDataService,
     OrderDataService,
     UserDataService,
+    StallScheduleDataService,
 
     ProductHelperService,
     OrderHelperService,
@@ -69,6 +76,7 @@ import {
     LoadingHelperService,
     CartHelperService,
     RazorpayHelperService,
+    StallScheduleHelperService,
 
     AuthGuard,
     AdminGuard,
