@@ -14,6 +14,8 @@ import {
   AuthHelperService,
   DEFAULT_PAGE_INDEX,
   PaginationModel,
+  STALL_SCHEDULE_SORTABLE_COLUMN,
+  SortDirection,
   StallScheduleBrokerService,
   StallScheduleFilterCriteriaModel,
   StallScheduleLoaderService,
@@ -32,6 +34,8 @@ export class ManageStallSchedulesComponent implements OnInit, OnDestroy {
   private _filter: StallScheduleFilterCriteriaModel = new StallScheduleFilterCriteriaModel({
     page: DEFAULT_PAGE_INDEX,
     size: this.DEFAULT_PAGE_SIZE,
+    sortColumn: STALL_SCHEDULE_SORTABLE_COLUMN.date,
+    sortDirection: SortDirection.asc
   });
   public get isLoggedInUserAdminOrMod(): boolean {
     return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
