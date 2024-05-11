@@ -116,6 +116,40 @@
       </div>
     </div>
 
+    <div class="row my-2">
+      <!-- Min Cusomization Text Length -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="min-ctl" class="form-label">Min CTL</label>
+        <input type="number"
+               class="form-control"
+               id="min-ctl"
+               [ngClass]="getInputValidationClasses('minCustomizationTextLength')"
+               [formControl]="minCustomizationTextLengthFC">
+        <ng-container *ngIf="isInputValid('minCustomizationTextLength')">
+          <small class="text-danger"
+                  *ngIf="minCustomizationTextLengthFC.errors?.['required']">
+            Min length is required
+          </small>
+        </ng-container>
+      </div>
+
+      <!-- Max Cusomization Text Length -->
+      <div class="col-12 col-xl-3 form-group">
+        <label for="max-ctl" class="form-label">Max CTL</label>
+        <input type="number"
+               class="form-control"
+               id="max-ctl"
+               [ngClass]="getInputValidationClasses('maxCustomizationTextLength')"
+               [formControl]="maxCustomizationTextLengthFC">
+        <ng-container *ngIf="isInputValid('maxCustomizationTextLength')">
+          <small class="text-danger"
+                  *ngIf="minCustomizationTextLengthFC.errors?.['required']">
+            Max Length is required
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
     <!-- Is Pinned -->
     <div class="row my-3">
       <div class="col-6 form-group">

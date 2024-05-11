@@ -19,11 +19,15 @@ import {
   ProductModel,
   ProductsBrokerService
 } from 'src/core';
+import {
+  CapitalizePipe
+} from 'src/shared/pipes';
 
 @Component({
   selector: 'app-view-products',
   templateUrl: './view-products.component.html',
-  styleUrls: ['./view-products.component.scss']
+  styleUrls: ['./view-products.component.scss'],
+  providers: [ CapitalizePipe ]
 })
 export class ViewProductsComponent implements OnInit, OnDestroy {
   private _subscribeMain: boolean = true;
@@ -32,10 +36,12 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
     page: DEFAULT_PAGE_INDEX,
     size: DEFAULT_PAGE_SIZE
   });
+  public header: string = '';
 
   constructor(private _productsBroker: ProductsBrokerService,
               private _productLoader: ProductLoaderService,
               private _cartHelper: CartHelperService,
+              private _capitalizePipe: CapitalizePipe,
               private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -56,9 +62,19 @@ export class ViewProductsComponent implements OnInit, OnDestroy {
     this._route.queryParams
       .pipe(takeWhile(() => this._subscribeMain))
       .subscribe(query => {
+        const selectedCategory = query?.['category'];
+        const searchedText = query?.['search'];
 
-        this._filter.category = query?.['category'];
-        this._filter.search = query?.['search'];
+        if (selectedCategory && searchedText) {
+          this.header = `${this._capitalizePipe.transform(selectedCategory, '_')} > ${searchedText}`;
+        } else if (selectedCategory) {
+          this.header = this._capitalizePipe.transform(selectedCategory, '_');
+        } else if (searchedText) {
+          this.header = `Search: ${searchedText}`;
+        }
+
+        this._filter.category = selectedCategory;
+        this._filter.search = searchedText;
 
         this._getProducts();
       });

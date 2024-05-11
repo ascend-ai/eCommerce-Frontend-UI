@@ -91,6 +91,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
     this._basicDetails.similarProducts = JSON.stringify(this._similarProducts.map(product => product._id));
 
+    this._basicDetails.customizationTextRange = JSON.stringify(this._basicDetails.customizationTextRange);
+
     for (let key in this._basicDetails) {
       formData.append(key, this._basicDetails[key]);
     }

@@ -27,12 +27,15 @@ import {
 export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
   public categories: Array<ProductCategory> = Object.values(ProductCategory).filter(value => typeof value === 'string');
   public basicDetailsFG!: FormGroup;
+  public customizationTextRangeFG!: FormGroup;
   public nameFC!: FormControl;
   public descriptionFC!: FormControl;
   public qtyInStockFC!: FormControl;
   public categoryFC!: FormControl;
   public sellingPriceFC!: FormControl;
   public maxRetailPriceFC!: FormControl;
+  public minCustomizationTextLengthFC!: FormControl;
+  public maxCustomizationTextLengthFC!: FormControl;
   public isPinnedFC!: FormControl;
   private _subscribeMain: boolean = true;
   private get _isFormNewlyInitialized(): boolean {
@@ -67,6 +70,11 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
   }
 
   private _createForm(): void {
+    this.customizationTextRangeFG = this._fb.group({
+      min: ['', [Validators.required]],
+      max: ['', [Validators.required]]
+    });
+
     this.basicDetailsFG = this._fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -74,6 +82,7 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
       category: ['', [Validators.required]],
       sellingPrice: ['', [Validators.required]],
       maxRetailPrice: ['', [Validators.required]],
+      customizationTextRange: this.customizationTextRangeFG,
       isPinned: [false],
     });
     this.nameFC = this.basicDetailsFG.controls['name'] as FormControl;
@@ -83,6 +92,8 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
     this.sellingPriceFC = this.basicDetailsFG.controls['sellingPrice'] as FormControl;
     this.maxRetailPriceFC = this.basicDetailsFG.controls['maxRetailPrice'] as FormControl;
     this.isPinnedFC = this.basicDetailsFG.controls['isPinned'] as FormControl;
+    this.minCustomizationTextLengthFC = this.customizationTextRangeFG.controls['min'] as FormControl;
+    this.maxCustomizationTextLengthFC = this.customizationTextRangeFG.controls['max'] as FormControl;
   }
 
   public isInputValid(inputName: string): boolean {
@@ -105,6 +116,12 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
         break;
       case 'maxRetailPrice':
         formControl = this.maxRetailPriceFC;
+        break;
+      case 'minCustomizationTextLength':
+        formControl = this.minCustomizationTextLengthFC;
+        break;
+      case 'maxCustomizationTextLength':
+        formControl = this.maxCustomizationTextLengthFC;
         break;
       case 'isPinned':
         formControl = this.isPinnedFC;
@@ -136,6 +153,12 @@ export class CreateBasicDetailsComponent implements OnInit, OnDestroy {
         break;
       case 'maxRetailPrice':
         formControl = this.maxRetailPriceFC;
+        break;
+      case 'minCustomizationTextLength':
+        formControl = this.minCustomizationTextLengthFC;
+        break;
+      case 'maxCustomizationTextLength':
+        formControl = this.maxCustomizationTextLengthFC;
         break;
       case 'isPinned':
         formControl = this.isPinnedFC;
