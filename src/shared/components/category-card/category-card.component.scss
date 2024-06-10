@@ -11,6 +11,22 @@
   }
 }
 
+@media (max-width: 767px) {
+  .category-card-container {
+    $width: 15em;
+    width: $width;
+    height: calc($width * 1.4);
+  }
+}
+
+@media (max-width: 500px) {
+  .category-card-container {
+    $width: 10em;
+    width: $width;
+    height: calc($width * 1.4);
+  }
+}
+
 .category-card {
   width: 100%;
   height: 100%;
