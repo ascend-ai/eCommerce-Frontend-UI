@@ -2,12 +2,12 @@
   <footer class="container">
     <div class="d-flex flex-column flex-md-row justify-content-between py-5 border-top">
       <!-- Contact -->
-      <div class="mb-3">
+      <div class="mb-3 contacts">
         <h5>Contact</h5>
         <ul class="nav flex-column">
           <li class="nav-item mb-2">
             <strong>Address:&nbsp;</strong>
-            <span>Malwani Gate no.1, Marve Road, Malad (WEST), Mumbai-95.</span>
+            <span>Marve Road, Kharodi Village, Near Arsalans Shawarma king, Malad (W), Mumbai - 400095, Maharashtra.</span>
           </li>
           <li class="nav-item mb-2">
             <strong>Email:&nbsp;</strong>
@@ -15,20 +15,60 @@
           </li>
           <li class="nav-item mb-2">
             <strong>Phone:&nbsp;</strong>
-            <span>+91 8850774931</span>
+            <span>+91 9324945633</span>
           </li>
         </ul>
       </div>
 
       <div class="d-flex flex-column flex-sm-row">
-        <!-- Useful Links -->
+        <!-- Quick Links -->
         <div class="mb-3 mx-0 mx-sm-5">
-          <h5>Useful Links</h5>
+          <h5>Quick Links</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Home</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">About</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Licence</a></li>
+            <li class="nav-item mb-2">
+              <!-- <a class="nav-link p-0 text-light">About</a> -->
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/about'])"
+                 [class.active]="isRouterLinkActive('/home')">About</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/stall-schedules'])"
+                 [class.active]="isRouterLinkActive('/stall-schedules')">Pop-up</a>
+            </li>
+            <li class="nav-item mb-2"><a class="nav-link p-0 text-light">Customization</a></li>
+            <li class="nav-item mb-2">
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/faqs'])"
+                 [class.active]="isRouterLinkActive('/faqs')">FAQs</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Our Policies -->
+        <div class="mb-3 mx-0 mx-sm-5">
+          <h5>Our Policies</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/terms-and-conditions'])"
+                 [class.active]="isRouterLinkActive('/terms-and-conditions')">Terms & Conditions</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/policy/privacy'])"
+                 [class.active]="isRouterLinkActive('/policy/privacy')">Privacy Policy</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/policy/shipping'])"
+                 [class.active]="isRouterLinkActive('/policy/shiping')">Shipping Policy</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link p-0 text-light cursor-pointer"
+                 (click)="navigate(['/policy/return'])"
+                 [class.active]="isRouterLinkActive('/policy/return')">Return Policy</a>
+            </li>
           </ul>
         </div>
 

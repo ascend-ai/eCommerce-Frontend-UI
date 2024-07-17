@@ -24,7 +24,7 @@ export class RazorpayHelperService {
       currency: ACCEPTED_CURRENCY,
       name: COMPANY_NAME,
       description: 'Test Transaction',
-      image: 'https://avatars.githubusercontent.com/u/147246893?s=400&u=4650861eb4e3f99aa02119bede141c58010cd7ff&v=4',
+      image: 'https://i.imgur.com/SPTWySs.jpg',
       order_id: razorpayOrderId,
       callback_url: this.API_URL + '/orders/verify-payment',
       notes: {

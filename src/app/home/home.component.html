@@ -1,6 +1,6 @@
 <!-- Banner -->
 <div class="d-flex flex-column align-items-center justify-content-center banner">
-  <h1 class="text-white fs-3 fw-bolder">Luxury Unveiled</h1>
+  <h1 class="text-white fs-3 fw-bolder">Style For Move</h1>
   <p class="text-white-50 mb-0">Indulge in Exquisite Jewelry Collections</p>
 </div>
 
@@ -45,5 +45,19 @@
                       (page)="switchPage($event, ProductPaginationType.POPULAR)"
                       (addToCart)="addProductToCart($event)">
     </app-product-list>
+  </section>
+
+  <!-- Jewellery Care -->
+  <section class="my-5">
+    <h2 class="text-center">Jewellery Care</h2>
+    <div class="row gy-4 my-2">
+      <div class="col-6 col-md-6 col-lg-4"
+           *ngFor="let data of JEWELLERY_CARE_DATA; let i = index;">
+        <div class="d-flex flex-column align-items-center my-3 jw-care-card">
+          <i [class]="data.icon"></i>
+          <span class="text-center">{{ data.description }}</span>
+        </div>
+      </div>
+    </div>
   </section>
 </div>

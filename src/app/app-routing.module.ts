@@ -6,9 +6,6 @@ import {
   Routes
 } from '@angular/router';
 import {
-  NotFoundComponent
-} from './static/not-found/not-found.component';
-import {
   ModGuard,
   AuthGuard,
   AdminGuard
@@ -16,6 +13,27 @@ import {
 import {
   PaymentProcessingComponent
 } from './static/payment-processing/payment-processing.component';
+import {
+  NotFoundComponent
+} from './static/not-found/not-found.component';
+import {
+  AboutComponent
+} from './static/about/about.component';
+import {
+  FaqComponent
+} from './static/faq/faq.component';
+import {
+  PrivacyPolicyComponent
+} from './static/privacy-policy/privacy-policy.component';
+import {
+  ReturnPolicyComponent
+} from './static/return-policy/return-policy.component';
+import {
+  ShippingPolicyComponent
+} from './static/shipping-policy/shipping-policy.component';
+import {
+  TermsAndConditionsComponent
+} from './static/terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
   {
@@ -92,6 +110,40 @@ const routes: Routes = [
   {
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
+    path: 'faqs',
+    component: FaqComponent
+  },
+  {
+    path: 'policy',
+    children: [
+      {
+        path: '',
+        redirectTo: 'privacy',
+        pathMatch: 'full'
+      },
+      {
+        path: 'privacy',
+        component: PrivacyPolicyComponent
+      },
+      {
+        path: 'return',
+        component: ReturnPolicyComponent
+      },
+      {
+        path: 'shipping',
+        component: ShippingPolicyComponent
+      }
+    ]
+  },
+  {
+    path: 'terms-and-conditions',
+    component: TermsAndConditionsComponent
   },
   {
     path: 'not-found',
