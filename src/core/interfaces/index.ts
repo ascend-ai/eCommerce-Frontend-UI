@@ -22,3 +22,4 @@ export * from './purchase.interface';
 export * from './stall-schedule.interface';
 export * from './base-entity.interface';
 export * from './stall-schedule-filter-criteria.interface';
+export * from './jewellery-care.interface';
