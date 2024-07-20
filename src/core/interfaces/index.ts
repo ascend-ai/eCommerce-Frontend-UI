@@ -1,4 +1,6 @@
 export * from './api-response.interface';
+export * from './accordion-data.interface';
+export * from './accordion-item.interface';
 export * from './signin.interface';
 export * from './user.interface';
 export * from './address.interface';

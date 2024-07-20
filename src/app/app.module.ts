@@ -15,6 +15,30 @@ import {
   AppComponent
 } from './app.component';
 import {
+  FaqComponent
+} from './static/faq/faq.component';
+import {
+  AboutComponent
+} from './static/about/about.component';
+import {
+  NotFoundComponent
+} from './static/not-found/not-found.component';
+import {
+  PaymentProcessingComponent
+} from './static/payment-processing/payment-processing.component';
+import {
+  PrivacyPolicyComponent
+} from './static/privacy-policy/privacy-policy.component';
+import {
+  ReturnPolicyComponent
+} from './static/return-policy/return-policy.component';
+import {
+  ShippingPolicyComponent
+} from './static/shipping-policy/shipping-policy.component';
+import {
+  TermsAndConditionsComponent
+} from './static/terms-and-conditions/terms-and-conditions.component';
+import {
   SharedModule
 } from 'src/shared/shared.module';
 import {
@@ -24,6 +48,15 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
+
+    AboutComponent,
+    FaqComponent,
+    NotFoundComponent,
+    PaymentProcessingComponent,
+    PrivacyPolicyComponent,
+    ReturnPolicyComponent,
+    ShippingPolicyComponent,
+    TermsAndConditionsComponent
   ],
   imports: [
     BrowserModule,

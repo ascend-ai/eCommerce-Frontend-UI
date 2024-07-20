@@ -51,6 +51,9 @@ import {
   PaginationControllerComponent
 } from './components/pagination-controller/pagination-controller.component';
 import {
+  AccordionComponent
+} from './components/accordion/accordion.component';
+import {
   BackgroundImagePipe,
   CapitalizePipe,
   YesOrNoPipe,
@@ -75,6 +78,7 @@ import {
     PushAndPullComponent,
     PnpItemComponent,
     PaginationControllerComponent,
+    AccordionComponent,
 
     BackgroundImagePipe,
     CapitalizePipe,
@@ -86,7 +90,7 @@ import {
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     HeaderComponent,
@@ -101,12 +105,13 @@ import {
     ProductImageCarouselComponent,
     PushAndPullComponent,
     PaginationControllerComponent,
+    AccordionComponent,
 
     BackgroundImagePipe,
     CapitalizePipe,
     YesOrNoPipe,
     InrPipe,
-    TruncatePipe
+    TruncatePipe,
   ]
 })
 export class SharedModule { }
