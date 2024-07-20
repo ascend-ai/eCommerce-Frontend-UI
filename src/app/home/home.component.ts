@@ -21,7 +21,7 @@ import {
   ProductPaginationType,
   PRODUCT_SORTABLE_COLUMN,
   JewelleryCareInterface,
-  JW_CARE,
+  JEWELLERY_CARE,
 } from 'src/core';
 
 @Component({
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public get ProductPaginationType(): typeof ProductPaginationType {
     return ProductPaginationType;
   }
-  public readonly JEWELLERY_CARE_DATA: readonly JewelleryCareInterface[] = JW_CARE;
+  public readonly JEWELLERY_CARE_DATA: readonly JewelleryCareInterface[] = JEWELLERY_CARE;
   private _subscribeMain: boolean = true;
 
   constructor(private _productsBroker: ProductsBrokerService,
