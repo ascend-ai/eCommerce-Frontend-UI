@@ -1,0 +1,7 @@
+<div class="row gy-4 my-5">
+  <div class="col-6 col-md-6 col-lg-4"
+       *ngFor="let imgPath of imgPaths; let i = index;">
+    <div class="img-fluid border d-flex flex-column align-items-center justify-content-center mx-auto photo"
+        [style.backgroundImage]="imgPath | backgroundImage"></div>
+  </div>
+</div>

@@ -1,43 +1,66 @@
 <div class="container">
-  <div class="row my-5"
-       *ngIf="isLoggedInUserAdminOrMod">
-    <div class="col d-flex flex-row-reverse">
-      <button class="btn btn-warning"
-              (click)="addNewSchedule()">
-        Add
-      </button>
+  <h1 class="text-center my-5">
+    Come Shop in Person
+  </h1>
+  <section class="my-5">
+    <div class="img-fluid mx-auto main-img"></div>
+    <div class="row my-4">
+      <p>
+        Step into our world of pop-up stalls scattered across Mumbai! From college events to bustling markets, we bring our curated collection of style and elegance to your neighbourhood.
+      </p>
+      <p>
+        Style it by Rose has put its pop up stalls in 10+ college events all over Mumbai and has done 5+ market events all over Mumbai and Thane.
+      </p>
+      <p>
+        For meeting us in person and visiting our pop up stalls you can check out our schedule chart which is given below, stay tuned to our socials for updates on the latest locations and offerings.
+      </p>
     </div>
-  </div>
-  <div class="row my-5">
-    <div class="col">
-      <!-- Order table -->
-      <table class="table">
-        <thead class="table-light">
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Venue</th>
-            <th scope="col">Opening Time</th>
-            <th scope="col">Closing Time</th>
-            <th scope="col" *ngIf="isLoggedInUserAdminOrMod"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let schedule of pagination.content; let i = index;">
-            <td>{{ schedule.date | date:'mediumDate' }}</td>
-            <td>{{ schedule.venue }}</td>
-            <td>{{ schedule.openingTime | date:'shortTime' }}</td>
-            <td>{{ schedule.closingTime | date:'shortTime' }}</td>
-            <td *ngIf="isLoggedInUserAdminOrMod">
-              <button class="btn btn-link"
-                      (click)="editSchedule(schedule._id)">
-                Edit
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <app-pagination-controller [paginator]="pagination"
-                                 (page)="switchPage($event)"></app-pagination-controller>
+  </section>
+
+  <!-- Table -->
+  <section class="my-5">
+    <div class="row">
+      <div class="col-12 my-3 d-flex flex-row-reverse"
+           *ngIf="isLoggedInUserAdminOrMod">
+        <button class="btn btn-warning"
+                (click)="addNewSchedule()">
+          Add
+        </button>
+      </div>
+      <div class="col-12">
+        <!-- Order table -->
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Venue</th>
+              <th scope="col">Opening Time</th>
+              <th scope="col">Closing Time</th>
+              <th scope="col" *ngIf="isLoggedInUserAdminOrMod"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let schedule of pagination.content; let i = index;">
+              <td>{{ schedule.date | date:'mediumDate' }}</td>
+              <td>{{ schedule.venue }}</td>
+              <td>{{ schedule.openingTime | date:'shortTime' }}</td>
+              <td>{{ schedule.closingTime | date:'shortTime' }}</td>
+              <td *ngIf="isLoggedInUserAdminOrMod">
+                <button class="btn btn-link"
+                        (click)="editSchedule(schedule._id)">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-pagination-controller [paginator]="pagination"
+                                   (page)="switchPage($event)"></app-pagination-controller>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <section class="my-5">
+    <app-collage [imgPaths]="images"></app-collage>
+  </section>
 </div>

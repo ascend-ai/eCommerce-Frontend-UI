@@ -54,6 +54,9 @@ import {
   AccordionComponent
 } from './components/accordion/accordion.component';
 import {
+  CollageComponent
+} from './components/collage/collage.component';
+import {
   BackgroundImagePipe,
   CapitalizePipe,
   YesOrNoPipe,
@@ -79,6 +82,7 @@ import {
     PnpItemComponent,
     PaginationControllerComponent,
     AccordionComponent,
+    CollageComponent,
 
     BackgroundImagePipe,
     CapitalizePipe,
@@ -106,6 +110,7 @@ import {
     PushAndPullComponent,
     PaginationControllerComponent,
     AccordionComponent,
+    CollageComponent,
 
     BackgroundImagePipe,
     CapitalizePipe,

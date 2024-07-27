@@ -1,0 +1,26 @@
+.photo {
+  $width: 25em;
+  width: $width;
+  height: calc($width * 1.2);
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 767px) {
+  .photo {
+    $width: 15em;
+    width: $width;
+    height: calc($width * 1.2);
+  }
+}
+
+@media (max-width: 500px) {
+  .photo {
+    $width: 10em;
+    width: $width;
+    height: calc($width * 1.2);
+  }
+}
