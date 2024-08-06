@@ -140,4 +140,9 @@ export class CartComponent implements OnInit, OnDestroy {
       productCustomizationText: item.customizationText
     }));
   }
+
+  public showSelfPickupInfo(event: Event): void {
+    event.stopPropagation();
+    alert(`You can opt for the self-pick up option if you are nearby us and don’t wanna pay for shipping but want to pick up your order by yourself. Don’t worry there are no charges for the self-pick up option. When you check out your cart there will be a button called ‘self pick up’, you can avail self pick-up by choosing that option.`);
+  }
 }
