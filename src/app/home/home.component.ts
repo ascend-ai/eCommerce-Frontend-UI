@@ -1,7 +1,9 @@
 import {
   Component,
+  ElementRef,
   OnDestroy,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import {
   Router
@@ -54,6 +56,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   public readonly JEWELLERY_CARE_DATA: readonly JewelleryCareInterface[] = JEWELLERY_CARE;
   private _subscribeMain: boolean = true;
+  @ViewChild('shopByCategory') private _shopByCategory!: ElementRef;
+
 
   constructor(private _productsBroker: ProductsBrokerService,
               private _productLoader: ProductLoaderService,
@@ -152,5 +156,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         category: category
       },
     })
+  }
+
+  public scrollToCategory(): void {
+    this._shopByCategory?.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
 }

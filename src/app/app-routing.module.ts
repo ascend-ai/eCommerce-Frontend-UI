@@ -34,6 +34,9 @@ import {
 import {
   TermsAndConditionsComponent
 } from './static/terms-and-conditions/terms-and-conditions.component';
+import {
+  CustomizationComponent
+} from './static/customization/customization.component';
 
 const routes: Routes = [
   {
@@ -144,6 +147,10 @@ const routes: Routes = [
   {
     path: 'terms-and-conditions',
     component: TermsAndConditionsComponent
+  },
+  {
+    path: 'customization',
+    component: CustomizationComponent
   },
   {
     path: 'not-found',

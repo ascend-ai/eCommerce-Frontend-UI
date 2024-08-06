@@ -39,6 +39,9 @@ import {
   TermsAndConditionsComponent
 } from './static/terms-and-conditions/terms-and-conditions.component';
 import {
+  CustomizationComponent
+} from './static/customization/customization.component';
+import {
   SharedModule
 } from 'src/shared/shared.module';
 import {
@@ -56,7 +59,8 @@ import {
     PrivacyPolicyComponent,
     ReturnPolicyComponent,
     ShippingPolicyComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    CustomizationComponent
   ],
   imports: [
     BrowserModule,

@@ -40,6 +40,15 @@ export class ManageStallSchedulesComponent implements OnInit, OnDestroy {
   public get isLoggedInUserAdminOrMod(): boolean {
     return this._authHelper.isLoggedIn && this._authHelper.isLoggedInUserAdminOrMod;
   }
+  public images: Array<string> = [
+    '/assets/images/stalls/stall-01.jpeg',
+    '/assets/images/stalls/stall-02.jpeg',
+    '/assets/images/stalls/stall-03.jpeg',
+    '/assets/images/stalls/stall-04.jpeg',
+    '/assets/images/stalls/stall-05.jpeg',
+    '/assets/images/stalls/stall-06.jpeg',
+    
+  ];
 
 
   constructor(private _stallScheduleBroker: StallScheduleBrokerService,

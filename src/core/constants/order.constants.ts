@@ -11,7 +11,7 @@ export const ACCEPTED_CURRENCY = 'INR';
  */
 export const NO_SHIPPING_CHARGE_THRESHOLD = 700;
 
-export const SHIPPING_CHARGE = 80;
+export const SHIPPING_CHARGE = 60;
 
 /**
  * INR 1 = 100 paise

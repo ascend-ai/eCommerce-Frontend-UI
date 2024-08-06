@@ -12,6 +12,14 @@
   }
 }
 
+@media (max-width: 450px) {
+  .banner {
+    h1 {
+      font-size: 3em !important;
+    }
+  }
+}
+
 .jw-care-card {
   i {
     font-size: 5em;
