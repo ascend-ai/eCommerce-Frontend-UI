@@ -47,8 +47,8 @@
             {{ discountPercentage }}
           </small>
         </div>
-        <p class="lead">
-            {{ product.description }}
+        <p class="lead"
+           [innerHTML]="product.description | format">
         </p>
         
         
